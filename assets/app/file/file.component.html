@@ -1,0 +1,15 @@
+<div class="col-md-8 col-md-offset-2">
+    <form (ngSubmit)="onSubmit(testForm)" #testForm=ngForm>
+        <div class="form-group" >
+            <label for="TestName">TestName</label>
+            <input 
+                type="text" 
+                id="TestName" 
+                class="form-control"
+                ngModel
+                name="testname"
+            >
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+</div>
