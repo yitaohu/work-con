@@ -8,6 +8,7 @@ var cors=require('cors');
 
 var appRoutes = require('./routes/app');
 var fileRoutes = require('./routes/file')
+var devRoutes = require('./routes/dev')
 
 
 var app = express();
@@ -32,6 +33,7 @@ app.use(function (req, res, next) {
     next();
 });
 
+app.use('/dev', fileRoutes)
 app.use('/file', fileRoutes)
 app.use('/', appRoutes);
 
