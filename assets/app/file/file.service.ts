@@ -12,10 +12,12 @@ export class FileService {
                 .map((response: Response) => response.json())
                 .catch((error: Response) => Observable.throw(error.json()));
     }
-    getTest(testName: string): Observable<any> {
-        console.log("service" + testName);
+    getTest(qValue: string[]): Observable<any> {
         let myParams = new URLSearchParams();
-        myParams.append('TestName',testName);
+        myParams.append('TestName',qValue[0]);
+        myParams.append('BeginTime',qValue[1]);
+        myParams.append('EndTime',qValue[2]);
+        console.log(qValue);
         let options= new RequestOptions({params: myParams})
         return this.http.get(this.url,options)
                 .map((response: Response) => response.json())

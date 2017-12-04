@@ -26,7 +26,13 @@ export class FileComponent{
 
     getTest(testForm: NgForm) {
         let testName= testForm.value.testname;
-        this.fileService.getTest(testName)
+        let beginTime= testForm.value.begintime;
+        let endTime= testForm.value.endtime;
+        console.log(beginTime);
+        console.log(endTime);
+        let qValue=[testName, beginTime, endTime]
+
+        this.fileService.getTest(qValue)
             .subscribe(
                 data => console.log(data),
                 error => console.error(error)

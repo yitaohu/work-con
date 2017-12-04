@@ -9,9 +9,11 @@ var Task=require('../models/task');
 router.get('/', function(req, res, next) {
     console.log(req.query);
     var testname = req.query.TestName;
-    console.log("second function works");
+    var begintime = req.query.BeginTime;
+    var endtime = req.query.EndTime;
+    var qValue = [testname, begintime, endtime];
     console.log(testname);
-    Task.getTest(testname, function(err, rows){
+    Task.getTest(qValue, function(err, rows){
         if(err)
         {
         res.json(err);
