@@ -5,12 +5,14 @@ import { HttpModule } from "@angular/http";
 
 import { AppComponent } from "./app.component";
 import { FileComponent } from "./file/file.component";
+import { DevComponent } from './dev/dev.component';
 
 
 @NgModule({
     declarations: [
         AppComponent,
-        FileComponent
+        FileComponent,
+        DevComponent
     ],
     imports: [BrowserModule,HttpModule, FormsModule],
     bootstrap: [AppComponent]
