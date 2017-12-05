@@ -4,7 +4,7 @@ import { Http, RequestOptions, Response, URLSearchParams } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
 @Injectable()
-export class FileService {
+export class TestingService {
     url = "http://localhost:3000/file";
     constructor(private http: Http) {};
     getAllFiles(): Observable<any> {

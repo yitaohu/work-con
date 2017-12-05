@@ -2,21 +2,21 @@ import { NgForm } from "@angular/forms";
 import { Component, OnInit } from '@angular/core';
 
 
-import { FileService } from './file.service';
+import { TestingService } from './testing.service';
 
 @Component({
-    selector: 'app-file',
-    templateUrl: './file.component.html'
+    selector: 'app-testing',
+    templateUrl: './testing.component.html'
 })
 
-export class FileComponent{
-    constructor(private fileService: FileService) {};
+export class TestingComponent{
+    constructor(private testingService: TestingService) {};
     onSubmit(form: NgForm) {
         this.getTest(form);
         console.log('onSubmit');
     }
     getAllData() {
-        this.fileService.getAllFiles()
+        this.testingService.getAllFiles()
             .subscribe(
                 data => console.log(data),
                 error => console.error(error)
@@ -32,7 +32,7 @@ export class FileComponent{
         console.log(endTime);
         let qValue=[testName, beginTime, endTime]
 
-        this.fileService.getTest(qValue)
+        this.testingService.getTest(qValue)
             .subscribe(
                 data => console.log(data),
                 error => console.error(error)
