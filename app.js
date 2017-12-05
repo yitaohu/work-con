@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var cors=require('cors');
 
 var appRoutes = require('./routes/app');
-var fileRoutes = require('./routes/file')
+var qaRoutes = require('./routes/qa')
 var devRoutes = require('./routes/dev')
 
 
@@ -33,8 +33,8 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use('/dev', fileRoutes)
-app.use('/file', fileRoutes)
+app.use('/dev', devRoutes)
+app.use('/qa', qaRoutes)
 app.use('/', appRoutes);
 
 // catch 404 and forward to error handler

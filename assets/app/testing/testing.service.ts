@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
 @Injectable()
 export class TestingService {
-    url = "http://localhost:3000/file";
+    url = "http://localhost:3000/qa";
     constructor(private http: Http) {};
     getAllFiles(): Observable<any> {
         return this.http.get(this.url)

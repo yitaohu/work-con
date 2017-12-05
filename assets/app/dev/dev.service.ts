@@ -9,8 +9,8 @@ export class DevService {
     constructor(private http: Http) {};
     
     getConvNum(path: String) {
-        const body=JSON.stringify(path);
-        console.log(body);
+        var myPath = {"run1": path};
+        const body=JSON.stringify(myPath);
         const headers = new Headers({'Content-Type': 'application/json'});
         return this.http.post(this.url, body, {headers: headers})
                 .map((response: Response) => response.json())

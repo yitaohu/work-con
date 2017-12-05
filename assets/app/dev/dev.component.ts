@@ -13,9 +13,7 @@ export class DevComponent{
     constructor(private devService: DevService) {};
     onSubmit(form: NgForm) {
         var myPath = form.value.run1;
-        console.log(myPath);
         this.getConvNum(myPath);
-        console.log('onSubmit');
     }
 
     getConvNum(myPath) {

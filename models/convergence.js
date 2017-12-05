@@ -13,6 +13,7 @@ var Convergence = {
                   if (err) {
                       return console.log(err);
                   }
+                console.log("convergence"+num.toString('utf8'));
                 return num.toString('utf8');
               })
         });

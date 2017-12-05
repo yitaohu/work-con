@@ -1,11 +1,11 @@
-var db=require('../dbconnection');
-var mysql=require('mysql');
-var Convergence=require('./convergence.js');
+var Convergence=require('./convergence');
 
 var Dev={
     getConvNum:function(path) {
         
-        var convNum = Convergence.getConvNum(path);
+        var convNum = Convergence.getConvNum(path,function(err,data) {
+
+        });
         return convNum;
     }
 };
