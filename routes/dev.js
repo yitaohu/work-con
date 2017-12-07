@@ -4,6 +4,7 @@ var router = express.Router();
 // var Dev=require('../models/dev');
 var Convergence=require('../models/convergence');
 var PathProc=require('../models/path_proc');
+var Dev=require('../models/dev');
 
 
 router.post('/', function(req, res, next) {
@@ -11,10 +12,9 @@ router.post('/', function(req, res, next) {
     var testArray = (req.body)[0].Tests;
     console.log(path);
     console.log(testArray);
-    PathProc.getFullTestResultPath(testArray,path, function(err,res) {
+    Dev.getConvNumArray(testArray, path, function(err, res){
         console.log(res);
-    });
-
+    })
 
     // Convergence.getConvNum(path,function(err,data) {
     //     num = data;

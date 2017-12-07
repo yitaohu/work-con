@@ -42,5 +42,8 @@ app.use(function (req, res, next) {
     return res.render('index');
 });
 
+process.on('uncaughtException', function (err) {
+    console.log('Caught exception: ' + err);
+   });
 
 module.exports = app;
