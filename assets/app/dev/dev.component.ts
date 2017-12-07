@@ -12,12 +12,15 @@ import { DevService } from './dev.service';
 export class DevComponent{
     constructor(private devService: DevService) {};
     onSubmit(form: NgForm) {
-        var myPath = form.value.run1;
-        this.getConvNum(myPath);
+        var myTestString = form.value.testname;
+        var myPath1 = form.value.run1;
+        var myPath2 = form.value.run2; 
+        var myTestsArray = myTestString.split(",")
+        this.getAllConvNum(myTestsArray,myPath1);
     }
 
-    getConvNum(myPath) {
-        this.devService.getConvNum(myPath)
+    getAllConvNum(TestsArray,myPath) {
+        this.devService.getAllConvNum(TestsArray, myPath)
             .subscribe(
                 data => console.log(data),
                 error => console.error(error)

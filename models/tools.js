@@ -64,7 +64,7 @@ var Tools={
         TestNameArray.forEach(function(Element){
             path = new URL(Result_dir+ "/" + solver+ "/" + Element+ "/" + test_version);
             // console.log(path);
-            pathArray.push(path);
+            pathArray.push({[Element]:path});
         })
         
         return pathArray;

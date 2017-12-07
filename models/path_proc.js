@@ -1,15 +1,26 @@
 var Tools=require('./tools');
 
-curr_path = "file://lebqa01.ansys.com/users/yihu/yihu/web/Result2";
-test_names=["slab_rad","rep_def_cff"];
 
-var myPathArray = Tools.getPathArray(test_names,curr_path);
-myPathArray.forEach(function(Element){
-    Tools.getTestDir(Element,function(err, res){
-        if (err) {
-            console.log(err);
-        }
-        console.log(res);
-    })
-});
 
+PathProc = {
+    getFullTestResultPath: function (test_names,curr_path,callback) {
+        var myTestPathPairArray = [];
+        myPathArray = Tools.getPathArray(test_names,curr_path);
+        myPathArray.forEach(function(Element){
+            Tools.getTestDir(Object.values(Element)[0],function(err, res){
+                if (err) {
+                    return callback(err,null);
+                }
+                testNameKey=Object.keys(Element)[0];
+                fullPath=Object.values(Element)[0].href +"/"+ res;
+                myTestPathPairArray.push({[testNameKey]: fullPath});
+                if (myTestPathPairArray.length === myPathArray.length) {
+                    return callback(null,myTestPathPairArray);
+                }
+            })
+        
+        });
+    }
+}
+
+module.exports=PathProc;
