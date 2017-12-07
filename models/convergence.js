@@ -37,7 +37,6 @@ var Convergence = {
                     if(err) {
                         return callback(err,null);
                     } else {
-                        console.log(convNumArray);
                         return callback(null, convNumArray);
                     }
                 })

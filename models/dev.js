@@ -14,24 +14,18 @@ var Dev={
                 console.log(err);
                 return callback(err, null);
             }    
-        
-           console.log(res);
-           console.log("=========upline is all test path")
            var result = []; 
            if(res && Array.isArray(res)){
                async.mapSeries(res, function(item, cb){
                    fullpath = Object.values(item)[0];
-                   console.log(fullpath);
-                   console.log("++++++upline is one full path")
                     Convergence.getConvNum(fullpath,function(err,data) {
                        if(err){
                            console.log(err);
                            return cb(err, null);
                        }
                        if(data){
-                            console.log(typeof Object.values(data));
-                           data.foreach(function(element){
-                            testname = Object.keys(item)[0] + Object.keys(element)[0];
+                           data.forEach(function(element){
+                            testname = Object.keys(item)[0] +"----" + Object.keys(element)[0];
                             result.push({[testname]: Object.values(element)[0]});
                            });
                            return cb(null, data); 
