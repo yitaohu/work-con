@@ -40,10 +40,11 @@ var Tools={
             if (err) {
                 return callback(err, null);
             }
-            var latest_run = (new Date()).getTime();
+            var latest_run = 0;
             var latest_test = files[0];
             files.forEach(function(Element){
                 run_time = parseFileName(Element);
+                
                 if (run_time == null) {
                     return;
                 }

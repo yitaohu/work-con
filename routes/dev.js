@@ -10,10 +10,11 @@ var Dev=require('../models/dev');
 router.post('/', function(req, res, next) {
     var path = (req.body)[1].run1;
     var testArray = (req.body)[0].Tests;
-    console.log(path);
-    console.log(testArray);
-    Dev.getConvNumArray(testArray, path, function(err, res){
-        console.log(res);
+    Dev.getConvNumArray(testArray, path, function(err, result){
+        if (err) {
+            res.status(500).json(err);
+        }
+        res.status(201).json(result);
     })
 
     // Convergence.getConvNum(path,function(err,data) {

@@ -8,7 +8,8 @@ import { AppComponent } from "./app.component";
 import { TestingComponent } from "./testing/testing.component";
 import { DevComponent } from './dev/dev.component';
 import { HeaderComponent } from './header.component';
-
+import { ChartsModule} from 'ng2-charts';
+import { PlotComponent } from "./plot/plot.component";
 
 
 @NgModule({
@@ -16,9 +17,16 @@ import { HeaderComponent } from './header.component';
         AppComponent,
         TestingComponent,
         DevComponent,
-        HeaderComponent
+        HeaderComponent,
+        PlotComponent,
     ],
-    imports: [BrowserModule,HttpModule, FormsModule, routing],
+    imports: [
+        BrowserModule,
+        HttpModule, 
+        FormsModule, 
+        routing,
+        ChartsModule,
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {
