@@ -1,18 +1,31 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
  selector: 'app-line-chart',
  templateUrl: './plot.component.html'
 })
-export class PlotComponent {
+export class PlotComponent implements OnChanges {
 
- @Input() dataSet;
+ @Input() showPlot: Boolean;
+ @Input() plotData;
+ @Input() plotTest;
+ changeLog
+ngOnChanges(changes: SimpleChanges){
+  console.log(changes)
+  for (let propName in changes) {
+    let chng = changes[propName];
+    console.log(chng);
+    let cur  = JSON.stringify(chng.currentValue);
+    let prev = JSON.stringify(chng.previousValue);
+    this.changeLog.push(`${propName}: currentValue = ${cur}, previousValue = ${prev}`);
+  }
+}
 
  // lineChart
  public lineChartData:Array<any> = [
    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-   {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'},
-   {data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C'}
+  //  {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'},
+  //  {data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C'}
  ];
  public lineChartLabels:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
  public lineChartOptions:any = {
