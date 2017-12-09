@@ -1,3 +1,4 @@
+import { ConvData } from './convData.model';
 import { NgForm } from "@angular/forms";
 import { Component, OnInit } from '@angular/core';
 
@@ -10,10 +11,9 @@ import { DevService } from './dev.service';
 })
 
 export class DevComponent{
-    showPlot = false;
-    plotData = [];
-    plotTest = [];
-    constructor(private devService: DevService) {this.plotData = []};
+    
+    plot = new ConvData([],[],false);
+    constructor(private devService: DevService) {this.plot = new ConvData([],[],false)};
     
     onSubmit(form: NgForm) {
         var myTestString = form.value.testname;
@@ -25,14 +25,11 @@ export class DevComponent{
             data => {
                 console.log(data);
                 var myResult= this.dataProcess(data);
-                this.plotData = myResult[1];
-                this.plotTest = myResult[0];
-                console.log(this.plotData);
-                console.log(this.plotTest);
+                this.plot = new ConvData(myResult[1],myResult[0],true);
             },
             error => console.log(error)
         )
-        this.showPlot = true;
+        
 
     }
 

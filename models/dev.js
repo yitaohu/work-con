@@ -25,7 +25,7 @@ var Dev={
                        }
                        if(data){
                            data.forEach(function(element){
-                            testname = Object.keys(item)[0] +"----" + Object.keys(element)[0];
+                            testname = Object.keys(item)[0] +"-" + Object.keys(element)[0];
                             result.push({[testname]: Object.values(element)[0]});
                            });
                            return cb(null, data); 
