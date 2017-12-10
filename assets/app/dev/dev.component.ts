@@ -19,7 +19,7 @@ export class DevComponent{
         var myTestString = form.value.testname;
         var myPath1 = form.value.run1;
         var myPath2 = form.value.run2; 
-        var myTestsArray = myTestString.split(",")
+        var myTestsArray = myTestString.replace(/\n|\s/g,',').split(",")
         this.devService.getAllConvNum(myTestsArray, myPath1, myPath2)
         .subscribe(
             data => {
