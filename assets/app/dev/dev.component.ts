@@ -20,11 +20,12 @@ export class DevComponent{
         var myPath1 = form.value.run1;
         var myPath2 = form.value.run2; 
         var myTestsArray = myTestString.split(",")
-        this.devService.getAllConvNum(myTestsArray, myPath1)
+        this.devService.getAllConvNum(myTestsArray, myPath1, myPath2)
         .subscribe(
             data => {
-                console.log(data);
+                // console.log(data);
                 var myResult= this.dataProcess(data);
+                // console.log(myResult);
                 this.plot = new ConvData(myResult[1],myResult[0],true);
             },
             error => console.log(error)
@@ -36,10 +37,10 @@ export class DevComponent{
     dataProcess(data:Object[]) {
         var testName = [];
         var convNum = [];
-        data.forEach(function(element) {
-            testName.push(Object.keys(element)[0]);
-            convNum.push(Object.values(element)[0]);            
-        })
+        for (var key in data) {
+            testName.push(key);
+            convNum.push(data[key]);
+        }
         return [testName,convNum];
     }
 }

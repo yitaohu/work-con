@@ -1,43 +1,30 @@
-import { Component, Input, OnChanges, SimpleChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 import { ConvData } from '../dev/convData.model';
-
+import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 @Component({
  selector: 'app-line-chart',
  templateUrl: './plot.component.html'
 })
 export class PlotComponent implements OnChanges  {
-showPlot = false;
- @Input() plot: ConvData;
- changeLog
-ngOnChanges(changes: SimpleChanges){
-  for (let propName in changes) {
-    {
-      let newData=changes[propName].currentValue;
-      this.showPlot=newData.ifPlot;
-      console.log(newData.ifPlot);
-      let _lineChartLabels:Array<any> = new Array(newData.plotTest.length);
-      let _lineChartData:Array<any> = new Array(1);
-      // for (let i = 0; i < this.lineChartData.length; i++) {
-        _lineChartData[0] = {data: new Array(newData.plotData.length), label: "ConvergeNumber"};
-        for (let j = 0; j < newData.plotData.length; j++) {
-          _lineChartData[0].data[j] = newData.plotData[j];
-          _lineChartLabels[j] = newData.plotTest[j];
-          console.log("++++++" + j);
-        }
-      // }
-
-      this.lineChartData = _lineChartData;
-      this.lineChartLabels = _lineChartLabels;
-      console.log("*****"+propName);
-      console.log(changes[propName]);
-      console.log(this.lineChartData);
+  
+  showPlot = false;
+  @Input() plot: ConvData;
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective;
+  ngOnChanges() {
+    this.showPlot=this.plot.ifPlot;
+    setTimeout(() => {
+      this.lineChartData=[{data: this.plot.plotData, label: 'Series A'}];
+      this.lineChartLabels=this.plot.plotTest;
       console.log(this.lineChartLabels);
-      console.log(this.plot.plotTest);
-     
-    }
+           if (this.chart && this.chart.chart && this.chart.chart.config) {
+               this.chart.chart.config.data.labels = this.lineChartLabels;
+               this.chart.chart.config.data.datasets = this.lineChartData;
+               this.chart.chart.config.data.options = this.lineChartOptions;
+               this.chart.chart.update();
+           }
+       });
   }
-}
 
  // lineChart
  public lineChartData:Array<any> = [
@@ -45,7 +32,9 @@ ngOnChanges(changes: SimpleChanges){
   //  {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'},
   //  {data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C'}
  ];
- public lineChartLabels:Array<any> = [];
+ public lineChartLabels:Array<any>=[];
+
+
  public lineChartOptions:any = {
    responsive: true
  };
