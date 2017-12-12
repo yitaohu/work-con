@@ -10,7 +10,7 @@ export class DevService {
     
     getAllConvNum(TestsArray: String[], path1: String, path2: String) {
         var input = [{"Tests": TestsArray},{"run1": path1}, {"run2": path2}];
-        console.log(input);
+        // console.log(input);
         const body=JSON.stringify(input);
         const headers = new Headers({'Content-Type': 'application/json'});
         return this.http.post(this.url, body, {headers: headers})

@@ -16,7 +16,7 @@ export class PlotComponent implements OnChanges  {
     setTimeout(() => {
       this.lineChartData=[{data: this.plot.plotData, label: 'Series A'}];
       this.lineChartLabels=this.plot.plotTest;
-      console.log(this.lineChartLabels);
+      // console.log(this.lineChartLabels);
            if (this.chart && this.chart.chart && this.chart.chart.config) {
                this.chart.chart.config.data.labels = this.lineChartLabels;
                this.chart.chart.config.data.datasets = this.lineChartData;

@@ -76,7 +76,6 @@ var Dev={
                console.log("models/dev" + err);
                return callback(err, null);
            }
-           console.log(diffNum);
            resultArray = {};
            for (var key in diffNum[0]) {
                resultArray[key] = (diffNum[1][key] - diffNum[0][key]) / diffNum[0][key];

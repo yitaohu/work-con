@@ -25,8 +25,11 @@ export class DevComponent{
             data => {
                 // console.log(data);
                 var myResult= this.dataProcess(data);
-                // console.log(myResult);
+                
+                
+                
                 this.plot = new ConvData(myResult[1],myResult[0],true);
+                console.log(myResult);
             },
             error => console.log(error)
         )
@@ -37,10 +40,24 @@ export class DevComponent{
     dataProcess(data:Object[]) {
         var testName = [];
         var convNum = [];
-        for (var key in data) {
-            testName.push(key);
-            convNum.push(data[key]);
+        var sortable = [];
+        for (var testItem in data) {
+            sortable.push([testItem, data[testItem]]);
         }
+        
+        sortable.sort(function(a, b) {
+            return a[1] - b[1];
+        });
+        sortable.forEach(function(Element) {
+            testName.push(Element[0]);
+            convNum.push(Element[1]);
+        })
+        console.log("+++++sortable+++++++");
+        console.log(sortable);
+
+
+        
         return [testName,convNum];
     }
+    
 }
