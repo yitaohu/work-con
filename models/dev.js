@@ -2,13 +2,13 @@ var async = require('async');
 
 var Convergence=require('./convergence');
 var PathProc=require('../models/path_proc');
+var FileListProc=require('../models/filelistproc');
 
 
 var Dev={
    getConvNumArray:function(TestNameArray, run1Path, callback) {
-       
        path = run1Path;
-
+       console.log(TestNameArray);
        PathProc.getFullTestResultPath(TestNameArray, path, function(err,res) {
             if (err) {
                 console.log(err);
@@ -39,7 +39,6 @@ var Dev={
                        return callback(err, null);
                     }else{
                     // here you will get the result finally.
-                    
                      return callback(null, result);
                    }
                })              
@@ -83,7 +82,37 @@ var Dev={
            }
            return callback(null,resultArray);
        })
+   },
+   getDiffNumArrayAdjust: function(run1,run2,testNameArray,callback) {
+        Dev.getDiffNumArray(testNameArray,run1,run2,function(err,data){
+            if (err) {
+                return callback(err,null);
+            }
+            if (data) {
+                return callback(null,data);
+            }
+        });
    }
+   ,
+   getDiffNumberFileList: function(TestListString, run1Path, run2Path, callback) {
+        async.waterfall([
+            function(cb)
+            {
+              cb(null, TestListString);
+            },
+            FileListProc.getTestFromFileList,
+            async.apply(Dev.getDiffNumArrayAdjust,run1Path,run2Path)
+
+        ],function(err,data){
+            if(err) {
+                return callback(err,null);
+            }
+            if(data) {
+                return callback(null,data);
+            }
+
+        })
+   },
 
 
 };
