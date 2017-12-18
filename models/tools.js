@@ -66,6 +66,9 @@ var Tools={
         test_version = "v19.0.0";
     
         TestNameArray.forEach(function(Element){
+            if(!Element) {
+                return;
+            }
             path = new URL(Result_dir+ "/" + solver+ "/" + Element+ "/" + test_version);
             // console.log(path);
             pathArray.push({[Element]:path});
