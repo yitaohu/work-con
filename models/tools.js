@@ -36,6 +36,9 @@ var parseDate = function(timeSting) {
 var Tools={
     getTestDir: function(myTestName, callback) {
         path=myTestName;
+        if(!myTestName) {
+            return callback(null,null);
+        }
         fs.readdir(path, function(err, files){
             if (err) {
                 return callback(err, null);

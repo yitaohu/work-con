@@ -19,15 +19,12 @@ export class DevComponent{
         var myTestString = form.value.testname;
         var myPath1 = form.value.run1;
         var myPath2 = form.value.run2; 
-        var myTestsArray = myTestString.replace(/\n|\s/g,',').split(",")
-        this.devService.getAllConvNum(myTestsArray, myPath1, myPath2)
+        // var myTestsArray = myTestString.replace(/\n|\s/g,',').split(",")
+        this.devService.getAllConvNum(myTestString, myPath1, myPath2)
         .subscribe(
             data => {
                 // console.log(data);
                 var myResult= this.dataProcess(data);
-                
-                
-                
                 this.plot = new ConvData(myResult[1],myResult[0],true);
                 console.log(myResult);
             },
@@ -46,7 +43,7 @@ export class DevComponent{
         }
         
         sortable.sort(function(a, b) {
-            return a[1] - b[1];
+            return b[1] - a[1];
         });
         sortable.forEach(function(Element) {
             testName.push(Element[0]);

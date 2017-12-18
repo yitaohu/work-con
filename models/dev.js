@@ -8,7 +8,6 @@ var FileListProc=require('../models/filelistproc');
 var Dev={
    getConvNumArray:function(TestNameArray, run1Path, callback) {
        path = run1Path;
-       console.log(TestNameArray);
        PathProc.getFullTestResultPath(TestNameArray, path, function(err,res) {
             if (err) {
                 console.log(err);
@@ -27,7 +26,6 @@ var Dev={
                            data.forEach(function(element){
                             testname = Object.keys(item)[0] +"||" 
                                         + (Object.keys(element)[0].split('.')[0]).split('_').slice(-2)[0];
-                            // result.push({[testname]: Object.values(element)[0]});
                             result[testname] = Object.values(element)[0];
                            });
                            return cb(null, data); 
@@ -35,10 +33,8 @@ var Dev={
                     });
                }, function(err, r){
                     if(err){
-                        console.log(err);
                        return callback(err, null);
                     }else{
-                    // here you will get the result finally.
                      return callback(null, result);
                    }
                })              
