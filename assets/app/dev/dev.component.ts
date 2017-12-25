@@ -13,7 +13,11 @@ import { DevService } from './dev.service';
 export class DevComponent{
     
     plot = new ConvData([],[],false);
-    constructor(private devService: DevService) {this.plot = new ConvData([],[],false)};
+    originalData = {} ;
+    constructor(private devService: DevService) {
+        this.plot = new ConvData([],[],false), 
+        this.originalData = {"tt":[0,0,0]}
+    };
     
     onSubmit(form: NgForm) {
         var myTestString = form.value.testname;
@@ -24,8 +28,12 @@ export class DevComponent{
         .subscribe(
             data => {
                 // console.log(data);
+                this.originalData = data;
+                console.log("dev con ");
+                console.log(this.originalData);
                 var myResult= this.dataProcess(data);
                 this.plot = new ConvData(myResult[1],myResult[0],true);
+                console.log("dev component")
                 console.log(myResult);
             },
             error => console.log(error)
@@ -39,7 +47,7 @@ export class DevComponent{
         var convNum = [];
         var sortable = [];
         for (var testItem in data) {
-            sortable.push([testItem, data[testItem]]);
+            sortable.push([testItem, data[testItem][2]]);
         }
         
         sortable.sort(function(a, b) {

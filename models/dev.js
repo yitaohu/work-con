@@ -48,6 +48,7 @@ var Dev={
             Dev.getConvNumArray(TestNameArray, run1Path, function(err,r1) {
 
                 if (err) {
+                    console.log("1st getConvNumArray"+err);
                     return cb(err, null);
                 }
                 if (r1) {
@@ -58,6 +59,7 @@ var Dev={
            function(cb) {
             Dev.getConvNumArray(TestNameArray, run2Path, function(err,r1) {
                 if (err) {
+                    console.log("2st getConvNumArray"+err);
                     return cb(err, null);
                 }
                 if (r1) {
@@ -73,7 +75,10 @@ var Dev={
            }
            resultArray = {};
            for (var key in diffNum[0]) {
-               resultArray[key] = (diffNum[1][key] - diffNum[0][key]) / diffNum[0][key];
+               diff= (diffNum[1][key] - diffNum[0][key]) / diffNum[0][key];//diff
+               resultArray[key] = [diffNum[0][key], diffNum[1][key], diff];
+               console.log(resultArray[key]);
+
                
            }
            return callback(null,resultArray);

@@ -9,10 +9,14 @@ import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 export class PlotComponent implements OnChanges  {
   
   showPlot = false;
+  summary = {};
   @Input() plot: ConvData;
+  @Input() originalData;
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
   ngOnChanges() {
+    this.summary=this.originalData;
     this.showPlot=this.plot.ifPlot;
+    console.log(this.summary);
     setTimeout(() => {
       this.barChartData=[{data: this.plot.plotData, label: 'Diff'}];
       this.barChartLabels=this.plot.plotTest;

@@ -9,11 +9,11 @@ FileListProc = {
         var filelistPath = new URL(fileListPath);
         fs.readFile(filelistPath,'utf8',function(err,data){
             if (err) {
-                return callback(err,null)
+                return callback(err,null);
             }
             if (data) {
-                var myTestsArray = data.replace(/\n|\s/g,',').split(",")
-                return callback(null,myTestsArray)
+                var myTestsArray = data.replace(/\n|\s/g,',').split(",");
+                return callback(null,myTestsArray);
             }
         })
     }
