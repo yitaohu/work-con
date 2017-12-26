@@ -9,7 +9,7 @@ import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 export class PlotComponent implements OnChanges  {
   
   showPlot = false;
-  summary = {};
+  summary = [];
   @Input() plot: ConvData;
   @Input() originalData;
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;

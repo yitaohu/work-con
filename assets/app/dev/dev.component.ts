@@ -13,10 +13,10 @@ import { DevService } from './dev.service';
 export class DevComponent{
     
     plot = new ConvData([],[],false);
-    originalData = {} ;
+    originalData = [] ;
     constructor(private devService: DevService) {
         this.plot = new ConvData([],[],false), 
-        this.originalData = {"tt":[0,0,0]}
+        this.originalData = [];
     };
     
     onSubmit(form: NgForm) {
@@ -28,12 +28,12 @@ export class DevComponent{
         .subscribe(
             data => {
                 // console.log(data);
-                this.originalData = data;
                 console.log("dev con ");
                 console.log(this.originalData);
                 var myResult= this.dataProcess(data);
                 this.plot = new ConvData(myResult[1],myResult[0],true);
-                console.log("dev component")
+                this.originalData = [myResult[0],myResult[2],myResult[3]];
+                console.log("dev component");
                 console.log(myResult);
             },
             error => console.log(error)
@@ -46,8 +46,10 @@ export class DevComponent{
         var testName = [];
         var convNum = [];
         var sortable = [];
+        var run1conv = [];
+        var run2conv = [];
         for (var testItem in data) {
-            sortable.push([testItem, data[testItem][2]]);
+            sortable.push([testItem, data[testItem][2],data[testItem][0],data[testItem][1]]);
         }
         
         sortable.sort(function(a, b) {
@@ -56,13 +58,16 @@ export class DevComponent{
         sortable.forEach(function(Element) {
             testName.push(Element[0]);
             convNum.push(Element[1]);
+            run1conv.push(Element[2]);
+            run2conv.push(Element[3]);
+
         })
         console.log("+++++sortable+++++++");
         console.log(sortable);
 
 
         
-        return [testName,convNum];
+        return [testName,convNum,run1conv,run2conv];
     }
     
 }

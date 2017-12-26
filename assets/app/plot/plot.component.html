@@ -19,13 +19,12 @@
                 <th>Run 1 convegence</th> 
                 <th>Run 2 convegence</th>
             </tr>
-            <!-- <tr *ngFor="let item of summary; let i = index">
+            <tr *ngFor="let item of summary[0]; let i = index">
                 <td>{{i + 1}}</td>
                 <td>{{item}}</td>
-                <td>{{item.platform}}</td>
-                <td>{{item.release}}</td>
-            </tr> -->
-            {{summary}}
+                <td>{{summary[1][i]}}</td>
+                <td>{{summary[2][i]}}</td>
+            </tr>
         </table>
         </div>
       </div>
