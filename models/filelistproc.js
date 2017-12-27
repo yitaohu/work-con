@@ -5,7 +5,7 @@ const { URL } = require('url');
 
 FileListProc = {
     getTestFromFileList:function(fileListPath,callback) {
-        console.log(fileListPath);
+        // console.log(fileListPath);
         var filelistPath = new URL(fileListPath);
         fs.readFile(filelistPath,'utf8',function(err,data){
             if (err) {
