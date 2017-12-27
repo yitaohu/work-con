@@ -75,7 +75,7 @@ var Dev={
            }
            resultArray = {};
            for (var key in diffNum[0]) {
-               diff= (diffNum[1][key] - diffNum[0][key]) / diffNum[0][key];//diff
+               diff= (diffNum[1][key] - diffNum[0][key]) / diffNum[0][key] * 100;//diff
                resultArray[key] = [diffNum[0][key], diffNum[1][key], diff];
             //    console.log(resultArray[key]);
            }
