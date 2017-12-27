@@ -2,13 +2,12 @@ var async = require('async');
 
 var Convergence=require('./convergence');
 var PathProc=require('../models/path_proc');
+var FileListProc=require('../models/filelistproc');
 
 
 var Dev={
    getConvNumArray:function(TestNameArray, run1Path, callback) {
-       
        path = run1Path;
-
        PathProc.getFullTestResultPath(TestNameArray, path, function(err,res) {
             if (err) {
                 console.log(err);
@@ -27,7 +26,6 @@ var Dev={
                            data.forEach(function(element){
                             testname = Object.keys(item)[0] +"||" 
                                         + (Object.keys(element)[0].split('.')[0]).split('_').slice(-2)[0];
-                            // result.push({[testname]: Object.values(element)[0]});
                             result[testname] = Object.values(element)[0];
                            });
                            return cb(null, data); 
@@ -35,11 +33,8 @@ var Dev={
                     });
                }, function(err, r){
                     if(err){
-                        console.log(err);
                        return callback(err, null);
                     }else{
-                    // here you will get the result finally.
-                    
                      return callback(null, result);
                    }
                })              
@@ -53,6 +48,7 @@ var Dev={
             Dev.getConvNumArray(TestNameArray, run1Path, function(err,r1) {
 
                 if (err) {
+                    console.log("1st getConvNumArray"+err);
                     return cb(err, null);
                 }
                 if (r1) {
@@ -63,6 +59,7 @@ var Dev={
            function(cb) {
             Dev.getConvNumArray(TestNameArray, run2Path, function(err,r1) {
                 if (err) {
+                    console.log("2st getConvNumArray"+err);
                     return cb(err, null);
                 }
                 if (r1) {
@@ -76,15 +73,47 @@ var Dev={
                console.log("models/dev" + err);
                return callback(err, null);
            }
-           console.log(diffNum);
            resultArray = {};
            for (var key in diffNum[0]) {
-               resultArray[key] = (diffNum[1][key] - diffNum[0][key]) / diffNum[0][key];
+               diff= (diffNum[1][key] - diffNum[0][key]) / diffNum[0][key];//diff
+               resultArray[key] = [diffNum[0][key], diffNum[1][key], diff];
+               console.log(resultArray[key]);
+
                
            }
            return callback(null,resultArray);
        })
+   },
+   getDiffNumArrayAdjust: function(run1,run2,testNameArray,callback) {
+        Dev.getDiffNumArray(testNameArray,run1,run2,function(err,data){
+            if (err) {
+                return callback(err,null);
+            }
+            if (data) {
+                return callback(null,data);
+            }
+        });
    }
+   ,
+   getDiffNumberFileList: function(TestListString, run1Path, run2Path, callback) {
+        async.waterfall([
+            function(cb)
+            {
+              cb(null, TestListString);
+            },
+            FileListProc.getTestFromFileList,
+            async.apply(Dev.getDiffNumArrayAdjust,run1Path,run2Path)
+
+        ],function(err,data){
+            if(err) {
+                return callback(err,null);
+            }
+            if(data) {
+                return callback(null,data);
+            }
+
+        })
+   },
 
 
 };

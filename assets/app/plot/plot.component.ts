@@ -3,79 +3,85 @@ import { Component, Input, OnChanges, SimpleChanges, OnInit, ViewChild, ElementR
 import { ConvData } from '../dev/convData.model';
 import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 @Component({
- selector: 'app-line-chart',
+ selector: 'app-bar-chart',
  templateUrl: './plot.component.html'
 })
 export class PlotComponent implements OnChanges  {
   
   showPlot = false;
+  summary = [];
   @Input() plot: ConvData;
+  @Input() originalData;
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
   ngOnChanges() {
+    this.summary=this.originalData;
     this.showPlot=this.plot.ifPlot;
+    console.log(this.summary);
     setTimeout(() => {
-      this.lineChartData=[{data: this.plot.plotData, label: 'Series A'}];
-      this.lineChartLabels=this.plot.plotTest;
-      console.log(this.lineChartLabels);
+      this.barChartData=[{data: this.plot.plotData, label: 'Diff'}];
+      this.barChartLabels=this.plot.plotTest;
+      // console.log(this.barChartLabels);
            if (this.chart && this.chart.chart && this.chart.chart.config) {
-               this.chart.chart.config.data.labels = this.lineChartLabels;
-               this.chart.chart.config.data.datasets = this.lineChartData;
-               this.chart.chart.config.data.options = this.lineChartOptions;
+               this.chart.chart.config.data.labels = this.barChartLabels;
+               this.chart.chart.config.data.datasets = this.barChartData;
+               this.chart.chart.config.data.options = this.barChartOptions;
+              //  console.log(this.chart.chart.config.data);               
                this.chart.chart.update();
+               console.log(this.chart.chart);
            }
        });
   }
 
- // lineChart
- public lineChartData:Array<any> = [
-   {data: [], label: 'Series A'},
+ // barChart
+ public barChartData:Array<any> = [
+   {data: [], label: 'Diff'},
   //  {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'},
   //  {data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C'}
  ];
- public lineChartLabels:Array<any>=[];
+ public barChartLabels:Array<any>=[];
 
 
- public lineChartOptions:any = {
+ public barChartOptions:any = {
    responsive: true
  };
- public lineChartColors:Array<any> = [
-   { // grey
-     backgroundColor: 'rgba(148,159,177,0.2)',
-     borderColor: 'rgba(148,159,177,1)',
-     pointBackgroundColor: 'rgba(148,159,177,1)',
-     pointBorderColor: '#fff',
-     pointHoverBackgroundColor: '#fff',
-     pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-   },
+ public barChartColors:Array<any> = [
+  //  { // grey
+  //    backgroundColor: 'rgba(148,159,177,0.2)',
+  //    borderColor: 'rgba(148,159,177,1)',
+  //    pointBackgroundColor: 'rgba(148,159,177,1)',
+  //    pointBorderColor: '#fff',
+  //    pointHoverBackgroundColor: '#fff',
+  //    pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+  //  },
    { // dark grey
-     backgroundColor: 'rgba(77,83,96,0.2)',
-     borderColor: 'rgba(77,83,96,1)',
-     pointBackgroundColor: 'rgba(77,83,96,1)',
-     pointBorderColor: '#fff',
-     pointHoverBackgroundColor: '#fff',
-     pointHoverBorderColor: 'rgba(77,83,96,1)'
+    backgroundColor:["#FF7360", "#6FC8CE", "#FAFFF2", "#FFFCC4", "#B9E8E0"] ,
+    borderColor: 'rgba(225,10,24,0.2)',
+    pointBackgroundColor: 'rgba(225,10,24,0.2)',
+    pointBorderColor: '#fff',
+    pointHoverBackgroundColor: '#fff',
+    pointHoverBorderColor: 'rgba(225,10,24,0.2)'
    },
-   { // grey
-     backgroundColor: 'rgba(148,159,177,0.2)',
-     borderColor: 'rgba(148,159,177,1)',
-     pointBackgroundColor: 'rgba(148,159,177,1)',
-     pointBorderColor: '#fff',
-     pointHoverBackgroundColor: '#fff',
-     pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-   }
+  //  { // grey
+  //    backgroundColor: 'rgba(148,159,177,0.2)',
+  //    borderColor: 'rgba(148,159,177,1)',
+  //    pointBackgroundColor: 'rgba(148,159,177,1)',
+  //    pointBorderColor: '#fff',
+  //    pointHoverBackgroundColor: '#fff',
+  //    pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+  //  }
  ];
- public lineChartLegend:boolean = true;
- public lineChartType:string = 'line';
+ public barChartLegend:boolean = true;
+ public barChartType:string = 'bar';
 
  public randomize():void {
-   let _lineChartData:Array<any> = new Array(this.lineChartData.length);
-   for (let i = 0; i < this.lineChartData.length; i++) {
-     _lineChartData[i] = {data: new Array(this.lineChartData[i].data.length), label: this.lineChartData[i].label};
-     for (let j = 0; j < this.lineChartData[i].data.length; j++) {
-       _lineChartData[i].data[j] = Math.floor((Math.random() * 100) + 1);
+   let _barChartData:Array<any> = new Array(this.barChartData.length);
+   for (let i = 0; i < this.barChartData.length; i++) {
+     _barChartData[i] = {data: new Array(this.barChartData[i].data.length), label: this.barChartData[i].label};
+     for (let j = 0; j < this.barChartData[i].data.length; j++) {
+       _barChartData[i].data[j] = Math.floor((Math.random() * 100) + 1);
      }
    }
-   this.lineChartData = _lineChartData;
+   this.barChartData = _barChartData;
  }
 
  // events

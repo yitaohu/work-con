@@ -36,6 +36,9 @@ var parseDate = function(timeSting) {
 var Tools={
     getTestDir: function(myTestName, callback) {
         path=myTestName;
+        if(!myTestName) {
+            return callback(null,null);
+        }
         fs.readdir(path, function(err, files){
             if (err) {
                 return callback(err, null);
@@ -63,6 +66,9 @@ var Tools={
         test_version = "v19.0.0";
     
         TestNameArray.forEach(function(Element){
+            if(!Element) {
+                return;
+            }
             path = new URL(Result_dir+ "/" + solver+ "/" + Element+ "/" + test_version);
             // console.log(path);
             pathArray.push({[Element]:path});

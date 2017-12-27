@@ -3,15 +3,29 @@
         <div class="col-md-8 col-md-offset-2" *ngIf="showPlot" >
           <div style="display: block;">
           <canvas baseChart width="400" height="400"
-                      [datasets]="lineChartData"
-                      [labels]="lineChartLabels"
-                      [options]="lineChartOptions"
-                      [colors]="lineChartColors"
-                      [legend]="lineChartLegend"
-                      [chartType]="lineChartType"
+                      [datasets]="barChartData"
+                      [labels]="barChartLabels"
+                      [options]="barChartOptions"
+                      [colors]="barChartColors"
+                      [legend]="barChartLegend"
+                      [chartType]="barChartType"
                       (chartHover)="chartHovered($event)"
                       (chartClick)="chartClicked($event)"></canvas>
           </div>
+          <table class="table">
+            <tr>
+                <th>#</th>
+                <th>TestName</th>
+                <th>Run 1 convegence</th> 
+                <th>Run 2 convegence</th>
+            </tr>
+            <tr *ngFor="let item of summary[0]; let i = index">
+                <td>{{i + 1}}</td>
+                <td>{{item}}</td>
+                <td>{{summary[1][i]}}</td>
+                <td>{{summary[2][i]}}</td>
+            </tr>
+        </table>
         </div>
       </div>
 
