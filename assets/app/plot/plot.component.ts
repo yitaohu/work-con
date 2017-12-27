@@ -18,7 +18,7 @@ export class PlotComponent implements OnChanges  {
     this.showPlot=this.plot.ifPlot;
     console.log(this.summary);
     setTimeout(() => {
-      this.barChartData=[{data: this.plot.plotData, label: 'Diff'}];
+      this.barChartData=[{data: this.plot.plotData, label: 'Diff %'}];
       this.barChartLabels=this.plot.plotTest;
       // console.log(this.barChartLabels);
            if (this.chart && this.chart.chart && this.chart.chart.config) {

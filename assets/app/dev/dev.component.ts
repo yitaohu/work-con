@@ -32,7 +32,7 @@ export class DevComponent{
                 console.log(this.originalData);
                 var myResult= this.dataProcess(data);
                 this.plot = new ConvData(myResult[1],myResult[0],true);
-                this.originalData = [myResult[0],myResult[2],myResult[3]];
+                this.originalData = myResult;
                 console.log("dev component");
                 console.log(myResult);
             },
