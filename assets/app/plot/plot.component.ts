@@ -22,9 +22,9 @@ export class PlotComponent implements OnChanges  {
     this.showPlot=this.plot.ifPlot;
     console.log(this.summary);
     for (let item in this.summary[1]) {
-      if (parseInt(item) < 0) {
+      if (parseFloat(this.summary[1][item]) < 0) {
         this.less++;
-      }else if(parseInt(item) > 0) {
+      }else if(parseFloat(this.summary[1][item]) > 0) {
         this.more++;
       }
     }
