@@ -7,7 +7,7 @@ var FileListProc=require('../models/filelistproc');
 
 var Dev={
    getConvNumArray:function(TestNameArray, run1Path, callback) {
-       path = run1Path;
+       path = PathProc.resultPathVerify(run1Path);
        PathProc.getFullTestResultPath(TestNameArray, path, function(err,res) {
             if (err) {
                 console.log(err);

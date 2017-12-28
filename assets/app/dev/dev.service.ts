@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
 @Injectable()
 export class DevService {
-    url = "http://localhost:3000/dev";
+    url = "http://lebyihu.win.ansys.com:3000/dev";
     constructor(private http: Http) {};
     
     getAllConvNum(TestsArray: String[], path1: String, path2: String) {
