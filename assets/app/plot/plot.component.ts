@@ -10,13 +10,24 @@ export class PlotComponent implements OnChanges  {
   
   showPlot = false;
   summary = [];
+  less = 0;
+  more = 0;
   @Input() plot: ConvData;
   @Input() originalData;
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
   ngOnChanges() {
+    this.less = 0;
+    this.more = 0;
     this.summary=this.originalData;
     this.showPlot=this.plot.ifPlot;
     console.log(this.summary);
+    for (let item in this.summary[1]) {
+      if (parseInt(item) < 0) {
+        this.less++;
+      }else if(parseInt(item) > 0) {
+        this.more++;
+      }
+    }
     setTimeout(() => {
       this.barChartData=[{data: this.plot.plotData, label: 'Diff %'}];
       this.barChartLabels=this.plot.plotTest;

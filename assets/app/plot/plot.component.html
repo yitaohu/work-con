@@ -1,6 +1,18 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2" *ngIf="showPlot" >
+          <table class="table">
+            <tr>
+                <th>Tests Jou No.</th>
+                <th>Worse Jou No.</th> 
+                <th>Better Jou No.</th>
+            </tr>
+            <tr>
+                <td>{{summary[1].length}}</td>
+                <td>{{more}}</td>
+                <td>{{less}}</td>
+            </tr>
+        </table>  
           <div style="display: block;">
           <canvas baseChart width="400" height="400"
                       [datasets]="barChartData"
