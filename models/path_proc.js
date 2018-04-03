@@ -12,7 +12,8 @@ PathProc = {
                     return callback(err,null);
                 }
                 testNameKey=Object.keys(Element)[0];
-                fullPath=Object.values(Element)[0].href +"/"+ res;
+                fullPath=Object.values(Element)[0].href +"/"+ res + "/out";
+                // console.log(fullPath);
                 myTestPathPairArray.push({[testNameKey]: fullPath});
                 if (myTestPathPairArray.length === myPathArray.length) {
                     return callback(null,myTestPathPairArray);
@@ -20,6 +21,13 @@ PathProc = {
             })
         
         });
+    },
+
+    resultPathVerify: function(path) {
+        if (path[path.length - 1] != '/') {
+            path=path+"/";
+        }
+        return path;
     }
 }
 

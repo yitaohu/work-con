@@ -7,7 +7,7 @@ var FileListProc=require('../models/filelistproc');
 
 var Dev={
    getConvNumArray:function(TestNameArray, run1Path, callback) {
-       path = run1Path;
+       path = PathProc.resultPathVerify(run1Path);
        PathProc.getFullTestResultPath(TestNameArray, path, function(err,res) {
             if (err) {
                 console.log(err);
@@ -75,11 +75,9 @@ var Dev={
            }
            resultArray = {};
            for (var key in diffNum[0]) {
-               diff= (diffNum[1][key] - diffNum[0][key]) / diffNum[0][key];//diff
+               diff= (diffNum[1][key] - diffNum[0][key]) / diffNum[0][key] * 100;//diff
                resultArray[key] = [diffNum[0][key], diffNum[1][key], diff];
-               console.log(resultArray[key]);
-
-               
+            //    console.log(resultArray[key]);
            }
            return callback(null,resultArray);
        })
