@@ -60,7 +60,7 @@ var Tools={
     getPathArray:function(TestNameArray,Result_dir) {
         var pathArray = [];
         solver = "fluent";
-        test_version = "v19.0.0";
+        test_version = "v19.1.0";
     
         TestNameArray.forEach(function(Element){
             path = new URL(Result_dir+ "/" + solver+ "/" + Element+ "/" + test_version);
