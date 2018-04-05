@@ -1,19 +1,18 @@
 <div class="col-md-8 col-md-offset-2">
     <form (ngSubmit)="onSubmit(testForm)" #testForm=ngForm>
         <div class="form-group" >
-            <label for="TestName">Tests Name</label>
-            <!-- <input 
+            <label for="TestName">Tests List Path</label>
+            <input 
                 type="text" 
-                
-                
-              
-                
+                id="TestName" 
+                class="form-control"
+                ngModel
+                name="testname"
                 contenteditable="true"
-            > -->
-            <textarea name="testname" id="TestName" cols="30" rows="10" ngModel class="form-control"></textarea>
+            >
         </div>
         <div class="form-group" >
-            <label for="Run1">Run1</label>
+            <label for="Run1">Standard Build Path</label>
             <input 
                 type="text" 
                 id="Run1" 
@@ -23,7 +22,7 @@
             >
         </div>
         <div class="form-group" >
-            <label for="Run2">Run2</label>
+            <label for="Run2">Custom Build Path</label>
             <input 
                 type="text" 
                 id="Run2" 
@@ -37,4 +36,4 @@
         
     </form>
 </div>
-<app-line-chart [plot]="plot"></app-line-chart>
+<app-bar-chart [plot]="plot" [originalData]="originalData"></app-bar-chart>

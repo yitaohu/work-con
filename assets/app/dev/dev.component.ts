@@ -13,20 +13,28 @@ import { DevService } from './dev.service';
 export class DevComponent{
     
     plot = new ConvData([],[],false);
-    constructor(private devService: DevService) {this.plot = new ConvData([],[],false)};
+    originalData = [] ;
+    constructor(private devService: DevService) {
+        this.plot = new ConvData([],[],false), 
+        this.originalData = [];
+    };
     
     onSubmit(form: NgForm) {
         var myTestString = form.value.testname;
         var myPath1 = form.value.run1;
         var myPath2 = form.value.run2; 
-        var myTestsArray = myTestString.replace(/\n|\s/g,',').split(",")
-        this.devService.getAllConvNum(myTestsArray, myPath1, myPath2)
+        // var myTestsArray = myTestString.replace(/\n|\s/g,',').split(",")
+        this.devService.getAllConvNum(myTestString, myPath1, myPath2)
         .subscribe(
             data => {
                 // console.log(data);
+                console.log("dev con ");
+                console.log(this.originalData);
                 var myResult= this.dataProcess(data);
-                // console.log(myResult);
                 this.plot = new ConvData(myResult[1],myResult[0],true);
+                this.originalData = myResult;
+                console.log("dev component");
+                console.log(myResult);
             },
             error => console.log(error)
         )
@@ -37,10 +45,29 @@ export class DevComponent{
     dataProcess(data:Object[]) {
         var testName = [];
         var convNum = [];
-        for (var key in data) {
-            testName.push(key);
-            convNum.push(data[key]);
+        var sortable = [];
+        var run1conv = [];
+        var run2conv = [];
+        for (var testItem in data) {
+            sortable.push([testItem, data[testItem][2],data[testItem][0],data[testItem][1]]);
         }
-        return [testName,convNum];
+        
+        sortable.sort(function(a, b) {
+            return b[1] - a[1];
+        });
+        sortable.forEach(function(Element) {
+            testName.push(Element[0]);
+            convNum.push(Element[1]);
+            run1conv.push(Element[2]);
+            run2conv.push(Element[3]);
+
+        })
+        console.log("+++++sortable+++++++");
+        console.log(sortable);
+
+
+        
+        return [testName,convNum,run1conv,run2conv];
     }
+    
 }
