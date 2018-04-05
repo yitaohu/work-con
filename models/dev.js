@@ -42,7 +42,8 @@ var Dev={
           
        });
    },
-   getDiffNumArray: function(TestNameArray, run1Path, run2Path, callback) {
+
+   getDiffNumArray: function(run1Path, run2Path,TestNameArray,  callback) {
        async.series([
            function(cb) {
             Dev.getConvNumArray(TestNameArray, run1Path, function(err,r1) {
@@ -82,17 +83,7 @@ var Dev={
            return callback(null,resultArray);
        })
    },
-   getDiffNumArrayAdjust: function(run1,run2,testNameArray,callback) {
-        Dev.getDiffNumArray(testNameArray,run1,run2,function(err,data){
-            if (err) {
-                return callback(err,null);
-            }
-            if (data) {
-                return callback(null,data);
-            }
-        });
-   }
-   ,
+   
    getDiffNumberFileList: function(TestListString, run1Path, run2Path, callback) {
         async.waterfall([
             function(cb)
@@ -100,7 +91,7 @@ var Dev={
               cb(null, TestListString);
             },
             FileListProc.getTestFromFileList,
-            async.apply(Dev.getDiffNumArrayAdjust,run1Path,run2Path)
+            async.apply(Dev.getDiffNumArray,run1Path,run2Path)
 
         ],function(err,data){
             if(err) {

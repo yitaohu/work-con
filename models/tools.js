@@ -63,7 +63,7 @@ var Tools={
     getPathArray:function(TestNameArray,Result_dir) {
         var pathArray = [];
         solver = "fluent";
-        test_version = "v19.1.0";
+        test_version = "v19.1.0";//to-do add version selection to UI
     
         TestNameArray.forEach(function(Element){
             if(!Element) {
