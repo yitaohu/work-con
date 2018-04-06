@@ -17,6 +17,7 @@ var Convergence = {
                     pathArray,
                     function (item, cb) {
                         if (
+                            !item ||
                             !item.includes(".conv.gz") ||
                             item.includes("_no_std.conv.gz")
                         ) {
