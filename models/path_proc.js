@@ -1,34 +1,41 @@
-var Tools=require('./tools');
+var Tools = require('./tools');
 
 
 
 PathProc = {
-    getFullTestResultPath: function (test_names,curr_path,callback) {
+    getFullTestResultPath: function (test_names, curr_path, callback) {
         var myTestPathPairArray = [];
-        myPathArray = Tools.getPathArray(test_names,curr_path);
-        myPathArray.forEach(function(Element){
-            Tools.getTestDir(Object.values(Element)[0],function(err, res){
+        myPathArray = Tools.getPathArray(test_names, curr_path);
+        myPathArray.forEach(function (Element) {
+            Tools.getTestDir(Object.values(Element)[0], function (err, res) {
                 if (err) {
-                    return callback(err,null);
+                    console.log("path_proc.getFullTestResultPath" + err);
+                    return callback(err, null);
                 }
-                testNameKey=Object.keys(Element)[0];
-                fullPath=Object.values(Element)[0].href +"/"+ res + "/out";
-                // console.log(fullPath);
-                myTestPathPairArray.push({[testNameKey]: fullPath});
+                if (res) {
+                    testNameKey = Object.keys(Element)[0];
+                    fullPath = Object.values(Element)[0].href + "/" + res + "/out";
+                    // console.log(fullPath);
+                    myTestPathPairArray.push({ [testNameKey]: fullPath });
+                } else {
+                    console.log()
+                    myTestPathPairArray.push({ [Object.keys(Element)[0]]: null });
+                }
+
                 if (myTestPathPairArray.length === myPathArray.length) {
-                    return callback(null,myTestPathPairArray);
+                    return callback(null, myTestPathPairArray);
                 }
             })
-        
+
         });
     },
 
-    resultPathVerify: function(path) {
+    resultPathVerify: function (path) {
         if (path[path.length - 1] != '/') {
-            path=path+"/";
+            path = path + "/";
         }
         return path;
     }
 }
 
-module.exports=PathProc;
+module.exports = PathProc;

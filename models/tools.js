@@ -36,13 +36,18 @@ var parseDate = function(timeSting) {
 var Tools={
     getTestDir: function(myTestName, callback) {
         path=myTestName;
-        if(!myTestName) {
+        if(!path) {
             return callback(null,null);
         }
         fs.readdir(path, function(err, files){
             if (err) {
                 return callback(err, null);
             }
+            // console.log("**************");
+            // console.log(files);
+            // if(!files) {
+            //     return callback(null,null);
+            // }
             var latest_run = 0;
             var latest_test = files[0];
             files.forEach(function(Element){
