@@ -24,7 +24,11 @@ router.post('/', function(req, res, next) {
 
     Dev.getDiffNumberFileList(testArray,path1,path2,function(err,diff){
         if (err) {
-            res.status(500).json(err);
+            console.log(err);
+            res.status(500).json({
+                title: 'An error occurred',
+                error: err
+            });
         }
         // console.log(result);
         res.status(201).json(diff);        
