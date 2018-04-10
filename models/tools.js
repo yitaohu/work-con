@@ -42,7 +42,7 @@ var Tools={
         if(!fs.existsSync(path)) {
             console.log(path);
             return callback(null,null);
-        }
+        }// to-do add existing checker in readdir function
         fs.readdir(path, function(err, files){
             if (err) {
                 return callback(err, null);
