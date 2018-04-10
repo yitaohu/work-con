@@ -22,9 +22,11 @@ export class DevComponent{
     onSubmit(form: NgForm) {
         var myTestString = form.value.testname;
         var myPath1 = form.value.run1;
-        var myPath2 = form.value.run2; 
+        var myPath2 = form.value.run2;
+        var myRunMode = form.value.mode;
+        var myVersion = form.value.verson; 
         // var myTestsArray = myTestString.replace(/\n|\s/g,',').split(",")
-        this.devService.getAllConvNum(myTestString, myPath1, myPath2)
+        this.devService.getAllConvNum(myTestString, myPath1, myPath2,myRunMode,myVersion)
         .subscribe(
             data => {
                 // console.log(data);

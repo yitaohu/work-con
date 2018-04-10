@@ -11,6 +11,10 @@ router.post('/', function(req, res, next) {
     var path1 = (req.body)[1].run1;
     var path2 = (req.body)[2].run2;
     var testArray = (req.body)[0].Tests;
+    var version = (req.body)[3].version;
+    var runMode = (req.body)[4].runMode //TO-DO
+
+    
     // Dev.getDiffNumArray(testArray,path1,path2,function(err,diff){
     //     // console.log(diff);
     // // })

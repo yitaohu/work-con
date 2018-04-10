@@ -8,8 +8,8 @@ export class DevService {
     url = "http://lebyihu.win.ansys.com:3000/dev";
     constructor(private http: Http) {};
     
-    getAllConvNum(TestsArray: String[], path1: String, path2: String) {
-        var input = [{"Tests": TestsArray},{"run1": path1}, {"run2": path2}];
+    getAllConvNum(TestsArray: String[], path1: String, path2: String, version: String, runMode: String) {
+        var input = [{"Tests": TestsArray},{"run1": path1}, {"run2": path2}, {"version": version}, {"runMode": runMode}];
         // console.log(input);
         const body=JSON.stringify(input);
         const headers = new Headers({'Content-Type': 'application/json'});

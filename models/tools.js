@@ -39,6 +39,10 @@ var Tools={
         if(!path) {
             return callback(null,null);
         }
+        if(!fs.existsSync(path)) {
+            console.log(path);
+            return callback(null,null);
+        }
         fs.readdir(path, function(err, files){
             if (err) {
                 return callback(err, null);
