@@ -7,13 +7,28 @@ import { DevService } from './dev.service';
 
 @Component({
     selector: 'app-dev',
-    templateUrl: './dev.component.html'
+    templateUrl: './dev.component.html',
+    styles:[`
+        .loader {
+            border: 16px solid #f3f3f3; /* Light grey */
+            border-top: 16px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite; }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    `]
 })
 
 export class DevComponent{
     
     plot = new ConvData([],[],false);
     originalData = [] ;
+    private loadingComplete = false;
+    private isLoading = false;
     constructor(private devService: DevService) {
         this.plot = new ConvData([],[],false), 
         this.originalData = [];
@@ -25,6 +40,7 @@ export class DevComponent{
         var myPath2 = form.value.run2;
         var myRunMode = form.value.mode;
         var myVersion = form.value.version; 
+        this.isLoading = true;
         // var myTestsArray = myTestString.replace(/\n|\s/g,',').split(",")
         this.devService.getAllConvNum(myTestString, myPath1, myPath2,myVersion,myRunMode)
         .subscribe(
@@ -35,10 +51,15 @@ export class DevComponent{
                 var myResult= this.dataProcess(data);
                 this.plot = new ConvData(myResult[1],myResult[0],true);
                 this.originalData = myResult;
+                this.isLoading = false;
+                this.loadingComplete = true;
                 console.log("dev component");
                 console.log(myResult);
             },
-            error => console.log(error)
+            error => {
+                this.loadingComplete = true;
+                console.log(error)
+            }
         )
         
 

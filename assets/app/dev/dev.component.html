@@ -56,4 +56,7 @@
         
     </form>
 </div>
+<li *ngIf = "isLoading">
+    <div class="loader" ></div>
+</li>
 <app-bar-chart [plot]="plot" [originalData]="originalData"></app-bar-chart>
