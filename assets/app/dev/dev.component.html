@@ -31,23 +31,26 @@
                 name="run2"
             >
         </div>
-        <div class="form-group" >
-            <label for="Mode">RunMode</label>
-            <select name="mode" id="Mode" ngModel class="form-control">
-                <option value="regular">Regular</option>
-                <option value="short">Short</option>
-            </select>
+        <div>
+            <div class="form-group col-md-6" >
+                <label for="Mode">RunMode</label>
+                <select name="mode" id="Mode" ngModel class="form-control">
+                    <option value="regular">regular</option>
+                    <option value="short">short</option>
+                </select>
+            </div>
+            <div class="form-group col-md-6" >
+                <label for="Version">Build Version</label>
+                <input 
+                    type="text" 
+                    id="Version" 
+                    class="form-control"
+                    ngModel
+                    name="version"
+                >
+            </div>
         </div>
-        <div class="form-group" >
-            <label for="Version">Build Version</label>
-            <input 
-                type="text" 
-                id="Version" 
-                class="form-control"
-                ngModel
-                name="version"
-            >
-        </div>
+        
         <button class="btn btn-primary" type="submit">Submit</button>
         <!-- <button class="btn btn-primary" type="submit">Difference</button> -->
         

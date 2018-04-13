@@ -3,11 +3,11 @@ var Tools = require('./tools');
 
 
 PathProc = {
-    getFullTestResultPath: function (test_names, curr_path, callback) {
+    getFullTestResultPath: function (test_names, curr_path, version,testmode, callback) {
         var myTestPathPairArray = [];
-        myPathArray = Tools.getPathArray(test_names, curr_path);
+        myPathArray = Tools.getPathArray(test_names, curr_path, version);
         myPathArray.forEach(function (Element) {
-            Tools.getTestDir(Object.values(Element)[0], function (err, res) {
+            Tools.getTestDir(Object.values(Element)[0],testmode, function (err, res) {
                 if (err) {
                     console.log("path_proc.getFullTestResultPath" + err);
                     return callback(err, null);

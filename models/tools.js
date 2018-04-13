@@ -8,13 +8,15 @@ var parseFileName = function(FileName) {
         return null;
     }
 
-    test=data[0];
-    mode=data[1];
-    precision=data[2];
-    Os=data[3];
-    timestamp=data[4];
+    var result = {
+        "testname": data[0],
+        "runmode": data[1],
+        "precision": data[2],
+        "OS": data[3],
+        "timestamp": data[4]
+    }
 
-    return parseDate(timestamp);
+    return result;
 }
 
 var parseDate = function(timeSting) {
@@ -34,7 +36,7 @@ var parseDate = function(timeSting) {
 
 
 var Tools={
-    getTestDir: function(myTestName, callback) {
+    getTestDir: function(myTestName,testmode, callback) {
         path=myTestName;
         if(!path) {
             return callback(null,null);
@@ -55,7 +57,12 @@ var Tools={
             var latest_run = 0;
             var latest_test = files[0];
             files.forEach(function(Element){
-                run_time = parseFileName(Element);
+                parsedFileName = parseFileName(Element);
+                if(parsedFileName.runmode !== testmode) {
+                    return;
+                }
+                run_time = parseDate(parsedFileName.timestamp);
+                
                 
                 if (run_time == null) {
                     return;
@@ -69,10 +76,10 @@ var Tools={
         })
     },
     
-    getPathArray:function(TestNameArray,Result_dir) {
+    getPathArray:function(TestNameArray,Result_dir,version) {
         var pathArray = [];
         solver = "fluent";
-        test_version = "v19.1.0";//to-do add version selection to UI
+        test_version = 'v'+version+'.0';//to-do add version selection to UI
     
         TestNameArray.forEach(function(Element){
             if(!Element) {

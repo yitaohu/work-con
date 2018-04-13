@@ -6,9 +6,9 @@ var FileListProc = require('../models/filelistproc');
 
 
 var Dev = {
-    getConvNumArray: function (TestNameArray, run1Path, callback) {
+    getConvNumArray: function (TestNameArray, run1Path, version, runMode, callback) {
         path = PathProc.resultPathVerify(run1Path);
-        PathProc.getFullTestResultPath(TestNameArray, path, function (err, res) {
+        PathProc.getFullTestResultPath(TestNameArray, path, version,runMode, function (err, res) {
             if (err) {
                 console.log("dev.getConvNumArray" + err);
                 return callback(err, null);
@@ -49,10 +49,10 @@ var Dev = {
         });
     },
 
-    getDiffNumArray: function (run1Path, run2Path, TestNameArray, callback) {
+    getDiffNumArray: function (run1Path, run2Path, version, runMode, TestNameArray, callback) {
         async.series([
             function (cb) {
-                Dev.getConvNumArray(TestNameArray, run1Path, function (err, r1) {
+                Dev.getConvNumArray(TestNameArray, run1Path, version, runMode, function (err, r1) {
                     if (err) {
                         console.log("1st getConvNumArray" + err);
                         return cb(err, null);
@@ -63,7 +63,7 @@ var Dev = {
                 });
             },
             function (cb) {
-                Dev.getConvNumArray(TestNameArray, run2Path, function (err, r1) {
+                Dev.getConvNumArray(TestNameArray, run2Path, version, runMode, function (err, r1) {
                     if (err) {
                         console.log("2st getConvNumArray" + err);
                         return cb(err, null);
@@ -89,13 +89,13 @@ var Dev = {
         })
     },
 
-    getDiffNumberFileList: function (TestListString, run1Path, run2Path, callback) {
+    getDiffNumberFileList: function (TestListString, run1Path, run2Path, version, runMode, callback) {
         async.waterfall([
             function (cb) {
                 cb(null, TestListString);
             },
             FileListProc.getTestFromFileList,
-            async.apply(Dev.getDiffNumArray, run1Path, run2Path)
+            async.apply(Dev.getDiffNumArray, run1Path, run2Path, version, runMode)
 
         ], function (err, data) {
             if (err) {
