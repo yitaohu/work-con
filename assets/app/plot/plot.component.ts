@@ -12,6 +12,8 @@ export class PlotComponent implements OnChanges  {
   summary = [];
   less = 0;
   more = 0;
+  less_percent;
+  more_percent;
   @Input() plot: ConvData;
   @Input() originalData;
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
@@ -20,7 +22,7 @@ export class PlotComponent implements OnChanges  {
     this.more = 0;
     this.summary=this.originalData;
     this.showPlot=this.plot.ifPlot;
-    console.log(this.summary);
+ 
     for (let item in this.summary[1]) {
       if (parseFloat(this.summary[1][item]) < 0) {
         this.less++;
@@ -28,6 +30,9 @@ export class PlotComponent implements OnChanges  {
         this.more++;
       }
     }
+    this.less_percent = (this.less / this.summary[1].length * 100).toFixed(2);
+    this.more_percent = (this.more / this.summary[1].length * 100).toFixed(2);
+
     setTimeout(() => {
       this.barChartData=[{data: this.plot.plotData, label: 'Diff %'}];
       this.barChartLabels=this.plot.plotTest;

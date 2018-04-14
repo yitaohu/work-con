@@ -7,12 +7,14 @@ var parseFileName = function(FileName) {
     if (data.length < 5) {
         return null;
     }
+    os_thread = data[3].split(".");
 
     var result = {
         "testname": data[0],
         "runmode": data[1],
         "precision": data[2],
-        "OS": data[3],
+        "OS": os_thread[0],
+        "thread": os_thread[1],
         "timestamp": data[4]
     }
 
