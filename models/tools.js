@@ -55,7 +55,7 @@ var Tools={
             //     return callback(null,null);
             // }
             var latest_run = 0;
-            var latest_test = files[0];
+            var latest_test = null;
             files.forEach(function(Element){
                 parsedFileName = parseFileName(Element);
                 if(parsedFileName.runmode !== testmode) {

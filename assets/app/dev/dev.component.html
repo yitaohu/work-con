@@ -12,16 +12,6 @@
             >
         </div>
         <div class="form-group" >
-            <label for="Run1">Standard Build Path</label>
-            <input 
-                type="text" 
-                id="Run1" 
-                class="form-control"
-                ngModel
-                name="run1"
-            >
-        </div>
-        <div class="form-group" >
             <label for="Run2">Custom Build Path</label>
             <input 
                 type="text" 
@@ -29,6 +19,16 @@
                 class="form-control"
                 ngModel
                 name="run2"
+            >
+        </div>
+        <div class="form-group" >
+            <label for="Run1">Standard Build Path</label>
+            <input 
+                type="text" 
+                id="Run1" 
+                class="form-control"
+                ngModel
+                name="run1"
             >
         </div>
         <div>
@@ -55,8 +55,9 @@
         <!-- <button class="btn btn-primary" type="submit">Difference</button> -->
         
     </form>
+    <li *ngIf = "isLoading">
+        <div class="loader" ></div>
+    </li>
 </div>
-<li *ngIf = "isLoading">
-    <div class="loader" ></div>
-</li>
+
 <app-bar-chart [plot]="plot" [originalData]="originalData"></app-bar-chart>
