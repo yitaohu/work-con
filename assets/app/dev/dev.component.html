@@ -32,14 +32,14 @@
             >
         </div>
         <div>
-            <div class="form-group col-md-4" >
+            <div class="form-group col-md-4 nopadding" >
                 <label for="Mode">RunMode</label>
                 <select name="mode" id="Mode" ngModel class="form-control">
                     <option value="regular">regular</option>
                     <option value="short">short</option>
                 </select>
             </div>
-            <div class="form-group col-md-4" >
+            <div class="form-group col-md-4 nopadding" >
                 <label for="Version">Build Version</label>
                 <input 
                     type="text" 
@@ -49,7 +49,7 @@
                     name="version"
                 >
             </div>
-            <div class="form-group col-md-4" >
+            <div class="form-group col-md-4 nopadding" >
                 <label for="Thread">Thread</label>
                 <select name="thread" id="Thread" ngModel class="form-control">
                     <option value="0">0</option>
@@ -63,12 +63,12 @@
             </div>
         </div>
         
-        <button class="btn btn-primary" type="submit">Submit</button>
+        <button class="btn btn-primary pull-right" type="submit">Submit</button>
         <!-- <button class="btn btn-primary" type="submit">Difference</button> -->
         
     </form>
     <li *ngIf = "isLoading">
-        <div class="loader" ></div>
+        <div class="loader col-md-offset-4 col-md-4 " ></div>
     </li>
 </div>
 
