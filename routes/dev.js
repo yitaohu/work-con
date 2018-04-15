@@ -12,7 +12,8 @@ router.post('/', function(req, res, next) {
     var path2 = (req.body)[2].run2;
     var testArray = (req.body)[0].Tests;
     var version = (req.body)[3].version;
-    var runMode = (req.body)[4].runMode //TO-DO
+    var runMode = (req.body)[4].runMode; //TO-DO
+    var thread = (req.body)[5].thread;
 
     
     // Dev.getDiffNumArray(testArray,path1,path2,function(err,diff){
@@ -27,9 +28,9 @@ router.post('/', function(req, res, next) {
     // })
     filter = {
         'version' : version,
-        'runMode' : runMode
+        'runMode' : runMode,
+        'thread'  : thread
     }
-    console.log(filter['version']);
 
     Dev.getDiffNumberFileList(testArray, path1, path2, filter, function(err,diff){
         if (err) {

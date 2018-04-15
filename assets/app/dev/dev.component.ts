@@ -40,9 +40,10 @@ export class DevComponent{
         var myPath2 = form.value.run2;
         var myRunMode = form.value.mode;
         var myVersion = form.value.version; 
+        var myThread = "t"+form.value.thread;
         this.isLoading = true;
         // var myTestsArray = myTestString.replace(/\n|\s/g,',').split(",")
-        this.devService.getAllConvNum(myTestString, myPath1, myPath2,myVersion,myRunMode)
+        this.devService.getAllConvNum(myTestString, myPath1, myPath2,myVersion,myRunMode,myThread)
         .subscribe(
             data => {
                 // console.log(data);
@@ -85,8 +86,6 @@ export class DevComponent{
             run2conv.push(Element[3]);
 
         })
-        console.log("+++++sortable+++++++");
-        console.log(sortable);
 
 
         

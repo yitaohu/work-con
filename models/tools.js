@@ -7,7 +7,7 @@ var parseFileName = function(FileName) {
     if (data.length < 5) {
         return null;
     }
-    os_thread = data[3].split(".");
+    os_thread = data[3].split("-");
 
     var result = {
         "testname": data[0],
@@ -60,7 +60,11 @@ var Tools={
             var latest_test = null;
             files.forEach(function(Element){
                 parsedFileName = parseFileName(Element);
-                if(parsedFileName.runmode !== filter['runMode'] ) {
+                console.log(parsedFileName.thread);
+                console.log("++++++++++++++");
+                console.log(filter['thread']);
+                if(parsedFileName.runmode !== filter['runMode'] || 
+                    parsedFileName.thread !== filter['thread'] ) {
                     return;
                 }
                 run_time = parseDate(parsedFileName.timestamp);
