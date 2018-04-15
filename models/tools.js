@@ -38,7 +38,7 @@ var parseDate = function(timeSting) {
 
 
 var Tools={
-    getTestDir: function(myTestName,testmode, callback) {
+    getTestDir: function(myTestName,filter, callback) {
         path=myTestName;
         if(!path) {
             return callback(null,null);
@@ -60,7 +60,7 @@ var Tools={
             var latest_test = null;
             files.forEach(function(Element){
                 parsedFileName = parseFileName(Element);
-                if(parsedFileName.runmode !== testmode) {
+                if(parsedFileName.runmode !== filter['runMode'] ) {
                     return;
                 }
                 run_time = parseDate(parsedFileName.timestamp);

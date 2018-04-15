@@ -25,8 +25,13 @@ router.post('/', function(req, res, next) {
     //     // console.log(result);
     //     res.status(201).json(diff);
     // })
+    filter = {
+        'version' : version,
+        'runMode' : runMode
+    }
+    console.log(filter['version']);
 
-    Dev.getDiffNumberFileList(testArray, path1, path2, version, runMode, function(err,diff){
+    Dev.getDiffNumberFileList(testArray, path1, path2, filter, function(err,diff){
         if (err) {
             console.log(err);
             res.status(500).json({
