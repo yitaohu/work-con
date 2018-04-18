@@ -25,8 +25,11 @@ var Dev = {
                             }
                             if (data) {
                                 data.forEach(function (element) {
+                                    convFileName = Object.keys(element)[0];
+
                                     testname = Object.keys(item)[0] + "||"
-                                        + (Object.keys(element)[0].split('.')[0]).split('_').slice(-2)[0];
+                                        + convFileName.slice(0, convFileName.length - 11);
+
                                     result[testname] = Object.values(element)[0];
                                 });
                                 return cb(null, data);

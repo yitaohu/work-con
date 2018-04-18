@@ -1,51 +1,45 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2" *ngIf="showPlot" >
+        <div class="col-md-8 col-md-offset-2" *ngIf="showPlot">
             <hr>
-          <table class="table">
-            <tr>
-                <th>Tests Jou No.</th>
-                <th>Worse Jou No.</th> 
-                <th>Worse percentage(%)</th>
-                <th>Better Jou No.</th>
-                <th>Better percentage(%)</th>
-            </tr>
-            <tr>
-                <td>{{summary[1].length}}</td>
-                <td>{{more}}</td>
-                <td>{{more_percent}}%</td>
-                <td>{{less}}</td>
-                <td>{{less_percent}}%</td>
-            </tr>
-        </table>  
-          <div style="display: block;">
-          <canvas baseChart width="400" height="400"
-                      [datasets]="barChartData"
-                      [labels]="barChartLabels"
-                      [options]="barChartOptions"
-                      [colors]="barChartColors"
-                      [legend]="barChartLegend"
-                      [chartType]="barChartType"
-                      (chartHover)="chartHovered($event)"
-                      (chartClick)="chartClicked($event)"></canvas>
-          </div>
-          <table class="table">
-            <tr>
-                <th>#</th>
-                <th>Test Name</th>
-                <th>Custom Convegence</th>
-                <th>Standard Convegence</th> 
-                <th>Diff %</th>
-            </tr>
-            <tr *ngFor="let item of summary[0]; let i = index">
-                <td>{{i + 1}}</td>
-                <td>{{item}}</td>
-                <td>{{summary[3][i]}}</td>
-                <td>{{summary[2][i]}}</td>
-                <td>{{summary[1][i]}}</td>
-            </tr>
-        </table>
+            <table class="table">
+                <tr>
+                    <th>Tests Jou No.</th>
+                    <th>Worse Jou No.</th>
+                    <th>Worse percentage(%)</th>
+                    <th>Better Jou No.</th>
+                    <th>Better percentage(%)</th>
+                </tr>
+                <tr>
+                    <td>{{summary[1].length}}</td>
+                    <td>{{more}}</td>
+                    <td>{{more_percent}}%</td>
+                    <td>{{less}}</td>
+                    <td>{{less_percent}}%</td>
+                </tr>
+            </table>
+            <div style="display: block;">
+                <canvas baseChart width="400" height="400" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+                    [colors]="barChartColors" [legend]="barChartLegend" [chartType]="barChartType" (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)"></canvas>
+            </div>
+            <table class="table table-striped">
+                <tr>
+                    <th>Worse Tests #</th>
+                    <th>Test Name</th>
+                    <th>Custom Convegence</th>
+                    <th>Standard Convegence</th>
+                    <th>Diff %</th>
+                </tr>
+                <tr *ngFor="let item of summary[0]; let i = index">
+                    <td>{{i + 1}}</td>
+                    <td>{{item}}</td>
+                    <td>{{summary[3][i]}}</td>
+                    <td>{{summary[2][i]}}</td>
+                    <td>{{summary[1][i]}}</td>
+                </tr>
+            </table>
         </div>
-      </div>
+    </div>
 
 </div>
