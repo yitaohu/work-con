@@ -10,6 +10,7 @@ import { DevComponent } from './dev/dev.component';
 import { HeaderComponent } from './header.component';
 import { ChartsModule} from 'ng2-charts';
 import { PlotComponent } from "./plot/plot.component";
+import { ResidualComponent } from "./residual/residual.component";
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { PlotComponent } from "./plot/plot.component";
         DevComponent,
         HeaderComponent,
         PlotComponent,
+        ResidualComponent
     ],
     imports: [
         BrowserModule,

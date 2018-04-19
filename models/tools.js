@@ -38,16 +38,15 @@ var parseDate = function(timeSting) {
 
 
 var Tools={
-    getTestDir: function(myTestName,filter, callback) {
-        path=myTestName;
-        if(!path) {
+    getTestDir: function(testPath,filter, callback) {
+        if(!testPath) {
             return callback(null,null);
         }
-        if(!fs.existsSync(path)) {
-            console.log(path);
+        if(!fs.existsSync(testPath)) {
+            console.log(testPath);
             return callback(null,null);
         }// to-do add existing checker in readdir function
-        fs.readdir(path, function(err, files){
+        fs.readdir(testPath, function(err, files){
             if (err) {
                 return callback(err, null);
             }
