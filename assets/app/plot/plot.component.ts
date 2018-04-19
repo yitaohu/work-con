@@ -41,7 +41,8 @@ export class PlotComponent implements OnChanges {
     this.more_percent = (this.more / this.summary[1].length * 100).toFixed(2);
 
     setTimeout(() => {
-      this.barChartData = [{ data: this.plot.plotData, label: 'Diff %' }];
+      this.barChartData = [{ "data": this.plot.plotData, "label": 'Diff %', 
+      "backgroundColor":Array(this.plot.plotTest.length).fill("rgba(255, 99, 132, 1)")}];
       this.barChartLabels = this.plot.plotTest;
       // console.log(this.barChartLabels);
       if (this.chart && this.chart.chart && this.chart.chart.config) {
@@ -76,14 +77,14 @@ export class PlotComponent implements OnChanges {
     //    pointHoverBackgroundColor: '#fff',
     //    pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     //  },
-    { // dark grey
-      backgroundColor: ["#FF7360", "#6FC8CE", "#FAFFF2", "#FFFCC4", "#B9E8E0"],
-      borderColor: 'rgba(225,10,24,0.2)',
-      pointBackgroundColor: 'rgba(225,10,24,0.2)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(225,10,24,0.2)'
-    },
+    // { // dark grey
+    //   backgroundColor: ["#FF7360", "#6FC8CE", "#FAFFF2", "#FFFCC4", "#B9E8E0"],
+    //   borderColor: 'rgba(225,10,24,0.2)',
+    //   pointBackgroundColor: 'rgba(225,10,24,0.2)',
+    //   pointBorderColor: '#fff',
+    //   pointHoverBackgroundColor: '#fff',
+    //   pointHoverBorderColor: 'rgba(225,10,24,0.2)'
+    // },
     //  { // grey
     //    backgroundColor: 'rgba(148,159,177,0.2)',
     //    borderColor: 'rgba(148,159,177,1)',
@@ -96,23 +97,4 @@ export class PlotComponent implements OnChanges {
   public barChartLegend: boolean = true;
   public barChartType: string = 'bar';
 
-  public randomize(): void {
-    let _barChartData: Array<any> = new Array(this.barChartData.length);
-    for (let i = 0; i < this.barChartData.length; i++) {
-      _barChartData[i] = { data: new Array(this.barChartData[i].data.length), label: this.barChartData[i].label };
-      for (let j = 0; j < this.barChartData[i].data.length; j++) {
-        _barChartData[i].data[j] = Math.floor((Math.random() * 100) + 1);
-      }
-    }
-    this.barChartData = _barChartData;
-  }
-
-  // events
-  public chartClicked(e: any): void {
-    console.log(e);
-  }
-
-  public chartHovered(e: any): void {
-    console.log(e);
-  }
 }

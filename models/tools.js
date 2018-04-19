@@ -60,9 +60,9 @@ var Tools={
             var latest_test = null;
             files.forEach(function(Element){
                 parsedFileName = parseFileName(Element);
-                console.log(parsedFileName.thread);
-                console.log("++++++++++++++");
-                console.log(filter['thread']);
+                // console.log(parsedFileName.thread);
+                // console.log("++++++++++++++");
+                // console.log(filter['thread']);
                 if(parsedFileName.runmode !== filter['runMode'] || 
                     parsedFileName.thread !== filter['thread'] ) {
                     return;
