@@ -41,7 +41,7 @@ export class PlotComponent implements OnChanges {
     this.more_percent = (this.more / this.summary[1].length * 100).toFixed(2);
 
     setTimeout(() => {
-      this.barChartData = [{ "data": this.plot.plotData, "label": 'Diff %', 
+      this.barChartData = [{ "data": this.plot.plotData, "label": '% change in Convergence (up means worse)', 
       "backgroundColor":Array(this.plot.plotTest.length).fill("rgba(255, 99, 132, 1)")}];
       this.barChartLabels = this.plot.plotTest;
       // console.log(this.barChartLabels);
