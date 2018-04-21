@@ -9,7 +9,7 @@ var Query = {
         testname = qValue[0];
         begintime = qValue[1];
         endtime = qValue[2];
-        var inserts = ['reg_19', testname, begintime, endtime];
+        var inserts = ['reg_191', testname, begintime, endtime];
         sql = mysql.format(sql, inserts);
         return sql
     }

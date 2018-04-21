@@ -21,6 +21,7 @@ export class PlotComponent implements OnChanges {
   more = 0;
   less_percent;
   more_percent;
+  testHref = [];
   @Input() plot: ConvData;
   @Input() originalData;
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
@@ -37,12 +38,24 @@ export class PlotComponent implements OnChanges {
         this.more++;
       }
     }
+
+    for (let i = 0; i < this.summary[0].length; i++) {
+      console.log("+++++++++++++++");
+      console.log(this.summary[0][i]);
+      var testname=this.summary[0][i].split('||')[0];
+      var jounalName=this.summary[0][i].split('||')[1];
+      this.testHref.push("/residual/" + testname + "/" + jounalName);
+    }
+
+
     this.less_percent = (this.less / this.summary[1].length * 100).toFixed(2);
     this.more_percent = (this.more / this.summary[1].length * 100).toFixed(2);
 
     setTimeout(() => {
-      this.barChartData = [{ "data": this.plot.plotData, "label": '% change in Convergence (up means worse)', 
-      "backgroundColor":Array(this.plot.plotTest.length).fill("rgba(255, 99, 132, 1)")}];
+      this.barChartData = [{
+        "data": this.plot.plotData, "label": '% change in Convergence (up means worse)',
+        "backgroundColor": Array(this.plot.plotTest.length).fill("rgba(255, 99, 132, 1)")
+      }];
       this.barChartLabels = this.plot.plotTest;
       // console.log(this.barChartLabels);
       if (this.chart && this.chart.chart && this.chart.chart.config) {
@@ -52,6 +65,7 @@ export class PlotComponent implements OnChanges {
         //  console.log(this.chart.chart.config.data);               
         this.chart.chart.update();
         console.log(this.chart.chart);
+        console.log(this.summary);
       }
     });
   }

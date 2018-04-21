@@ -36,7 +36,7 @@ export class DevComponent{
         this.plot = new ConvData([],[],false), 
         this.originalData = [];
     };
-    
+
     onSubmit(form: NgForm) {
         var myTestString = form.value.testname;
         var myPath1 = form.value.run1;
@@ -50,15 +50,16 @@ export class DevComponent{
         .subscribe(
             data => {
                 // console.log(data);
-                console.log("dev con ");
-                console.log(this.originalData);
+                // console.log("dev con ");
+                // console.log(data);
                 var myResult= this.dataProcess(data);
                 this.plot = new ConvData(myResult[1],myResult[0],true);
                 this.originalData = myResult;
                 this.isLoading = false;
                 this.loadingComplete = true;
                 console.log("dev component");
-                console.log(myResult);
+                // console.log(myResult);
+                console.log(this.originalData);
             },
             error => {
                 this.loadingComplete = true;
@@ -69,14 +70,18 @@ export class DevComponent{
 
     }
 
+    
+
     dataProcess(data:Object[]) {
         var testName = [];
         var convNum = [];
         var sortable = [];
         var run1conv = [];
         var run2conv = [];
+        var outDir1 = [];
+        var outDir2 = [];
         for (var testItem in data) {
-            sortable.push([testItem, data[testItem][2],data[testItem][0],data[testItem][1]]);
+            sortable.push([testItem, data[testItem][2],data[testItem][0],data[testItem][1], data[testItem][3], data[testItem][4]]);
         }
         
         sortable.sort(function(a, b) {
@@ -87,12 +92,20 @@ export class DevComponent{
             convNum.push(Element[1]);
             run1conv.push(Element[2]);
             run2conv.push(Element[3]);
+            outDir1.push(Element[4]);
+            outDir2.push(Element[5]);
 
         })
 
 
         
-        return [testName,convNum,run1conv,run2conv];
+        return [testName,
+                convNum,
+                run1conv,
+                run2conv,
+                outDir1,
+                outDir2
+            ];
     }
     
 }

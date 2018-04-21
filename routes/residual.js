@@ -9,3 +9,4 @@ var Residual=require('../models/residual');
 
 
 
+module.exports = router;

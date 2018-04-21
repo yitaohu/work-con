@@ -9,6 +9,7 @@ var cors=require('cors');
 var appRoutes = require('./routes/app');
 var qaRoutes = require('./routes/qa')
 var devRoutes = require('./routes/dev')
+var residualRoutes = require('./routes/residual')
 
 
 var app = express();
@@ -35,6 +36,7 @@ app.use(function (req, res, next) {
 
 app.use('/dev', devRoutes)
 app.use('/qa', qaRoutes)
+app.use('/residual',residualRoutes)
 app.use('/', appRoutes);
 
 // catch 404 and forward to error handler
