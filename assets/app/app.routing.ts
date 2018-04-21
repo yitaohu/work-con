@@ -6,7 +6,7 @@ const APP_ROUTES: Routes = [
     {path: '', redirectTo: '/dev', pathMatch: 'full'},
     {path: 'testing', component: TestingComponent},
     {path: 'dev', component: DevComponent},
-    {path: 'residual/:testname/:jounalname', component: ResidualComponent}
+    {path: 'residual/:testName/:journalName', component: ResidualComponent}
 
 ]
 

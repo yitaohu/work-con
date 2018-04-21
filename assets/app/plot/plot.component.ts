@@ -40,8 +40,6 @@ export class PlotComponent implements OnChanges {
     }
 
     for (let i = 0; i < this.summary[0].length; i++) {
-      console.log("+++++++++++++++");
-      console.log(this.summary[0][i]);
       var testname=this.summary[0][i].split('||')[0];
       var jounalName=this.summary[0][i].split('||')[1];
       this.testHref.push("/residual/" + testname + "/" + jounalName);
