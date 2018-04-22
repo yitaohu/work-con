@@ -1,13 +1,24 @@
 <div class="row">
-    <div>
+    <div class="col-md-6">
         <div style="display: block;">
-            <canvas baseChart width="400" height="400" 
-                    [datasets]="lineChartData" 
-                    [labels]="lineChartLabels" 
+            <canvas *ngIf="isChartReady1 == true" baseChart width="400" height="400" 
+                    [datasets]="lineChartData1" 
+                    [labels]="lineChartLabels1" 
                     [options]="lineChartOptions"                   
                     [legend]="lineChartLegend" 
                     [chartType]="lineChartType" 
             ></canvas>
         </div>
     </div>
+    <div class="col-md-6">
+            <div style="display: block;">
+                <canvas *ngIf="isChartReady2 == true" baseChart width="400" height="400" 
+                        [datasets]="lineChartData2" 
+                        [labels]="lineChartLabels2" 
+                        [options]="lineChartOptions"                   
+                        [legend]="lineChartLegend" 
+                        [chartType]="lineChartType" 
+                ></canvas>
+            </div>
+        </div>
 </div>

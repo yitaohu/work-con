@@ -28,9 +28,10 @@ export class DevService {
     }
 
     resUrl = "http://lebyihu.win.ansys.com:3000/residual";
-    getResidual(jouranlName: String, outDir1: String, outDir2: String) {
+    getResidual(testName: String,journalName: String, outDir1: String, outDir2: String) {
         var input = [
-            {"jouranlName":jouranlName},
+            {"testName":testName},
+            {"journalName":journalName},
             {"outDir1":outDir1},
             {"outDir2":outDir2},
         ]

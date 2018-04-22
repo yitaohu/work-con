@@ -51,8 +51,9 @@ var Residual = {
                 } else {
                     if (current == 0) {
                         iterationNum.push(line.split("\t")[0]);
+                        resData[current].push(Math.log10(+line.split("\t")[1]));
                     }else {
-                        resData[current].push(line.split("\t")[1])
+                        resData[current].push(Math.log10(+line.split("\t")[1]));
                     }
                 }
             } else if(line.match(/^\)/)) {
@@ -63,17 +64,15 @@ var Residual = {
         rl.on('close', () => {
             residualResult = {
                 "label" : labelName,
-                "interation" : iterationNum,
+                "iteration" : iterationNum,
                 "resData" : resData
             }
+            residualResult.resData.pop();
             return callback(null, residualResult);
         });
     }
 
 }
-
-
-
 
 
 module.exports = Residual;

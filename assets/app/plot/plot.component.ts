@@ -42,7 +42,9 @@ export class PlotComponent implements OnChanges {
     for (let i = 0; i < this.summary[0].length; i++) {
       var testname=this.summary[0][i].split('||')[0];
       var jounalName=this.summary[0][i].split('||')[1];
-      this.testHref.push("/residual/" + testname + "/" + jounalName);
+      var outUrl1 = encodeURIComponent(this.summary[4][i]);
+      var outUrl2 = encodeURIComponent(this.summary[5][i]);
+      this.testHref.push("/residual/" + testname + "/" + jounalName + "/" + outUrl1 + "/" + outUrl2);
     }
 
 
