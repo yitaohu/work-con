@@ -1,24 +1,20 @@
 <div class="row">
     <div class="col-md-6">
+        <h2 class="title col-md-offset-3">
+            <strong>Custome Residul</strong>
+        </h2>
         <div style="display: block;">
-            <canvas *ngIf="isChartReady1 == true" baseChart width="400" height="400" 
-                    [datasets]="lineChartData1" 
-                    [labels]="lineChartLabels1" 
-                    [options]="lineChartOptions"                   
-                    [legend]="lineChartLegend" 
-                    [chartType]="lineChartType" 
-            ></canvas>
+            <canvas *ngIf="isChartReady2 == true" baseChart width="400" height="400" [datasets]="lineChartData2" [labels]="lineChartLabels2"
+                [options]="lineChartOptions" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
         </div>
     </div>
     <div class="col-md-6">
-            <div style="display: block;">
-                <canvas *ngIf="isChartReady2 == true" baseChart width="400" height="400" 
-                        [datasets]="lineChartData2" 
-                        [labels]="lineChartLabels2" 
-                        [options]="lineChartOptions"                   
-                        [legend]="lineChartLegend" 
-                        [chartType]="lineChartType" 
-                ></canvas>
-            </div>
+        <h2 class="title col-md-offset-3">
+            <strong>Standard Residul</strong>
+        </h2>
+        <div style="display: block;">
+            <canvas *ngIf="isChartReady1 == true" baseChart width="400" height="400" [datasets]="lineChartData1" [labels]="lineChartLabels1"
+                [options]="lineChartOptions" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
         </div>
+    </div>
 </div>

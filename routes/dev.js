@@ -5,6 +5,7 @@ var router = express.Router();
 var Convergence=require('../models/convergence');
 var PathProc=require('../models/path_proc');
 var Dev=require('../models/dev');
+var Tools=require('../models/tools');
 
 
 router.post('/', function(req, res, next) {
@@ -14,7 +15,10 @@ router.post('/', function(req, res, next) {
     var version = (req.body)[3].version;
     var runMode = (req.body)[4].runMode; //TO-DO
     var thread = (req.body)[5].thread;
-
+    
+    testArray = Tools.addFileToPath(testArray);
+    path1 = Tools.addFileToPath(path1);
+    path2 = Tools.addFileToPath(path2);
 
     filter = {
         'version' : version,

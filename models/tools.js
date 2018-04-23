@@ -98,5 +98,18 @@ var Tools={
         return pathArray;
     },
 
+    addFileToPath:function(inputPath) {
+        if  (!inputPath) {
+            return inputPath;
+        }
+        pathStart = inputPath.split('//')[0];
+        if (pathStart === "file:") {
+            return inputPath;
+        } else {
+            inputPath = "file:" + inputPath;
+            return inputPath;
+        }
+    }
+
 };
 module.exports=Tools;
