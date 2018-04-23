@@ -42,17 +42,17 @@ export class PlotComponent implements OnChanges {
 
 
 
-    if (!this.summary) {
-      for (let i = 0; i < this.summary[0].length; i++) {
-        var testname = this.summary[0][i].split('||')[0];
-        var jounalName = this.summary[0][i].split('||')[1];
-        var outUrl1 = encodeURIComponent(this.summary[4][i]);
-        var outUrl2 = encodeURIComponent(this.summary[5][i]);
-        this.testHref.push("/residual/" + testname + "/" + jounalName + "/" + outUrl1 + "/" + outUrl2);
-      }
-      this.less_percent = (this.less / this.summary[1].length * 100).toFixed(2);
-      this.more_percent = (this.more / this.summary[1].length * 100).toFixed(2);
+
+    for (let i = 0; i < this.summary[0].length; i++) {
+      var testname = this.summary[0][i].split('||')[0];
+      var jounalName = this.summary[0][i].split('||')[1];
+      var outUrl1 = encodeURIComponent(this.summary[4][i]);
+      var outUrl2 = encodeURIComponent(this.summary[5][i]);
+      this.testHref.push("/residual/" + testname + "/" + jounalName + "/" + outUrl1 + "/" + outUrl2);
     }
+    this.less_percent = (this.less / this.summary[1].length * 100).toFixed(2);
+    this.more_percent = (this.more / this.summary[1].length * 100).toFixed(2);
+
 
 
     setTimeout(() => {
