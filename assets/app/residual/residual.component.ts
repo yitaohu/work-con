@@ -37,8 +37,8 @@ export class ResidualComponent implements OnInit{
                 this.lineChartData1 = [];
                 this.lineChartData2 = [];
                 for(let i = 0; i < data.One.label.length; i ++) {
-                    this.lineChartData1.push({"data": data.One.resData[i], "label": data.One.label[i], "fill": false,})
-                    this.lineChartData2.push({"data": data.Two.resData[i], "label": data.Two.label[i], "fill": false,})
+                    this.lineChartData1.push({"data": data.One.resData[i], "label": data.One.label[i], "fill": false, "pointRadius": 0})
+                    this.lineChartData2.push({"data": data.Two.resData[i], "label": data.Two.label[i], "fill": false, "pointRadius": 0})
                 }
                 this.isChartReady1 = true;
                 this.isChartReady2 = true;

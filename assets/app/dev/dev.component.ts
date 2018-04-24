@@ -45,6 +45,7 @@ export class DevComponent{
         var myVersion = form.value.version; 
         var myThread = "t"+form.value.thread;
         this.isLoading = true;
+        this.loadingComplete = false;
         // var myTestsArray = myTestString.replace(/\n|\s/g,',').split(",")
         this.devService.getAllConvNum(myTestString, myPath1, myPath2,myVersion,myRunMode,myThread)
         .subscribe(
