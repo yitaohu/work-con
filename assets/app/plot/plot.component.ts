@@ -22,6 +22,9 @@ export class PlotComponent implements OnChanges {
   less_percent;
   more_percent;
   testHref = [];
+  lessArray = [];
+  moreArray = [];
+  sameArray = [];
   @Input() plot: ConvData;
   @Input() originalData;
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
@@ -30,6 +33,9 @@ export class PlotComponent implements OnChanges {
     this.more = 0;
     this.summary = this.originalData;
     this.showPlot = this.plot.ifPlot;
+    this.lessArray = Array(this.summary.length);
+    this.moreArray = Array(this.summary.length);
+    this.sameArray = Array(this.summary.length);
 
     for (let item in this.summary[1]) {
       if (parseFloat(this.summary[1][item]) < 0) {
@@ -37,6 +43,13 @@ export class PlotComponent implements OnChanges {
       } else if (parseFloat(this.summary[1][item]) > 0) {
         this.more++;
       }
+      
+    }
+
+    for (let i = 0; i < this.lessArray.length; i++) {
+      this.moreArray[i] = this.summary[i].slice(0,this.more);
+      this.sameArray[i] = this.summary[i].slice(this.more, this.summary[0].length - this.less );
+      this.lessArray[i] = this.summary[i].slice(this.summary[0].length - this.less, this.summary[0].length );
     }
 
 
