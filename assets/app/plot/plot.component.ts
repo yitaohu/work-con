@@ -43,18 +43,9 @@ export class PlotComponent implements OnChanges {
       } else if (parseFloat(this.summary[1][item]) > 0) {
         this.more++;
       }
+      this.summary[1][item] = parseFloat(this.summary[1][item]).toFixed(2);
       
     }
-
-    for (let i = 0; i < this.lessArray.length; i++) {
-      this.moreArray[i] = this.summary[i].slice(0,this.more);
-      this.sameArray[i] = this.summary[i].slice(this.more, this.summary[0].length - this.less );
-      this.lessArray[i] = this.summary[i].slice(this.summary[0].length - this.less, this.summary[0].length );
-    }
-
-
-
-
 
     for (let i = 0; i < this.summary[0].length; i++) {
       var testname = this.summary[0][i].split('||')[0];
@@ -63,9 +54,19 @@ export class PlotComponent implements OnChanges {
       var outUrl2 = encodeURIComponent(this.summary[5][i]);
       this.testHref.push("/residual/" + testname + "/" + jounalName + "/" + outUrl1 + "/" + outUrl2);
     }
+
+    for (let i = 0; i < this.lessArray.length; i++) {
+      this.moreArray[i] = this.summary[i].slice(0,this.more);
+      this.sameArray[i] = this.summary[i].slice(this.more, this.summary[0].length - this.less );
+      this.lessArray[i] = this.summary[i].slice(this.summary[0].length - this.less, this.summary[0].length );
+    }
+
+    this.moreArray.push(this.testHref.slice(0,this.more));
+    this.sameArray.push(this.testHref.slice(this.more, this.summary[0].length - this.less));
+    this.lessArray.push(this.testHref.slice(this.summary[0].length - this.less, this.summary[0].length));
+    
     this.less_percent = (this.less / this.summary[1].length * 100).toFixed(2);
     this.more_percent = (this.more / this.summary[1].length * 100).toFixed(2);
-
 
 
     setTimeout(() => {

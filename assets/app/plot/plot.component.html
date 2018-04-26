@@ -3,13 +3,13 @@
         <div *ngIf="showPlot">
             <hr>
             <table class="table table-bordered ">
-                <thead class="thead-dark"> 
+                <thead class="thead-dark">
                     <tr>
-                        <th># of tests jounal run</th>
-                        <th># of tests slower</th>
-                        <th>slower tests percentage(%)</th>
-                        <th># of tests faster</th>
-                        <th>faster tests percentage(%)</th>
+                        <th># of test jounals run</th>
+                        <th># of slower test journals</th>
+                        <th>slower test journals percentage(%)</th>
+                        <th># of faster test journals</th>
+                        <th>faster test journals percentage(%)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,7 +26,7 @@
                 <canvas baseChart width="600" height="400" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
                     [legend]="barChartLegend" [chartType]="barChartType"></canvas>
             </div>
-            <table class="table table-striped table-bordered">
+            <!-- <table class="table table-striped table-bordered ">
                 <thead class="thead-dark">
                     <tr>
                         <th>Tests #</th>
@@ -39,7 +39,9 @@
                 <tbody>
                     <tr *ngFor="let item of summary[0]; let i = index">
                         <td>{{i + 1}}</td>
-                        <td><a [routerLink]="testHref[i]" target="_blank">{{item}}</a></td>
+                        <td>
+                            <a [routerLink]="testHref[i]" target="_blank">{{item}}</a>
+                        </td>
                         <td>{{summary[3][i]}}</td>
                         <td>{{summary[2][i]}}</td>
                         <td>{{summary[1][i]}}</td>
@@ -47,7 +49,84 @@
 
                 </tbody>
 
+            </table> -->
+
+            <table class="table table-striped table-bordered ">
+                <thead class="thead-light">
+                    <tr data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample1">
+                        <th>Worse Tests {{moreArray[3].length}} </th>
+                        <th>Test Name</th>
+                        <th>Custom Convegence</th>
+                        <th>Standard Convegence</th>
+                        <th>Diff % (positive means worse)</th>
+                    </tr>
+                </thead>
+
+                <tbody class="collapse in" id="collapseExample1">
+                    <tr *ngFor="let item of moreArray[0]; let i = index">
+                        <td>{{i + 1}}</td>
+                        <td>
+                            <a [routerLink]="moreArray[6][i]" target="_blank">{{item}}</a>
+                        </td>
+                        <td>{{moreArray[3][i]}}</td>
+                        <td>{{moreArray[2][i]}}</td>
+                        <td>{{moreArray[1][i]}}</td>
+                    </tr>
+
+                </tbody>
+
+
             </table>
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample3">
+                        <th>Better tests {{lessArray[3].length}}</th>
+                        <th>Test Name</th>
+                        <th>Custom Convegence</th>
+                        <th>Standard Convegence</th>
+                        <th>Diff % (positive means worse)</th>
+                    </tr>
+                </thead>
+                <tbody class="collapse in" id="collapseExample3">
+                    <tr *ngFor="let item of lessArray[0]; let i = index">
+                        <td>{{i + 1}}</td>
+                        <td>
+                            <a [routerLink]="lessArray[6][i]" target="_blank">{{item}}</a>
+                        </td>
+                        <td>{{lessArray[3][i]}}</td>
+                        <td>{{lessArray[2][i]}}</td>
+                        <td>{{lessArray[1][i]}}</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
+                        <th>No Change Tests {{sameArray[3].length}}</th>
+                        <th>Test Name</th>
+                        <th>Custom Convegence</th>
+                        <th>Standard Convegence</th>
+                        <th>Diff % (positive means worse)</th>
+                    </tr>
+                </thead>
+                <tbody class="collapse" id="collapseExample2">
+                    <tr *ngFor="let item of sameArray[0]; let i = index">
+                        <td>{{i + 1}}</td>
+                        <td>
+                            <a [routerLink]="sameArray[6][i]" target="_blank">{{item}}</a>
+                        </td>
+                        <td>{{sameArray[3][i]}}</td>
+                        <td>{{sameArray[2][i]}}</td>
+                        <td>{{sameArray[1][i]}}</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
         </div>
     </div>
 
