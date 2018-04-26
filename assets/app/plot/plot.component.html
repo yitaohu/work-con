@@ -70,7 +70,7 @@
                         </td>
                         <td>{{moreArray[3][i]}}</td>
                         <td>{{moreArray[2][i]}}</td>
-                        <td>{{moreArray[1][i]}}</td>
+                        <td>{{moreArray[1][i]}}%</td>
                     </tr>
 
                 </tbody>
@@ -95,7 +95,7 @@
                         </td>
                         <td>{{lessArray[3][i]}}</td>
                         <td>{{lessArray[2][i]}}</td>
-                        <td>{{lessArray[1][i]}}</td>
+                        <td>{{lessArray[1][i]}}%</td>
                     </tr>
 
                 </tbody>
@@ -105,7 +105,7 @@
             <table class="table table-striped table-bordered">
                 <thead class="thead-dark">
                     <tr data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
-                        <th>No Change Tests {{sameArray[3].length}}</th>
+                        <th>No Change Tests {{sameArray[3].length}}   <span class="glyphicon glyphicon-collapse-down"></span></th>
                         <th>Test Name</th>
                         <th>Custom Convegence</th>
                         <th>Standard Convegence</th>
@@ -114,13 +114,15 @@
                 </thead>
                 <tbody class="collapse" id="collapseExample2">
                     <tr *ngFor="let item of sameArray[0]; let i = index">
-                        <td>{{i + 1}}</td>
+                        <td>
+                            {{i + 1}}
+                        </td>
                         <td>
                             <a [routerLink]="sameArray[6][i]" target="_blank">{{item}}</a>
                         </td>
                         <td>{{sameArray[3][i]}}</td>
                         <td>{{sameArray[2][i]}}</td>
-                        <td>{{sameArray[1][i]}}</td>
+                        <td>{{sameArray[1][i]}}%</td>
                     </tr>
 
                 </tbody>
