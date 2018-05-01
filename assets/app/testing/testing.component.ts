@@ -36,15 +36,15 @@ export class TestingComponent{
         let platform = testForm.value.platform;
         let buildId = testForm.value.buildId;
         let testEngineer = testForm.value.testEngineer;
-        // let solverBin = testForm.value.solverBin;
+        let resultsDir = testForm.value.resultsDir;
         let databaseTable = testForm.value.databaseTable;
 
-        console.log(beginTime);
-        console.log(endTime);
+        
         let qValue=[testListPath, beginTime, endTime, precision, 
             runType, thread, interconnect, mpi, platform, 
-            buildId, testEngineer, databaseTable ]
-
+            buildId, testEngineer, databaseTable, resultsDir ]
+        console.log(qValue);
+        
         this.testingService.getTest(qValue)
             .subscribe(
                 data => console.log(data),

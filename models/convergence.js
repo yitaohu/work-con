@@ -5,8 +5,13 @@ var async = require("async");
 
 var Convergence = {
     getConvNum: function (path, callback) {
-        var myPath = new URL(path);
-
+        var myPath;
+        if (fs.existsSync(path + "/out")) {
+            myPath = new URL(path + "/out");
+        } else {
+            myPath = new URL(path);
+        }
+    
         fs.readdir(myPath, function (err, pathArray) {
             if (err) {
                 console.log("convergence.getConvNum" + err);

@@ -14,11 +14,9 @@ PathProc = {
                 }
                 if (res) {
                     testNameKey = Object.keys(Element)[0];
-                    fullPath = Object.values(Element)[0].href + "/" + res + "/out";
-                    // console.log(fullPath);
+                    fullPath = Object.values(Element)[0].href + "/" + res;
                     myTestPathPairArray.push({ [testNameKey]: fullPath });
                 } else {
-                    console.log()
                     myTestPathPairArray.push({ [Object.keys(Element)[0]]: null });
                 }
 

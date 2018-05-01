@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var Task=require('../models/task');
+var Task=require('../models/mysql/task');
 
  
 
@@ -19,17 +19,27 @@ router.get('/', function(req, res, next) {
     var platform = req.query.platform;
     var buildId = req.query.buildId;
     var testEngineer = req.query.testEngineer;
-    // var solverBin = req.query.solverBin;
     var databaseTable = req.query.databaseTable;
 
+    var resultsDir = req.query.resultsDir;
 
 
 
-    var qValue = [databaseTable, testListPath, precision,  
-                    platform, runType,thread, interconnect,   
-                    mpi, buildId, testEngineer, 
-                    beginTime, endTime];
-    console.log(testname);
+
+    var qValue = {"databaseTable":databaseTable, 
+                  "testListPath": testListPath, 
+                   "ThePrecision":precision,  
+                   "Platform": platform, 
+                   "RunType": runType,
+                   "Threads": thread, 
+                   "ParVersion": interconnect,   
+                   "MPIVersion": mpi, 
+                   "BuildId": buildId, 
+                   "Tester": testEngineer, 
+                   "beginTime": beginTime, 
+                   "endTime": endTime
+                };
+    console.log(qValue);
     Task.getTest(qValue, function(err, rows){
         if(err)
         {
@@ -41,17 +51,17 @@ router.get('/', function(req, res, next) {
         }
     })
 })
-router.get('/',function(req,res,next){
-    Task.getAllTasks(function(err,rows){
-        if(err)
-        {
-        res.json(err);
-        }
-        else
-        {
-        res.json(rows);
-        }
-    });
-});
+// router.get('/',function(req,res,next){
+//     Task.getAllTasks(function(err,rows){
+//         if(err)
+//         {
+//         res.json(err);
+//         }
+//         else
+//         {
+//         res.json(rows);
+//         }
+//     });
+// });
 
 module.exports = router;

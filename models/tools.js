@@ -3,11 +3,14 @@ const {URL} = require('url');
 
 var parseFileName = function(FileName) {
     data = FileName.split(".");
-    
+
     if (data.length < 5) {
         return null;
     }
     os_thread = data[3].split("-");
+    if(!os_thread[1]) {
+        os_thread[1] = "t0";
+    }
 
     var result = {
         "testname": data[0],
@@ -59,9 +62,13 @@ var Tools={
             var latest_test = null;
             files.forEach(function(Element){
                 parsedFileName = parseFileName(Element);
+                if (!parsedFileName) {
+                    return;
+                }
                 // console.log(parsedFileName.thread);
                 // console.log("++++++++++++++");
                 // console.log(filter['thread']);
+
                 if(parsedFileName.runmode !== filter['runMode'] || 
                     parsedFileName.thread !== filter['thread'] ) {
                     return;
