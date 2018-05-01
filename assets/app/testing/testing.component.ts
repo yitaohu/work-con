@@ -25,12 +25,25 @@ export class TestingComponent{
 
 
     getTest(testForm: NgForm) {
-        let testName= testForm.value.testname;
-        let beginTime= testForm.value.begintime;
-        let endTime= testForm.value.endtime;
+        let testListPath = encodeURI(testForm.value.testListPath);
+        let beginTime = testForm.value.begintime;
+        let endTime = testForm.value.endtime;
+        let precision = testForm.value.precision;
+        let runType = testForm.value.runType;
+        let thread = testForm.value.thread;
+        let interconnect = testForm.value.interconnect;
+        let mpi = testForm.value.mpi;
+        let platform = testForm.value.platform;
+        let buildId = testForm.value.buildId;
+        let testEngineer = testForm.value.testEngineer;
+        // let solverBin = testForm.value.solverBin;
+        let databaseTable = testForm.value.databaseTable;
+
         console.log(beginTime);
         console.log(endTime);
-        let qValue=[testName, beginTime, endTime]
+        let qValue=[testListPath, beginTime, endTime, precision, 
+            runType, thread, interconnect, mpi, platform, 
+            buildId, testEngineer, databaseTable ]
 
         this.testingService.getTest(qValue)
             .subscribe(

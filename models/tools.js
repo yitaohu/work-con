@@ -90,7 +90,7 @@ var Tools={
             if(!Element) {
                 return;
             }
-            path = new URL(Result_dir + solver+ "/" + Element+ "/" + test_version);
+            path = new URL(Result_dir + "/" + Element+ "/" + test_version);
             // console.log(path);
             pathArray.push({[Element]:path});
         })
