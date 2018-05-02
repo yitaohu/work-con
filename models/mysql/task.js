@@ -1,7 +1,11 @@
 var mysql = require('mysql');
+var async = require('async');
 
 var Query = require('./query');
 var db = require('./dbconnection');
+var FileListProc = require("../filelistproc");
+var Tools = require('../tools');
+
 
 var Task = {
     getAllTasks: function (callback) {
@@ -11,11 +15,47 @@ var Task = {
     },
     getTest: function (qValue, callback) {
 
-        console.log("qa++++++++++++");
-        console.log("qValue");        
-        sql = Query.createQuery(qValue);
-        console.log(sql);
-        return db.query(sql, callback);
+        qValue.testListPath = Tools.addFileToPath(qValue.testListPath);
+        FileListProc.getTestFromFileList(qValue.testListPath, function(err, res){
+            if(err) {
+                console.log(err);
+            }
+           
+            qValue.testListPath = res;
+            sqlArray = Query.createQueryArray(qValue);
+
+            var result = [];
+
+            if (sqlArray) {
+                async.mapSeries(sqlArray, function(item, cb) {
+                    db.query(Object.values(item)[0], function(err,data){
+                        if (err) {
+                            console.log(err);
+                            return cb(err, null);
+                        }
+                        if (data && data.length != 0) {
+                            console.log("+++++++++++++++++++++");
+                            var object = {};
+                            testNamekey = Object.keys(item)[0];
+                            object[testNamekey] = data[0].Testdir;
+                            console.log(object);
+                            result.push(object);
+                            // console.log(data);
+                            return cb(null,data);
+                        }
+                    })
+                },function(err, res){
+                    if(err) {
+                        return callback(err,null);
+                    } else {
+                        return callback(null, result);
+                    }
+                })
+            }
+        
+
+        });
+        
     }
 };
 module.exports = Task;

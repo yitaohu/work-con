@@ -8,7 +8,7 @@ var Task=require('../models/mysql/task');
 
 router.get('/', function(req, res, next) {
     console.log(req.query);
-    var testListPath = decodeURI(req.query.testListPath);
+    var testListPath = decodeURIComponent(req.query.testListPath);
     var beginTime = req.query.beginTime;
     var endTime = req.query.endTime;
     var precision = req.query.precision;
@@ -39,15 +39,17 @@ router.get('/', function(req, res, next) {
                    "beginTime": beginTime, 
                    "endTime": endTime
                 };
-    console.log(qValue);
+    console.log(qValue.databaseTable);
     Task.getTest(qValue, function(err, rows){
         if(err)
         {
-        res.json(err);
+            console.log(err)
+            res.json(err);
         }
         else
         {
-        res.json(rows);
+            console.log(rows)
+         res.json(rows);
         }
     })
 })

@@ -25,7 +25,7 @@ export class TestingComponent{
 
 
     getTest(testForm: NgForm) {
-        let testListPath = encodeURI(testForm.value.testListPath);
+        let testListPath = encodeURIComponent(testForm.value.testListPath);
         let beginTime = testForm.value.begintime;
         let endTime = testForm.value.endtime;
         let precision = testForm.value.precision;
