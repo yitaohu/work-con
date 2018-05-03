@@ -3,7 +3,7 @@ const {URL} = require('url');
 
 var parseFileName = function(FileName) {
     data = FileName.split(".");
-
+    
     if (data.length < 5) {
         return null;
     }

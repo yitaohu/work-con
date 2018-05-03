@@ -36,7 +36,7 @@ export class TestingComponent{
         let platform = testForm.value.platform;
         let buildId = testForm.value.buildId;
         let testEngineer = testForm.value.testEngineer;
-        let resultsDir = testForm.value.resultsDir;
+        let resultsDir = encodeURIComponent(testForm.value.resultsDir);
         let databaseTable = testForm.value.databaseTable;
 
         

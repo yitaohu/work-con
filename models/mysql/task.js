@@ -34,11 +34,11 @@ var Task = {
                             return cb(err, null);
                         }
                         if (data && data.length != 0) {
-                            console.log("+++++++++++++++++++++");
+                            // console.log("+++++++++++++++++++++");
                             var object = {};
                             testNamekey = Object.keys(item)[0];
                             object[testNamekey] = data[0].Testdir;
-                            console.log(object);
+                            // console.log(object);
                             result.push(object);
                             // console.log(data);
                             return cb(null,data);

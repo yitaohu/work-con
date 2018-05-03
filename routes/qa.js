@@ -21,7 +21,11 @@ router.get('/', function(req, res, next) {
     var testEngineer = req.query.testEngineer;
     var databaseTable = req.query.databaseTable;
 
-    var resultsDir = req.query.resultsDir;
+    var resultsDir = decodeURIComponent(req.query.resultsDir);
+
+    ///to-do temp result Dir
+
+    resultsDir = ""
 
 
 
@@ -39,7 +43,7 @@ router.get('/', function(req, res, next) {
                    "beginTime": beginTime, 
                    "endTime": endTime
                 };
-    console.log(qValue.databaseTable);
+
     Task.getTest(qValue, function(err, rows){
         if(err)
         {
@@ -49,7 +53,7 @@ router.get('/', function(req, res, next) {
         else
         {
             console.log(rows)
-         res.json(rows);
+            res.json(rows);
         }
     })
 })

@@ -34,6 +34,6 @@ Residual.getResidualData(residualPath, function(err, res) {
         console.log(err);
     }
     if (res) {
-        console.log(res);
+        // console.log(res);
     }
 })

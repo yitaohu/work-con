@@ -1,4 +1,6 @@
 var async = require('async');
+var fs = require("fs");
+const { URL } = require("url");
 
 var Convergence = require('./convergence');
 var PathProc = require('../models/path_proc');
@@ -18,6 +20,9 @@ var Dev = {
                 async.mapSeries(res, function (item, cb) {
                     if (item && Object.values(item)[0]) {
                         fullpath = Object.values(item)[0];
+                        if (fs.existsSync(new URL(fullpath + "/out"))) {
+                            fullpath += "/out";
+                        } 
                         Convergence.getConvNum(fullpath, function (err, data) {
                             if (err) {
                                 console.log("dev.getConvNumArray" + err);
