@@ -34,8 +34,8 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use('/dev', devRoutes)
-app.use('/testing', qaRoutes)
+app.use('/api/dev', devRoutes)
+app.use('/api/testing', qaRoutes)
 app.use('/residual',residualRoutes)
 app.use('/', appRoutes);
 

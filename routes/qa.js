@@ -9,7 +9,7 @@ var ConvDiff_DB = require('../models/mysql/convDiff_DB');
 
 
 router.get('/', function (req, res, next) {
-    // console.log(req.query);
+    console.log(req.query);
     var testListPath = decodeURIComponent(req.query.testListPath);
     testListPath = Tools.addFileToPath(testListPath);
     var beginTime = req.query.beginTime;

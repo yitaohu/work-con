@@ -15,13 +15,13 @@ export class TestingComponent{
         this.getTest(form);
         console.log('onSubmit');
     }
-    getAllData() {
-        this.testingService.getAllFiles()
-            .subscribe(
-                data => console.log(data),
-                error => console.error(error)
-            )
-    }
+    // getAllData() {
+    //     this.testingService.getAllFiles()
+    //         .subscribe(
+    //             data => console.log(data),
+    //             error => console.error(error)
+    //         )
+    // }
 
 
     getTest(testForm: NgForm) {

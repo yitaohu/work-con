@@ -5,13 +5,13 @@ import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
 @Injectable()
 export class TestingService {
-    url = "http://lebyihu.win.ansys.com:3000/testing";
+    url = "http://lebyihu.win.ansys.com:3000/api/testing";
     constructor(private http: Http) {};
-    getAllFiles(): Observable<any> {
-        return this.http.get(this.url)
-                .map((response: Response) => response.json())
-                .catch((error: Response) => Observable.throw(error.json()));
-    }
+    // getAllFiles(): Observable<any> {
+    //     return this.http.get(this.url)
+    //             .map((response: Response) => response.json())
+    //             .catch((error: Response) => Observable.throw(error.json()));
+    // }
     getTest(qValue: string[]): Observable<any> {
         let myParams = new URLSearchParams();
         myParams.append('testListPath',qValue[0]);
