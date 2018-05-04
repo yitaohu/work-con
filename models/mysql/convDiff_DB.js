@@ -1,34 +1,40 @@
 var async = require('async');
 
 
-var FileListProc = require('../models/filelistproc');
-var ConvNumArray = require('./convNumArray');
+var FileListProc = require('../filelistproc');
+var ConvNumArray = require('../convNumArray');
+var DataQuery = require('./dataQuery');
 
-
-var Dev = {
-    getDiffNumArray: function (run1Path, run2Path, filter, TestNameArray, callback) {
+var ConvDiff_DB = {
+    getDiffNumArray: function(qValue, run2Path, filter, callback) {
         async.series([
             function (cb) {
-                ConvNumArray.getConvNumArray(TestNameArray, run1Path, filter, function (err, r1) {
-                    if (err) {
-                        console.log("1st getConvNumArray" + err);
+                DataQuery.queryData(qValue, function(err, r1) {
+                    if(err) {
+
+                        console.log("1st ConvDiff_DB.getConvNumArray");
+                        console.log(err);
                         return cb(err, null);
                     }
                     if (r1) {
+                        // console.log(r1)
                         return cb(null, r1);
                     }
-                });
-            },
+                })
+            },//qValue changes
             function (cb) {
-                ConvNumArray.getConvNumArray(TestNameArray, run2Path, filter, function (err, r1) {
+                console.log(run2Path);
+                console.log(filter);
+                ConvNumArray.getConvNumArray(qValue.testListPath, run2Path, filter, function(err,r1) {
                     if (err) {
                         console.log("2st getConvNumArray" + err);
                         return cb(err, null);
                     }
                     if (r1) {
+                        // console.log(r1);
                         return cb(null, r1);
                     }
-                });
+                })
             },
         ], function (err, diffNum) {
             if (err) {
@@ -45,30 +51,7 @@ var Dev = {
             }
             return callback(null, resultArray);
         })
-    },
+    }
+}
 
-    getDiffNumberFileList: function (TestListString, run1Path, run2Path, filter, callback) {
-        async.waterfall([
-            function (cb) {
-                cb(null, TestListString);
-            },
-            FileListProc.getTestFromFileList,
-            async.apply(Dev.getDiffNumArray, run1Path, run2Path, filter)
-
-        ], function (err, data) {
-            if (err) {
-                console.log("dev.getDiffNumberFileList" + err);
-                return callback(err, null);
-            }
-            if (data) {
-                return callback(null, data);
-            }
-
-        })
-    },
-
-
-};
-
-module.exports = Dev;
-
+module.exports = ConvDiff_DB;

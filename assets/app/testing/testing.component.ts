@@ -38,11 +38,13 @@ export class TestingComponent{
         let testEngineer = testForm.value.testEngineer;
         let resultsDir = encodeURIComponent(testForm.value.resultsDir);
         let databaseTable = testForm.value.databaseTable;
+        let customBuildPath = encodeURIComponent(testForm.value.run2);
+        let version = testForm.value.version;
 
         
         let qValue=[testListPath, beginTime, endTime, precision, 
             runType, thread, interconnect, mpi, platform, 
-            buildId, testEngineer, databaseTable, resultsDir ]
+            buildId, testEngineer, databaseTable, resultsDir, customBuildPath, version ]
         console.log(qValue);
         
         this.testingService.getTest(qValue)

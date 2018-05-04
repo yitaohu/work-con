@@ -27,6 +27,8 @@ export class TestingService {
         myParams.append('testEngineer',qValue[10]);
         myParams.append('databaseTable',qValue[11]);
         myParams.append('resultsDir',qValue[12]);
+        myParams.append('customBuildPath',qValue[13]);
+        myParams.append('version',qValue[14]);
 
         console.log(qValue);
         let options= new RequestOptions({params: myParams})

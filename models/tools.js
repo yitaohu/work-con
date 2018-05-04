@@ -42,19 +42,21 @@ var parseDate = function(timeSting) {
 
 var Tools={
     getTestDir: function(testPath,filter, callback) {
+        // console.log("+++++++++Tools getTestDir++++++++++++++++++++")
+        // console.log(testPath);
         if(!testPath) {
             return callback(null,null);
         }
         if(!fs.existsSync(testPath)) {
-            console.log(testPath);
+            console.log("path not exist")
+            console.log(testPath.href);
             return callback(null,null);
         }// to-do add existing checker in readdir function
         fs.readdir(testPath, function(err, files){
             if (err) {
                 return callback(err, null);
             }
-            // console.log("**************");
-            // console.log(files);
+            
             // if(!files) {
             //     return callback(null,null);
             // }
@@ -83,7 +85,7 @@ var Tools={
                     latest_run = run_time;
                     latest_test=Element;
                 }
-            })  
+            })            
             return callback(null, latest_test);   
         })
     },

@@ -10,6 +10,10 @@
                 name="testListPath"
             >
         </div>
+        <div class="form-group">
+            <label for="Run2">Custom Build Path</label>
+            <input type="text" id="Run2" class="form-control" ngModel name="run2">
+        </div>
         <div class="row">
             <div class="form-group col-md-6" >
                 <label for="BeginTime">BeginTime</label>
@@ -117,7 +121,17 @@
                     name="testEngineer"
                 >
             </div>
-            <div class="form-group col-md-8" >
+            <div class="form-group col-md-2" >
+                <label for="Version">Version</label>
+                <input 
+                    type="text" 
+                    id="Version" 
+                    class="form-control"
+                    ngModel
+                    name="version"
+                >
+            </div>
+            <div class="form-group col-md-6" >
                 <label for="ResultsDir">Results Dir</label>
                 <input 
                     type="text" 
@@ -134,7 +148,6 @@
             <label for="DatabaseTable">Database Table</label>
             <select class="form-control" name="databaseTable" size="10" multiple="multiple" id="DatabaseTable"  ngModel>
                 <option value="build_fluent">build_fluent</option>
-                <option value="cray_fluent">cray_fluent</option>
                 <option value="custom_fluent">custom_fluent</option>
                 <option value="customer_cases">customer_cases</option>
                 <option value="customer_cases_dev">customer_cases_dev</option>
@@ -143,13 +156,7 @@
                 <option value="feature_fluent">feature_fluent</option>
                 <option value="flcore">flcore</option>
                 <option value="flcore_dev">flcore_dev</option>
-                <option value="gpu_fluent">gpu_fluent</option>
-                <option value="mix_win_linux">mix_win_linux</option>
-                <option value="offsite_fluent">offsite_fluent</option>
                 <option value="packages_fluent">packages_fluent</option>
-                <option value="perf">perf</option>
-                <option value="perf_dev">perf_dev</option>
-                <option value="perf_fluent">perf_fluent</option>
                 <option value="reg_19">reg_19</option>
                 <option selected="selected" value="reg_191">reg_191</option>
                 <option value="reg_dev">reg_dev</option>
