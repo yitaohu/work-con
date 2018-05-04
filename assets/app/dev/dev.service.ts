@@ -27,7 +27,7 @@ export class DevService {
                 .catch((error: Response) => Observable.throw(error.json()));
     }
 
-    resUrl = "http://lebyihu.win.ansys.com:3000/residual";
+    resUrl = "http://lebyihu.win.ansys.com:3000/api/residual";
     getResidual(testName: String,journalName: String, outDir1: String, outDir2: String) {
         var input = [
             {"testName":testName},

@@ -98,8 +98,6 @@ export class DevComponent{
 
         })
 
-
-        
         return [testName,
                 convNum,
                 run1conv,

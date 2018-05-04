@@ -36,7 +36,7 @@ app.use(function (req, res, next) {
 
 app.use('/api/dev', devRoutes)
 app.use('/api/testing', qaRoutes)
-app.use('/residual',residualRoutes)
+app.use('/api/residual',residualRoutes)
 app.use('/', appRoutes);
 
 // catch 404 and forward to error handler
