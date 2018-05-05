@@ -34,6 +34,7 @@ var QueryCreate = {
 
             }          
         }
+        // console.log(sqlArray);
         return sqlArray
     },
 

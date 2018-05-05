@@ -10,6 +10,7 @@ var ConvDiff_DB = {
         async.series([
             function (cb) {
                 DataQuery.queryData(qValue, function(err, r1) {
+                    // console.log(r1);
                     if(err) {
 
                         console.log("1st ConvDiff_DB.getConvNumArray");
@@ -23,8 +24,8 @@ var ConvDiff_DB = {
                 })
             },//qValue changes
             function (cb) {
-                console.log(run2Path);
-                console.log(filter);
+                // console.log(run2Path);
+                // console.log(filter);
                 ConvNumArray.getConvNumArray(qValue.testListPath, run2Path, filter, function(err,r1) {
                     if (err) {
                         console.log("2st getConvNumArray" + err);
@@ -41,6 +42,7 @@ var ConvDiff_DB = {
                 console.log("models/dev" + err);
                 return callback(err, null);
             }
+            // console.log(diffNum);
             resultArray = {};
             for (var key in diffNum[0]) {
                 if(diffNum[1][key]) {
