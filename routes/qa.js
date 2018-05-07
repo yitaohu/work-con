@@ -8,6 +8,7 @@ var ConvDiff_DB = require('../models/mysql/convDiff_DB');
 
 
 
+
 router.get('/', function (req, res, next) {
     console.log(req.query);
     var testListPath = decodeURIComponent(req.query.testListPath);
@@ -26,7 +27,7 @@ router.get('/', function (req, res, next) {
 
     var resultsDir = decodeURIComponent(req.query.resultsDir);
     var customBuildPath = decodeURIComponent(req.query.customBuildPath);
-    var version = req.query.version;
+    var version = req.query.version + ".0";
 
     ///to-do temp result Dir
 
@@ -53,6 +54,7 @@ router.get('/', function (req, res, next) {
     }
    
     console.time("dbsave");
+    customBuildPath = Tools.addFileToPath(customBuildPath);
 
     // FileListProc.getTestFromFileList(qValue.testListPath,function(err,res){
     //     console.log(res);
@@ -82,7 +84,7 @@ router.get('/', function (req, res, next) {
             });
         }
         else {
-            console.log(rows)
+            // console.log(rows)
             res.status(201).json(rows);
             console.timeEnd("dbsave");
         }

@@ -36,6 +36,8 @@ var DataQuery = {
             return callback(null, null);
         }
         var result = {};
+        result["Not_Run_Std"] = [];
+        result["Failed_Std"] = [];
         async.mapSeries(sqlArray, function (item, cb) {
             db.query(Object.values(item)[0], function (err, data) {
                 if (err) {
@@ -45,7 +47,14 @@ var DataQuery = {
                 if (data && data.length != 0) {
                     var object = {};
                     testNamekey = Object.keys(item)[0];
-                    object[testNamekey] = qValue.resultsDir + "/" + testNamekey + "/v19.1.0/" + data[0].Testdir//version number  
+                   
+                    var failTest = {};
+                    failTest[testNamekey] = data[0].Result;
+                    if (data[0].Result != 'S') {
+                        console.log(data[0].Testdir)
+                        result["Failed_Std"].push(failTest);
+                    }
+                    object[testNamekey] = qValue.resultsDir + "/" + testNamekey + "/v" + qValue.Version+"/" + data[0].Testdir//version number  
                     Convergence.getConvNum(object[testNamekey], function (err, data) {
                         if (err) {
                             console.log("dev.getConvNumArray" + err);
@@ -62,6 +71,7 @@ var DataQuery = {
                         }
                     })
                 } else {
+                    result["Not_Run_Std"].push(Object.keys(item)[0]);
                     return cb(null, null);
                 }
 

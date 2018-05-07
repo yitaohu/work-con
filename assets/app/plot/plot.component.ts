@@ -27,6 +27,8 @@ export class PlotComponent implements OnChanges {
   sameArray = [];
   @Input() plot: ConvData;
   @Input() originalData;
+  @Input() notRunStd;
+  @Input() failedStd;
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
   ngOnChanges() {
     this.less = 0;

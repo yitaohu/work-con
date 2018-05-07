@@ -44,13 +44,16 @@ var ConvDiff_DB = {
             }
             // console.log(diffNum);
             resultArray = {};
-            for (var key in diffNum[0]) {
-                if(diffNum[1][key]) {
+            for (var key in diffNum[1]) {
+                if(diffNum[0][key]) {
                     diff = (diffNum[1][key][0] - diffNum[0][key][0]) / diffNum[0][key][0] * 100;//diff
                     resultArray[key] = [diffNum[0][key][0], diffNum[1][key][0], diff,diffNum[0][key][1], diffNum[1][key][1]];
-                }                
+                }       
                 //    console.log(resultArray[key]);
             }
+            resultArray["Not_Run_Std"] = diffNum[0]["Not_Run_Std"];
+            resultArray["Failed_Std"] = diffNum[0]["Failed_Std"];
+
             return callback(null, resultArray);
         })
     }

@@ -28,6 +28,8 @@ export class TestingComponent {
 
     @Input() plot: ConvData;
     @Input() originalData;
+    notRunStd = [];
+    failedStd = [];
 
     private loadingComplete = false;
     private isLoading = false;
@@ -46,6 +48,10 @@ export class TestingComponent {
 
     
     getTest(testForm: NgForm) {
+
+        this.notRunStd = [];
+        this.failedStd = [];
+        
         let testListPath = encodeURIComponent(testForm.value.testListPath);
         let beginTime = testForm.value.begintime;
         let endTime = testForm.value.endtime;
@@ -76,6 +82,13 @@ export class TestingComponent {
                 data => {
                     console.log("dev con " + data);
                     console.log(data);
+                    this.notRunStd = data.Not_Run_Std;
+                    delete data.Not_Run_Std;
+                    var failedStdObject = data.Failed_Std;
+                    for(let i = 0; i < failedStdObject.length; i++) {
+                        this.failedStd.push([Object.keys(failedStdObject[i]), Object.values(failedStdObject[i])])
+                    }
+                    delete data.Failed_Std;
                     var myResult = this.dataProcess(data);
                     this.plot = new ConvData(myResult[1], myResult[0], true);
                     this.originalData = myResult;
@@ -84,6 +97,9 @@ export class TestingComponent {
                     console.log("dev component");
                     // console.log(myResult);
                     console.log(this.originalData);
+                    console.log("++not run+++");
+                    console.log(this.notRunStd);
+                    console.log(this.failedStd);
                 },
                 error => console.error(error)
             )
