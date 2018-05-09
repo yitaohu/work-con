@@ -47,11 +47,9 @@ var DataQuery = {
                 if (data && data.length != 0) {
                     var object = {};
                     testNamekey = Object.keys(item)[0];
-                   
-                    var failTest = {};
-                    failTest[testNamekey] = data[0].Result;
                     if (data[0].Result != 'S') {
-                        console.log(data[0].Testdir)
+                        var failTest = {};
+                        failTest[testNamekey] = [data[0].Result, data[0].Bug];
                         result["Failed_Std"].push(failTest);
                     }
                     object[testNamekey] = qValue.resultsDir + "/" + testNamekey + "/v" + qValue.Version+"/" + data[0].Testdir//version number  

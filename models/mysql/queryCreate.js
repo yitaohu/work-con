@@ -5,7 +5,7 @@ var mysql = require('mysql');
 var QueryCreate = {
     createQueryArray: function (qValue) {
         
-        var sql = "SELECT Testdir, Result FROM ?? WHERE Testname=?";
+        var sql = "SELECT Testdir, Result, Bug FROM ?? WHERE Testname=?";
         
         sql += this.createString("ThePrecision",qValue.ThePrecision);
         sql += this.createString("Platform",qValue.Platform)

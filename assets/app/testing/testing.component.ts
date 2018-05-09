@@ -85,8 +85,9 @@ export class TestingComponent {
                     this.notRunStd = data.Not_Run_Std;
                     delete data.Not_Run_Std;
                     var failedStdObject = data.Failed_Std;
+                    console.log(failedStdObject);
                     for(let i = 0; i < failedStdObject.length; i++) {
-                        this.failedStd.push([Object.keys(failedStdObject[i]), Object.values(failedStdObject[i])])
+                        this.failedStd.push([Object.keys(failedStdObject[i]), Object.values(failedStdObject[i])[0][0], Object.values(failedStdObject[i])[0][1]])
                     }
                     delete data.Failed_Std;
                     var myResult = this.dataProcess(data);
