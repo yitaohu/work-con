@@ -46,9 +46,10 @@ var Assignment = {
                 })
                 
             }
+            return callback(null, listObject);
 
         })
-        return callback(null, listObject);
+        
 
 
     }
