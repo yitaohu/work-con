@@ -25,26 +25,45 @@
 // })
 
 
-var mysql=require('mysql');
-var pool=mysql.createPool({
-    host    : 'lebpbur410.ansys.com',
-    user    : 'testing',
-    password: 'testing',
-    database: 'Fluent_QA',
-});
+// var mysql=require('mysql');
+// var pool=mysql.createPool({
+//     host    : 'lebpbur410.ansys.com',
+//     user    : 'testing',
+//     password: 'testing',
+//     database: 'Fluent_QA',
+// });
 
 // pool.query("SELECT FileName, RunType, ThePrecision, SolverType, ParVersion, Platform, Tester FROM DailyTestSchedule WHERE ProjectName='Daily_Reg_dev' ", function(err, rows) {
 //     console.log(rows);
 //     // connection.releaseConnection();
 // })
-var myQuery = "SELECT FileName, RunType , ThePrecision, SolverType, ParVersion, Platform, Tester, Threads FROM ?? WHERE ProjectName=? AND Threads IN (?) ORDER BY FileName ASC";
-sqlQuery = mysql.format(myQuery,["DailyTestSchedule", "Daily_Reg_dev",[1,2] ]);
-console.log(sqlQuery);
-pool.query(sqlQuery, function(err, rows) {
-    console.log(rows);
-    console.log(sqlQuery);
+
+
+
+
+
+// var myQuery = "SELECT FileName, RunType , ThePrecision, SolverType, ParVersion, Platform, Tester, Threads, PostThreads FROM ?? WHERE ProjectName=? AND Threads IN (?) ORDER BY FileName ASC";
+// sqlQuery = mysql.format(myQuery,["DailyTestSchedule", "Daily_Reg_dev",[0] ]);
+// console.log(sqlQuery);
+// pool.query(sqlQuery, function(err, rows) {
+//     console.log(rows);
+//     console.log(sqlQuery);
     
-    // connection.releaseConnection();
+//     // connection.releaseConnection();
+// })
+
+var Assignment = require('../regMonitor/assignment')
+
+var filter = {
+    "projectName":"Daily_Reg_dev",
+    "runType":"short",
+    "thePrecision":"dp",
+    "platform":"win64",
+    "threads":"2",
+    "tester":"yihu"
+}
+Assignment.getAssign(filter,function(err, data){
+    console.log(data);
 })
 // pool.getConnection(function(err, connection) {
 //     connection.query("SELECT FileName, RunType, ThePrecision, SolverType, ParVersion, Platform, Tester FROM DailyTestSchedule WHERE ProjectName='Daily_Reg_dev' ", function(err, rows) {
