@@ -1,6 +1,7 @@
 var fs = require('fs');
 const { URL } = require('url');
 var mysql = require('mysql');
+var async = require('async');
 var db = require('../mysql/dbconnection');
 var FileListProc = require('../filelistproc')
 
@@ -83,6 +84,11 @@ var Assignment = {
             today
         ]
         resultReg = {};
+        async.forEach(assignObject,function(curr,callback){
+            console.log(curr);
+        },function(err){
+            console.log("DONE");
+        })
         for(let item in assignObject) {
             resultReg[item] = {};
             insert[1] = assignObject[item].testArray;
@@ -107,7 +113,7 @@ var Assignment = {
                 insert[9] = assignObject[item].mode[i].MPIVersion;//9
                 insert[10] = assignObject[item].mode[i].PostThreads;//9
                 sqlQuery = mysql.format(myQuery,insert);
-                console.log(sqlQuery);
+                // console.log(sqlQuery);
                 db.query(sqlQuery, function(err, data){
                     // console.log(data);
                     for(let j = 0; j < data.length; j++) {
