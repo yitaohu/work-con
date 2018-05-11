@@ -12,7 +12,7 @@ FileListProc = {
                 return callback(new Error('Please check the List File Path.'), null);
             }
             if (data) {
-                var myTestsArray = data.replace(/\n|\s/g, ',').split(",");
+                var myTestsArray = data.replace(/\n|\s/g, ',').slice(0,-1).split(",");
                 if (myTestsArray.length == 0) {
                     return callback(new Error("List File donesn't have any tests! Please check the List File Path."), null);
                 }
