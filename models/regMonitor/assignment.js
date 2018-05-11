@@ -84,11 +84,16 @@ var Assignment = {
             today
         ]
         resultReg = {};
-        async.forEach(assignObject,function(curr,callback){
-            console.log(curr);
+        async.forEachOf(assignObject,function(curr,key,callback){
+            resultReg[key] = {};
+            insert[1] = curr.testArray;
+            insert[6] = "flutest:"+curr.Tester;
+            async.forEach
         },function(err){
             console.log("DONE");
         })
+
+
         for(let item in assignObject) {
             resultReg[item] = {};
             insert[1] = assignObject[item].testArray;
