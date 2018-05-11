@@ -103,17 +103,17 @@
 //     // connection.releaseConnection();
 // })
 // var Assignment = require('../regMonitor/assignment')
-
+var fs = require('fs');
 var filter = {
-    "projectName":"Daily_Reg_dev",
-    "runType":"short",
-    "thePrecision":"dp",
+    "projectName":"Offsite",
+    "runType":["short","quick"],
+    "thePrecision":["dp","sp"],
     "platform":["lnamd64"],
-    "threads":[1,2],
-    "tester":"yihu",
+    "threads":[16],
+    "tester":"rding",
     "version":"19.2.0",
-    "day":45,
-    "databaseTable":"reg_dev",
+    "day":3,
+    "databaseTable":"offsite_fluent",
 
 }
 // Assignment.getAssign(filter,function(err, data){
@@ -128,11 +128,74 @@ var filter = {
 //     });
 //     connection.release();
 // })
+function assemble(modeObject) {
+    res = modeObject.Platform+" in "+modeObject.SolverType+" "+
+    modeObject.RunType+" for "+modeObject.ThePrecision+" and postthread "+modeObject.Threads+" and threads "+modeObject.PostThreads+" parallel interconnect "
+    +modeObject.ParVersion+" and mpi "+modeObject.MPIVersion;
+    return res;
 
+}
 var Assignment = require('../regMonitor/assignment');
 
 Assignment.getAssign(filter, function(err, data){
     Assignment.queryCreate(data,filter, function(err, res){
-        // console.log(res);
+        // console.log(res)
+        scriptstring = [];
+        for(let item in res) {
+            // console.log(item);
+            for(let testname in res[item]) {
+                // console.log("**************")
+                // console.log(testname);
+                // console.log(res[item][testname])
+                if (res[item][testname].length>0) {
+                    // console.log(res[item][testname]);
+                    for(let i = 0; i < res[item][testname].length; i++) {
+                        // console.log(res[item][testname][i])
+                        data[item];
+
+                        Platform = res[item][testname][i].Platform;
+                        
+                        RunType = res[item][testname][i].RunType;
+                        if(res[item][testname][i].ThePrecision == "dp"){
+                            ThePrecision = "double";
+                        }else {
+                            ThePrecision=""
+                        }
+                        Threads = "-t" + res[item][testname][i].Threads;
+                        PostThreads = "-postt"+res[item][testname][i].PostThreads;
+                        if(res[item][testname][i].ParVersion == "-" || res[item][testname][i].ParVersion == "default") {
+                            ParVersion = ""
+                        } else {
+                            ParVersion = "-p=" + res[item][testname][i].ParVersion;
+                        }
+                        if(res[item][testname][i].MPIVersion == "-" || res[item][testname][i].MPIVersion == "default") {
+                            MPIVersion = ""
+                        } else {
+                            MPIVersion = "-mpi=" +res[item][testname][i].MPIVersion;
+                        }
+                        
+                        string = "perl $ENV{'PERL5LIB'}/auto_fluent.pl " + RunType + " " + ThePrecision + " " + Threads + " " + PostThreads + " " + ParVersion + " " 
+                            + MPIVersion + " fluent v19.2.0 " +testname;
+                        scriptstring.push(string);
+                        
+                    }
+                }
+                
+            }
+        }
+        
+        fs.writeFile('rongtest.txt', scriptstring.join("\n"), function (err) {
+            if (err) throw err;
+            console.log('Saved!');
+          });
+    
     })
 })
+
+// "RunType":"short","ThePrecision":"dp","SolverType":"parallel","Platform":"lnamd64","Threads":2,"PostThreads":2,"ParVersion":"default","MPIVersion":"default"
+
+// system("perl $ENV{'PERL5LIB'}/auto_fluent.pl short double -t1 fluent  v19.2.0 cyl_2d-nita	");
+// "lbm1":{"lbm_cavity_driven":[
+//     {"RunType":"short","ThePrecision":"dp","SolverType":"parallel","Platform":"lnamd64","Threads":4,"PostThreads":4,"ParVersion":"default","MPIVersion":"default"},
+//     {"RunType":"short","ThePrecision":"dp","SolverType":"parallel","Platform":"lnamd64","Threads":2,"PostThreads":2,"ParVersion":"default","MPIVersion":"default"},
+//     {"RunType":"short","ThePrecision":"dp","SolverType":"parallel","Platform":"lnamd64","Threads":1,"PostThreads":1,"ParVersion":"default","MPIVersion":"default"}]},

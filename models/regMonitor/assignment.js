@@ -8,7 +8,8 @@ var FileListProc = require('../filelistproc')
 var Assignment = {
     getAssign: function(filter, callback) {
         var databaseTableAssign= "DailyTestSchedule";
-        var listFilePath= "file://lebqa01.ansys.com/export/testing/matrix/fbutests/fluent/develop/lists";
+        // var listFilePath= "file://lebqa01.ansys.com/export/testing/matrix/fbutests/fluent/develop/lists";
+        var listFilePath= "file://lebqa01.ansys.com/fluentqa/FLUENT/v19.2/rding/features/vts/script/list";
         var projectName = filter.projectName;
         var runType = filter.runType;
         var thePrecision = filter.thePrecision;
@@ -61,12 +62,18 @@ var Assignment = {
         var yesterday = new Date(today.getTime());
         yesterday.setDate(today.getDate() - day);
 
-        myQuery = "SELECT Testname, Result, Testdir \
+        myQueryParallel = "SELECT Testname, Result, Testdir, Threads \
                     FROM ?? \
                     WHERE Testname IN (?) AND Platform = ? AND ThePrecision = ? AND Threads = ? AND RunType = ? \
-                        AND Tester = ? AND Version = ? AND ParVersion = ? AND MPIVersion = ? AND PostThreads = ? \
+                        AND Tester = ? AND Version = ? AND PostThreads = ? AND ParVersion = ? AND MPIVersion = ? \
                         AND TimeDateStamp BETWEEN ? AND ?\
-                    ORDER BY Testname ASC, TimeDateStamp ASC";  //no buildID 
+                    ORDER BY Testname ASC, TimeDateStamp ASC";  //no buildID
+        myQuerySerial =  "SELECT Testname, Result, Testdir, Threads \
+                    FROM ?? \
+                    WHERE Testname IN (?) AND Platform = ? AND ThePrecision = ? AND Threads = ? AND RunType = ? \
+                        AND Tester = ? AND Version = ?  AND PostThreads = ? \
+                        AND TimeDateStamp BETWEEN ? AND ?\
+                    ORDER BY Testname ASC, TimeDateStamp ASC";  //no buildID
 
         insert = [
             databaseTableREG,//0-
@@ -84,54 +91,63 @@ var Assignment = {
             today
         ]
         resultReg = {};
-        async.forEachOf(assignObject,function(curr,key,callback){
+        async.forEachOf(assignObject,function(curr,key,callback1){
             resultReg[key] = {};
             insert[1] = curr.testArray;
-            insert[6] = "flutest:"+curr.Tester;
-            async.forEach
-        },function(err){
-            console.log("DONE");
-        })
-
-
-        for(let item in assignObject) {
-            resultReg[item] = {};
-            insert[1] = assignObject[item].testArray;
-            insert[6] = "flutest:"+assignObject[item].Tester;
-
-            for(let i = 0; i < assignObject[item].mode.length; i++) {
-                assignString = assemble(assignObject[item].mode[i]);
-                
-                for (let m = 0; m < assignObject[item].testArray.length; m++) {
-                    if(resultReg[item][assignObject[item].testArray[m]]) {
-                        resultReg[item][assignObject[item].testArray[m]].push(assignString); 
+            insert[6] = curr.Tester;
+            // console.log("))))))))")
+            // console.log(curr);
+            async.forEachOf(curr.mode, function(item, index,callback2){
+                assignString = assemble(item);
+                // console.log("+++++++++")
+                // console.log(assignString)
+                for (let m = 0; m < curr.testArray.length; m++) {
+                    if(resultReg[key][curr.testArray[m]]) {
+                        resultReg[key][curr.testArray[m]].push(item); 
                     }else {
-                        resultReg[item][assignObject[item].testArray[m]] = [assignString]; 
+                        resultReg[key][curr.testArray[m]] = [item]; 
                     } 
                 }
 
-                insert[2] = assignObject[item].mode[i].Platform;//2
-                insert[3] = assignObject[item].mode[i].ThePrecision;//3
-                insert[4] = assignObject[item].mode[i].Threads;//4
-                insert[5] = assignObject[item].mode[i].RunType;//5
-                insert[8] = assignObject[item].mode[i].ParVersion;//8
-                insert[9] = assignObject[item].mode[i].MPIVersion;//9
-                insert[10] = assignObject[item].mode[i].PostThreads;//9
-                sqlQuery = mysql.format(myQuery,insert);
-                // console.log(sqlQuery);
+                insert[2] = item.Platform;//2
+                insert[3] = item.ThePrecision;//3
+                insert[4] = item.Threads;//4
+                insert[5] = item.RunType;//5
+                insert[9] = item.ParVersion;//8
+                insert[10] = item.MPIVersion;//9
+                insert[8] = item.PostThreads;//9
+                if(item.SolverType == "parallel") {
+                    sqlQuery = mysql.format(myQueryParallel,insert);
+                }else {
+                    insert2 = insert.slice(0,9);
+                    insert2.push(insert[11]);
+                    insert2.push(insert[12]);
+                    // console.log(insert2);
+                    // console.log(insert);
+                    sqlQuery = mysql.format(myQuerySerial,insert2);
+                }
+                console.log("++++++++++query+++++++++")
+                console.log(sqlQuery);
                 db.query(sqlQuery, function(err, data){
+                    // console.log("******query data********")
                     // console.log(data);
                     for(let j = 0; j < data.length; j++) {
                         // console.log("++++++++query data++++++++")
                         // console.log(data[j])
-                        resultReg[item][data[j].Testname].splice(-1,1, data[j].Result);
+                        if(data[j].Result == "S" || data[j].Result == "NP") {
+                            resultReg[key][data[j].Testname].splice(index,1);
+                        }
+                        
                     }
                     // console.log(resultReg[item]);
-                    return callback(null,resultReg);
+                    return callback2(null, data);
 
                 })
-            }   
-        }
+            },callback1)
+        },function(err){
+            // console.log(resultReg)
+            return callback(null, resultReg)
+        })
         
 
 
@@ -139,7 +155,7 @@ var Assignment = {
 }
 function assemble(modeObject) {
     res = modeObject.Platform+" in "+modeObject.SolverType+" "+
-    modeObject.RunType+" for "+modeObject.dp+" and postthread "+modeObject.Threads+" and threads "+modeObject.PostThreads+" parallel interconnect "
+    modeObject.RunType+" for "+modeObject.ThePrecision+" and postthread "+modeObject.Threads+" and threads "+modeObject.PostThreads+" parallel interconnect "
     +modeObject.ParVersion+" and mpi "+modeObject.MPIVersion;
     return res;
 
