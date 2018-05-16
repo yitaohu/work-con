@@ -2,6 +2,7 @@ var Dev = require('../models/dev');
 var FileListProc = require('../models/filelistproc');
 var Tools = require('../models/tools')
 var Residual = require('../models/residual');
+var async = require('async');
 
 var TestListString = "file:///Users/Yitao/Documents/FrontEnd/Ansys_Work/ansys_myhome_web/mylist";
 var run1Path = "file:///Users/Yitao/Documents/FrontEnd/Ansys_Work/ansys_myhome_web/Result2";
@@ -29,11 +30,22 @@ var residualPath = "file://lebqa01.ansys.com/fluentqa/FLUENT/v19.1/rding/converg
 //     }
 // })
 
-Residual.getResidualData(residualPath, function(err, res) {
-    if (err) {
-        console.log(err);
-    }
-    if (res) {
-        // console.log(res);
-    }
+// Residual.getResidualData(residualPath, function(err, res) {
+//     if (err) {
+//         console.log(err);
+//     }
+//     if (res) {
+//         // console.log(res);
+//     }
+// })
+tt = {
+    'aa' : "a-content",
+    'bb' : "b-content",
+    'cc' : "c-content"
+}
+
+async.mapSeries(tt, function(item,callback){
+    console.log(item);
+}, function(err, res){
+
 })

@@ -35,6 +35,7 @@ var Assignment = {
                     listObject[data[i].FileName]["testArray"] = fs.readFileSync(filePath, 'utf8').replace(/\n|\s/g, ',').slice(0,-1).split(",");
                     listObject[data[i].FileName]["Tester"] = data[i].Tester;
                     listObject[data[i].FileName]["mode"] = [];
+                    listObject[data[i].FileName]["listName"] = data[i].FileName;
                 }
                 listObject[data[i].FileName]["mode"].push({
                     "RunType" : data[i].RunType,
@@ -91,21 +92,22 @@ var Assignment = {
             today
         ]
         resultReg = {};
-        async.forEachOf(assignObject,function(curr,key,callback1){
-            resultReg[key] = {};
-            insert[1] = curr.testArray;
-            insert[6] = curr.Tester;
+
+        async.mapSeries(assignObject, function(listitem, callback1){
+            resultReg[listitem.listName] = {};
+            insert[1] = listitem.testArray;
+            insert[6] = listitem.Tester;
             // console.log("))))))))")
-            // console.log(curr);
-            async.forEachOf(curr.mode, function(item, index,callback2){
+            // console.log(listitem);
+            async.mapSeries(listitem.mode, function(item,callback2){
                 assignString = assemble(item);
                 // console.log("+++++++++")
                 // console.log(assignString)
-                for (let m = 0; m < curr.testArray.length; m++) {
-                    if(resultReg[key][curr.testArray[m]]) {
-                        resultReg[key][curr.testArray[m]].push(item); 
+                for (let m = 0; m < listitem.testArray.length; m++) {
+                    if(resultReg[listitem.listName][listitem.testArray[m]]) {
+                        resultReg[listitem.listName][listitem.testArray[m]].push(item); 
                     }else {
-                        resultReg[key][curr.testArray[m]] = [item]; 
+                        resultReg[listitem.listName][listitem.testArray[m]] = [item]; 
                     } 
                 }
 
@@ -135,7 +137,7 @@ var Assignment = {
                         // console.log("++++++++query data++++++++")
                         // console.log(data[j])
                         if(data[j].Result == "S" || data[j].Result == "NP") {
-                            resultReg[key][data[j].Testname].splice(index,1);
+                            resultReg[listitem.listName][data[j].Testname].splice(-1,1);
                         }
                         
                     }
@@ -144,13 +146,9 @@ var Assignment = {
 
                 })
             },callback1)
-        },function(err){
-            // console.log(resultReg)
+        },function(err, result){
             return callback(null, resultReg)
         })
-        
-
-
     }
 }
 function assemble(modeObject) {
