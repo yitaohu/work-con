@@ -11,6 +11,7 @@ import { HeaderComponent } from './header.component';
 import { ChartsModule} from 'ng2-charts';
 import { PlotComponent } from "./plot/plot.component";
 import { ResidualComponent } from "./residual/residual.component";
+import { MonitorComponent } from "./monitor/monitor.component";
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { ResidualComponent } from "./residual/residual.component";
         DevComponent,
         HeaderComponent,
         PlotComponent,
-        ResidualComponent
+        ResidualComponent,
+        MonitorComponent
     ],
     imports: [
         BrowserModule,

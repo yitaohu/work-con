@@ -23,8 +23,9 @@ var Assignment = {
 
         sqlQuery = mysql.format(myQuery,[databaseTableAssign, projectName, runType, thePrecision, platform, threads, tester]);
         listObject = {};
+        console.log(sqlQuery);
         db.query(sqlQuery, function(err, data){
-            
+            console.log(data);
             for(let i = 0; i < data.length; i++) {
                 if(!listObject[data[i].FileName]) {
                     listObject[data[i].FileName] = {};

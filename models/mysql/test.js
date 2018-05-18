@@ -106,13 +106,13 @@
 var fs = require('fs');
 var filter = {
     "projectName":"Offsite",
-    "runType":["short","quick"],
+    "runType":["short","regular"],
     "thePrecision":["dp","sp"],
     "platform":["lnamd64"],
-    "threads":[16],
+    "threads":[4],
     "tester":"rding",
     "version":"19.2.0",
-    "day":3,
+    "day":40,
     "databaseTable":"offsite_fluent",
 
 }
@@ -139,7 +139,8 @@ var Assignment = require('../regMonitor/assignment');
 
 Assignment.getAssign(filter, function(err, data){
     Assignment.queryCreate(data,filter, function(err, res){
-        // console.log(res)
+
+        console.log(res)
         scriptstring = [];
         for(let item in res) {
             // console.log(item);
@@ -174,8 +175,8 @@ Assignment.getAssign(filter, function(err, data){
                             MPIVersion = "-mpi=" +res[item][testname][i].MPIVersion;
                         }
                         
-                        string = "perl $ENV{'PERL5LIB'}/auto_fluent.pl " + RunType + " " + ThePrecision + " " + Threads + " " + PostThreads + " " + ParVersion + " " 
-                            + MPIVersion + " fluent v19.2.0 " +testname;
+                        string = "system(\"perl $ENV{'PERL5LIB'}/auto_fluent.pl " + RunType + " " + ThePrecision + " " + Threads + " " + PostThreads + " " + ParVersion + " " 
+                            + MPIVersion + " fluent v19.2.0 " +testname + "\")";
                         scriptstring.push(string);
                         
                     }
