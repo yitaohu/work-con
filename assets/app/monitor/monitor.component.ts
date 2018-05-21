@@ -18,6 +18,8 @@ import { Component, OnInit, Input } from '@angular/core';
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        option:checked { color: red; } 
+        
     `]
 })
 
