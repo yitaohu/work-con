@@ -14,36 +14,40 @@ var DataResult = {
             Assignment.queryCreate(data,filter, function(err, res){
                 // console.log(res);
                 scriptstring = [];
-                for(let item in res) {
-                    for(let testname in res[item]) {
-                        if (res[item][testname].length>0) {
-                            for(let i = 0; i < res[item][testname].length; i++) {
-                                data[item];
+                myRes = {};
+                for(let listNameItem in res) {
+                    myRes[listNameItem] = {};
+                    for(let testname in res[listNameItem]) {
+                        myRes[listNameItem][testname] = [];
+                        if (res[listNameItem][testname].length>0) {
+                            for(let i = 0; i < res[listNameItem][testname].length; i++) {
+                                data[listNameItem];
         
-                                Platform = res[item][testname][i].Platform;
+                                Platform = res[listNameItem][testname][i].Platform;
                                 
-                                RunType = res[item][testname][i].RunType;
-                                if(res[item][testname][i].ThePrecision == "dp"){
+                                RunType = res[listNameItem][testname][i].RunType;
+                                if(res[listNameItem][testname][i].ThePrecision == "dp"){
                                     ThePrecision = "double";
                                 }else {
                                     ThePrecision=""
                                 }
-                                Threads = "-t" + res[item][testname][i].Threads;
-                                PostThreads = "-postt"+res[item][testname][i].PostThreads;
-                                if(res[item][testname][i].ParVersion == "-" || res[item][testname][i].ParVersion == "default") {
+                                Threads = "-t" + res[listNameItem][testname][i].Threads;
+                                PostThreads = "-postt"+res[listNameItem][testname][i].PostThreads;
+                                if(res[listNameItem][testname][i].ParVersion == "-" || res[listNameItem][testname][i].ParVersion == "default") {
                                     ParVersion = ""
                                 } else {
-                                    ParVersion = "-p=" + res[item][testname][i].ParVersion;
+                                    ParVersion = "-p=" + res[listNameItem][testname][i].ParVersion;
                                 }
-                                if(res[item][testname][i].MPIVersion == "-" || res[item][testname][i].MPIVersion == "default") {
+                                if(res[listNameItem][testname][i].MPIVersion == "-" || res[listNameItem][testname][i].MPIVersion == "default") {
                                     MPIVersion = ""
                                 } else {
-                                    MPIVersion = "-mpi=" +res[item][testname][i].MPIVersion;
+                                    MPIVersion = "-mpi=" +res[listNameItem][testname][i].MPIVersion;
                                 }
                                 
                                 string = "system(\"perl $ENV{'PERL5LIB'}/auto_fluent.pl " + RunType + " " + ThePrecision + " " + Threads + " " + PostThreads + " " + ParVersion + " " 
                                     + MPIVersion + " fluent v19.2.0 " +testname + "\")";
                                 scriptstring.push(string);
+                                myRes[listNameItem][testname].push(string);
                                 
                             }
                         }
@@ -55,8 +59,9 @@ var DataResult = {
                 //     if (err) throw err;
                 //     console.log('Saved!');
                 //   });
+                // console.log(myRes);
 
-                return callback(null,scriptstring);
+                return callback(null,myRes);
             
             })
         })

@@ -164,7 +164,24 @@
 </div>
 
 <div *ngIf="isResultReady">
-    <tr *ngFor="let item of resutlstring; let i = index">
-        <td>{{item}}</td>
-    </tr>
+
+    <div *ngFor="let testlist of Object.keys(resutlstring).reverse(); let i = index"> 
+        <table class="table table-bordered " >
+                <caption>{{testlist}}</caption>
+                <thead class="thead-dark">
+                    <tr >
+                        <th>TestName</th>
+                        <th>command</th>  
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let testname of Object.keys(resutlstring[testlist]).reverse(); let i = index">
+                        <td *ngIf="resutlstring[testlist][testname].length != 0">{{testname}}</td>
+                        <td *ngIf="resutlstring[testlist][testname].length != 0">{{resutlstring[testlist][testname].join('\n')}}</td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+
+    </div>
 </div>

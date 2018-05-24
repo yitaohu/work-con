@@ -3,6 +3,7 @@ var FileListProc = require('../models/filelistproc');
 var Tools = require('../models/tools')
 var Residual = require('../models/residual');
 var async = require('async');
+var mysql = require('mysql');
 
 var TestListString = "file:///Users/Yitao/Documents/FrontEnd/Ansys_Work/ansys_myhome_web/mylist";
 var run1Path = "file:///Users/Yitao/Documents/FrontEnd/Ansys_Work/ansys_myhome_web/Result2";
@@ -38,14 +39,31 @@ var residualPath = "file://lebqa01.ansys.com/fluentqa/FLUENT/v19.1/rding/converg
 //         // console.log(res);
 //     }
 // })
-tt = {
-    'aa' : "a-content",
-    'bb' : "b-content",
-    'cc' : "c-content"
+// path = "//lebqa01.ansys.com/export/testing/matrix/fbutests/fluent/develop/lists"
+// console.log(Tools.addFileToPath(path))
+
+// myQ="FROM ?? AND ThePrecision IN (?)"
+// realQ = mysql.format(myQ,[[1,2,3],["TT","QQ"]]);
+// // myQ1="AND RunType IN (?)"
+// // realQ1 = mysql.format(myQ1,[["TT","QQ"]]);
+// console.log(realQ);
+
+function createString(varName,varValue) {
+    if (Array.isArray(varValue)) {
+        if(varValue.length === 0 || varValue.includes('All')) {
+            return "";
+        }else {
+            let myQ = " AND "+varName+" IN (?) "
+            realQ = mysql.format(myQ,varValue);
+            return realQ;
+        }
+    } else {
+        if(varValue === "All" || varValue === '') {
+            return "";
+        }else {
+            return " AND "+varName + "='" + varValue +"' ";
+        }
+    }
 }
 
-async.mapSeries(tt, function(item,callback){
-    console.log(item);
-}, function(err, res){
-
-})
+console.log(createString("RunType",['']));

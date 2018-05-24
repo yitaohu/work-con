@@ -24,7 +24,8 @@ import { MonitorService } from './monitor.service';
 export class MonitorComponent implements OnInit {
     constructor(private monitorService: MonitorService) { };
     
-    resutlstring=[];
+    Object = Object;
+    resutlstring={};
     isResultReady = false;
 
     def_version ;
@@ -56,6 +57,7 @@ export class MonitorComponent implements OnInit {
     }
 
     onSubmit(form: NgForm) {
+        this.isResultReady = false;
         this.getTest(form);
         console.log('onSubmit');
     }
@@ -88,7 +90,7 @@ export class MonitorComponent implements OnInit {
             .subscribe(
                 data => {
                     console.log("dev con ");
-                    // console.log(Array.isArray(data));
+                    console.log(data);
                     this.resutlstring = data;
                     this.isResultReady = true;
 
@@ -96,4 +98,38 @@ export class MonitorComponent implements OnInit {
                 error => console.error(error)
             )
     }
+
+    // dataProcess(data:Object[]) {
+    //     var listName = [];
+    //     var convNum = [];
+    //     var sortable = [];
+    //     var run1conv = [];
+    //     var run2conv = [];
+    //     var outDir1 = [];
+    //     var outDir2 = [];
+    //     for (var testItem in data) {
+    //         sortable.push([testItem, data[testItem][2],data[testItem][0],data[testItem][1], data[testItem][3], data[testItem][4]]);
+    //     }
+        
+    //     sortable.sort(function(a, b) {
+    //         return b[1] - a[1];
+    //     });
+    //     sortable.forEach(function(Element) {
+    //         testName.push(Element[0]);
+    //         convNum.push(Element[1]);
+    //         run1conv.push(Element[2]);
+    //         run2conv.push(Element[3]);
+    //         outDir1.push(Element[4]);
+    //         outDir2.push(Element[5]);
+
+    //     })
+
+    //     return [testName,
+    //             convNum,
+    //             run1conv,
+    //             run2conv,
+    //             outDir1,
+    //             outDir2
+    //         ];
+    // }
 }

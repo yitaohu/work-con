@@ -1,4 +1,0 @@
-system("perl $ENV{'PERL5LIB'}/auto_fluent.pl short double -t4 -postt4   fluent v19.2.0 mesh-topology_io")
-system("perl $ENV{'PERL5LIB'}/auto_fluent.pl short double -t4 -postt4   fluent v19.2.0 periodic-3d")
-system("perl $ENV{'PERL5LIB'}/auto_fluent.pl short double -t4 -postt4   fluent v19.2.0 degassing-bc_3d_fltg2")
-system("perl $ENV{'PERL5LIB'}/auto_fluent.pl short double -t4 -postt4   fluent v19.2.0 nrbc3d_sliding-mesh_gpu")

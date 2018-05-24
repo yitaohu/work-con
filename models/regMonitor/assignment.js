@@ -35,7 +35,7 @@ var Assignment = {
 
         sqlQuery = mysql.format(myQuery,[databaseTableAssign, projectType]);
         listObject = {};
-        console.log(sqlQuery);
+        // console.log(sqlQuery);
         db.query(sqlQuery, function(err, data){
             // console.log(data);
             for(let i = 0; i < data.length; i++) {
@@ -45,7 +45,12 @@ var Assignment = {
                     filePath = new URL(testListPath +"/" +data[i].FileName);
                     // console.log("++++filepath");
                     // console.log(filePath);
-                    listObject[data[i].FileName]["testArray"] = fs.readFileSync(filePath, 'utf8').replace(/\n|\s/g, ',').slice(0,-1).split(",");
+                    fileString=fs.readFileSync(filePath, 'utf8').replace(/\n|\s/g, ',');
+                    if (fileString.slice(-1)==',') {
+                        listObject[data[i].FileName]["testArray"] = fileString.slice(0,-1).split(",")
+                    } else {
+                        listObject[data[i].FileName]["testArray"] = fileString.split(",")
+                    }
                     listObject[data[i].FileName]["Tester"] = data[i].Tester;
                     listObject[data[i].FileName]["mode"] = [];
                     listObject[data[i].FileName]["listName"] = data[i].FileName;
@@ -79,13 +84,13 @@ var Assignment = {
         myQueryParallel = "SELECT Testname, Result, Testdir, Threads, Bug, Notes \
                     FROM ?? \
                     WHERE Testname IN (?) AND Platform = ? AND ThePrecision = ? AND Threads = ? AND RunType = ? \
-                        AND Tester = ? AND Version = ? AND PostThreads = ? AND ParVersion = ? AND MPIVersion = ? \
+                        AND Tester IN (?) AND Version = ? AND PostThreads = ? AND ParVersion = ? AND MPIVersion = ? \
                         AND TimeDateStamp BETWEEN ? AND ?\
                     ORDER BY Testname ASC, TimeDateStamp DESC";  //no buildId
         myQuerySerial =  "SELECT Testname, Result, Testdir, Threads, Bug, Notes \
                     FROM ?? \
                     WHERE Testname IN (?) AND Platform = ? AND ThePrecision = ? AND Threads = ? AND RunType = ? \
-                        AND Tester = ? AND Version = ?  AND PostThreads = ? \
+                        AND Tester IN (?) AND Version = ?  AND PostThreads = ? \
                         AND TimeDateStamp BETWEEN ? AND ?\
                     ORDER BY Testname ASC, TimeDateStamp DESC";  //no buildId
 
@@ -108,22 +113,27 @@ var Assignment = {
 
         async.mapSeries(assignObject, function(listitem, callback1){
             resultReg[listitem.listName] = {};
-            insert[1] = listitem.testArray;
-            insert[6] = listitem.Tester;
+            
+            insert[6] = [listitem.Tester,"flutest:"+listitem.Tester];
             // console.log("))))))))")
             // console.log(listitem);
             async.mapSeries(listitem.mode, function(item,callback2){
                 assignString = assemble(item);
                 // console.log("+++++++++")
                 // console.log(assignString)
+                var cleanUpTestArray = [];
                 for (let m = 0; m < listitem.testArray.length; m++) {
+                    if (listitem.testArray[m] == "" || listitem.testArray[m].match(/^#|^;/)){
+                        continue;
+                    }
+                    cleanUpTestArray.push(listitem.testArray[m]);
                     if(resultReg[listitem.listName][listitem.testArray[m]]) {
                         resultReg[listitem.listName][listitem.testArray[m]].push(item); 
                     }else {
                         resultReg[listitem.listName][listitem.testArray[m]] = [item]; 
                     } 
                 }
-
+                insert[1] = cleanUpTestArray;
                 insert[2] = item.Platform;//2
                 insert[3] = item.ThePrecision;//3
                 insert[4] = item.Threads;//4
@@ -141,7 +151,7 @@ var Assignment = {
                     // console.log(insert);
                     sqlQuery = mysql.format(myQuerySerial,insert2);
                 }
-                
+                // console.log(sqlQuery);
                 db.query(sqlQuery, function(err, data){
                     // console.log(sqlQuery);
 
@@ -152,7 +162,7 @@ var Assignment = {
                             continue;
                         }
                         if(data[j].Result == "S" || data[j].Result == "NP") {
-                            console.log(data[j].Testname);
+                            // console.log(data[j].Testname);
                             resultReg[listitem.listName][data[j].Testname].splice(-1,1);
                         }
                         
@@ -170,6 +180,7 @@ var Assignment = {
                 }
             })
         },function(err, result){
+            // console.log(resultReg)
             return callback(null, resultReg)
         })
     }
