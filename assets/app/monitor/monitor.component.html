@@ -164,7 +164,14 @@
 </div>
 
 <div *ngIf="isResultReady">
-
+    
+    <div class="col-md-4 col-md-offset-4">
+        <hr>
+        <button (click)="copyToClipboard()">Copy Command</button>
+        <hr>
+    </div>
+    
+    
     <div *ngFor="let testlist of Object.keys(resutlstring).reverse(); let i = index"> 
         <table class="table table-bordered " >
                 <caption>{{testlist}}</caption>
@@ -184,4 +191,6 @@
             </table>
 
     </div>
+    
 </div>
+
