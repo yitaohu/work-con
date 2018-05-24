@@ -1,6 +1,5 @@
 <div class="col-md-10 col-md-offset-1">
-    <form (ngSubmit)="onSubmit(testForm)" #testForm=ngForm>
-        
+    <form (ngSubmit)="onSubmit(testForm)" #testForm=ngForm>   
         <div class="row">     
             <div class="form-group col-md-2" >
                 <label for="Version">Version(Ex. 19.1)</label>
@@ -8,35 +7,35 @@
                     type="text" 
                     id="Version" 
                     class="form-control"
-                    ngModel
+                    [(ngModel)]="def_version"
                     name="version"
                 >
             </div>
-            <div class="form-group col-md-9" >
+            <div class="form-group col-md-8" >
                 <label for="TestListPath">Tests List Path</label>
                 <input 
                     type="text" 
                     id="TestListPath" 
                     class="form-control"
-                    ngModel
+                    [(ngModel)]="def_testListPath"
                     name="testListPath"
                 >
             </div>
-            <div class="form-group col-md-1" >
-                <label for="Days">Days</label>
+            <div class="form-group col-md-2" >
+                <label for="BuildID">Build ID</label>
                 <input 
                     type="text" 
-                    id="Days" 
+                    id="BuildID" 
                     class="form-control"
                     ngModel
-                    name="days"
+                    name="buildId"
                 >
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-md-2"  >
+            <div class="form-group col-md-3"  >
                 <label for="ProjectType">Project</label>
-                <select  class="form-control" id="ProjectType" name="ProjectType" size="3 " multiple="multiple" ngModel>
+                <select  class="form-control" id="ProjectType" name="projectType"  [(ngModel)]="def_projectType">
                     <option value="Custom">Custom</option>
                     <option value="Customer">Customer</option>
                     <option value="Customer_dev">Customer_dev</option>
@@ -55,10 +54,10 @@
                     <option value="Sol-Met">Sol-Met</option>
                 </select>
             </div>
-            <div class="form-group col-md-2" >
+            <div class="form-group col-md-3" >
                 <label for="DatabaseTable">Database Table</label>
-                <select class="form-control" name="databaseTable"  multiple="multiple" id="DatabaseTable"  ngModel>
-                    <option checked value="build_fluent"  >build_fluent</option>
+                <select class="form-control" name="databaseTable" id="DatabaseTable"  [(ngModel)]="def_databaseTable">
+                    <option value="build_fluent">build_fluent</option>
                     <option value="custom_fluent">custom_fluent</option>
                     <option value="customer_cases">customer_cases</option>
                     <option value="customer_cases_dev">customer_cases_dev</option>
@@ -67,6 +66,7 @@
                     <option value="feature_fluent">feature_fluent</option>
                     <option value="flcore">flcore</option>
                     <option value="flcore_dev">flcore_dev</option>
+                    <option value="offsite_fluent">offsite_fluent</option>
                     <option value="reg_19">reg_19</option>
                     <option value="reg_191">reg_191</option>
                     <option value="reg_dev">reg_dev</option>
@@ -81,15 +81,16 @@
             </div>
             <div class="form-group col-md-2" >
                 <label for="Precision">Precision</label>
-                <select class="form-control" id="Precision" name="precision" ngModel size="3">
+                <select class="form-control" id="Precision" name="precision" [(ngModel)]="def_precision">
+                    <option value="All">All</option>
                     <option value="sp">sp</option>            
                     <option value="dp">dp</option>
                 </select>
             </div>
             <div class="form-group col-md-2" >
                 <label for="RunType">Run Type</label>
-                <select class="form-control" id="RunType" name="runType" size="3" multiple="multiple" ngModel>
-                    <option selected value="All">All</option>
+                <select class="form-control" id="RunType" name="runType" size="3" multiple="multiple" [(ngModel)]="def_runType">
+                    <option value="All">All</option>
                     <option value="quick">quick</option>
                     <option value="short">short</option>
                     <option value="regular">regular</option>
@@ -100,7 +101,8 @@
             </div>
             <div class="form-group col-md-2" >
                 <label for="Thread">Processors</label>
-                <select class="form-control" id="Thread" name="thread" ngModel size="3">
+                <select class="form-control" id="Thread" name="thread" [(ngModel)]="def_thread" size="3" multiple="multiple">
+                    <option value="All">All</option>
                     <option value="0">0</option>            
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -112,24 +114,26 @@
                     <option value="48">48</option>
                 </select>
             </div>
-            <div class="form-group col-md-2" >
-                <label for="Platform">Platform</label>
-                <select class="form-control" id="Platform" name="platform" size="3" multiple="multiple" ngModel>
-                    <option value="lnamd64">lnamd64</option>
-                    <option value="win64">win64</option>
-                </select>
-            </div>
+            
         </div>
         <div class="row">
             <div class="form-group col-md-2" >
-                <label for="BuildID">BuildID</label>
+                <label for="Days">Days</label>
                 <input 
                     type="text" 
-                    id="BuildID" 
+                    id="Days" 
                     class="form-control"
-                    ngModel
-                    name="buildId"
+                    [(ngModel)]="def_days"
+                    name="days"
                 >
+            </div>
+            <div class="form-group col-md-2" >
+                <label for="Platform">Platform</label>
+                <select class="form-control" id="Platform" name="platform" [(ngModel)]="def_platform">
+                    <option value="All">All</option>
+                    <option value="lnamd64">lnamd64</option>
+                    <option value="win64">win64</option>
+                </select>
             </div>
             <div class="form-group col-md-2" >
                 <label for="TestEngineer">Test Engineer</label>
@@ -147,9 +151,9 @@
                     type="text" 
                     id="ResultsDir" 
                     class="form-control"
-                    ngModel
+                    [(ngModel)]="def_resultsDir"
                     name="resultsDir"
-                    placeholder="/net/lebqa01/export/testing/matrix/RESULTS"
+                    
                 >
             </div>
 
@@ -157,4 +161,10 @@
         
         <button class="btn btn-primary" type="submit">Submit</button>
     </form>
+</div>
+
+<div *ngIf="isResultReady">
+    <tr *ngFor="let item of resutlstring; let i = index">
+        <td>{{item}}</td>
+    </tr>
 </div>

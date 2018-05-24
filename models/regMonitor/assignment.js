@@ -7,30 +7,42 @@ var FileListProc = require('../filelistproc')
 
 var Assignment = {
     getAssign: function(filter, callback) {
+        
         var databaseTableAssign= "DailyTestSchedule";
-        // var listFilePath= "file://lebqa01.ansys.com/export/testing/matrix/fbutests/fluent/develop/lists";
-        var listFilePath= "file://lebqa01.ansys.com/fluentqa/FLUENT/v19.2/rding/features/vts/script/list";
-        var projectName = filter.projectName;
+
+        var myQuery = "SELECT FileName, RunType, ThePrecision, SolverType, ParVersion, Platform, Tester, Threads, PostThreads, MPIVersion \
+                        FROM ?? \
+                        WHERE ProjectName=? ";
+
+
+        var testListPath= filter.testListPath;
+        var projectType = filter.projectType;
         var runType = filter.runType;
         var thePrecision = filter.thePrecision;
         var platform = filter.platform;
         var threads = filter.threads;
         var tester = filter.tester;
-        var myQuery = "SELECT FileName, RunType, ThePrecision, SolverType, ParVersion, Platform, Tester, Threads, PostThreads, MPIVersion \
-                        FROM ?? \
-                        WHERE ProjectName=? AND RunType IN (?) AND ThePrecision IN (?) AND Platform IN (?) AND Threads IN (?) AND Tester IN (?) \
-                        ORDER BY FileName DESC";
 
-        sqlQuery = mysql.format(myQuery,[databaseTableAssign, projectName, runType, thePrecision, platform, threads, tester]);
+
+        myQuery += createString("RunType",runType);
+        myQuery += createString("ThePrecision",thePrecision);
+        myQuery += createString("Platform",platform);
+        myQuery += createString("Threads",threads);
+        myQuery += createString("Tester",tester);
+        myQuery += "ORDER BY FileName DESC"
+
+
+
+        sqlQuery = mysql.format(myQuery,[databaseTableAssign, projectType]);
         listObject = {};
         console.log(sqlQuery);
         db.query(sqlQuery, function(err, data){
-            console.log(data);
+            // console.log(data);
             for(let i = 0; i < data.length; i++) {
                 if(!listObject[data[i].FileName]) {
                     listObject[data[i].FileName] = {};
 
-                    filePath = new URL(listFilePath +"/" +data[i].FileName);
+                    filePath = new URL(testListPath +"/" +data[i].FileName);
                     // console.log("++++filepath");
                     // console.log(filePath);
                     listObject[data[i].FileName]["testArray"] = fs.readFileSync(filePath, 'utf8').replace(/\n|\s/g, ',').slice(0,-1).split(",");
@@ -56,26 +68,26 @@ var Assignment = {
     },
 
     queryCreate: function(assignObject, filter, callback) {
-        var day = filter.day;
+        var days = filter.days;
         var version = filter.version;
-        var buildID = filter.buildID;
+        var buildId = filter.buildId;
         var databaseTableREG = filter.databaseTable; 
         var today = new Date();
         var yesterday = new Date(today.getTime());
-        yesterday.setDate(today.getDate() - day);
+        yesterday.setDate(today.getDate() - days);
 
-        myQueryParallel = "SELECT Testname, Result, Testdir, Threads \
+        myQueryParallel = "SELECT Testname, Result, Testdir, Threads, Bug, Notes \
                     FROM ?? \
                     WHERE Testname IN (?) AND Platform = ? AND ThePrecision = ? AND Threads = ? AND RunType = ? \
                         AND Tester = ? AND Version = ? AND PostThreads = ? AND ParVersion = ? AND MPIVersion = ? \
                         AND TimeDateStamp BETWEEN ? AND ?\
-                    ORDER BY Testname ASC, TimeDateStamp ASC";  //no buildID
-        myQuerySerial =  "SELECT Testname, Result, Testdir, Threads \
+                    ORDER BY Testname ASC, TimeDateStamp DESC";  //no buildId
+        myQuerySerial =  "SELECT Testname, Result, Testdir, Threads, Bug, Notes \
                     FROM ?? \
                     WHERE Testname IN (?) AND Platform = ? AND ThePrecision = ? AND Threads = ? AND RunType = ? \
                         AND Tester = ? AND Version = ?  AND PostThreads = ? \
                         AND TimeDateStamp BETWEEN ? AND ?\
-                    ORDER BY Testname ASC, TimeDateStamp ASC";  //no buildID
+                    ORDER BY Testname ASC, TimeDateStamp DESC";  //no buildId
 
         insert = [
             databaseTableREG,//0-
@@ -129,15 +141,18 @@ var Assignment = {
                     // console.log(insert);
                     sqlQuery = mysql.format(myQuerySerial,insert2);
                 }
-                console.log("++++++++++query+++++++++")
-                console.log(sqlQuery);
+                
                 db.query(sqlQuery, function(err, data){
-                    // console.log("******query data********")
-                    // console.log(data);
+                    // console.log(sqlQuery);
+
                     for(let j = 0; j < data.length; j++) {
                         // console.log("++++++++query data++++++++")
                         // console.log(data[j])
+                        if (j - 1 > 0 && data[j].Testname == data[j - 1].Testname ) {
+                            continue;
+                        }
                         if(data[j].Result == "S" || data[j].Result == "NP") {
+                            console.log(data[j].Testname);
                             resultReg[listitem.listName][data[j].Testname].splice(-1,1);
                         }
                         
@@ -146,7 +161,14 @@ var Assignment = {
                     return callback2(null, data);
 
                 })
-            },callback1)
+            },function(err, da){
+                if(err) {
+                    return callback1(err, null);
+                }
+                if(da) {
+                    return callback1(null, da);
+                }
+            })
         },function(err, result){
             return callback(null, resultReg)
         })
@@ -159,5 +181,21 @@ function assemble(modeObject) {
     return res;
 
 }
-
+function createString(varName,varValue) {
+    if (Array.isArray(varValue)) {
+        if(varValue.length === 0 || varValue.includes('All')) {
+            return "";
+        }else {
+            let myQ = " AND "+varName+" IN (?) "
+            realQ = mysql.format(myQ,varValue);
+            return realQ;
+        }
+    } else {
+        if(varValue === "All" || varValue === '') {
+            return "";
+        }else {
+            return " AND "+varName + "='" + varValue +"' ";
+        }
+    }
+}
 module.exports = Assignment;

@@ -10,6 +10,7 @@ var appRoutes = require('./routes/app');
 var qaRoutes = require('./routes/qa')
 var devRoutes = require('./routes/dev')
 var residualRoutes = require('./routes/residual')
+var monitorRoutes = require('./routes/monitor')
 
 
 var app = express();
@@ -37,6 +38,7 @@ app.use(function (req, res, next) {
 app.use('/api/dev', devRoutes)
 app.use('/api/testing', qaRoutes)
 app.use('/api/residual',residualRoutes)
+app.use('/api/monitor',monitorRoutes)
 app.use('/', appRoutes);
 
 // catch 404 and forward to error handler

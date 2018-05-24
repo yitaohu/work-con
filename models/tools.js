@@ -111,12 +111,20 @@ var Tools={
         if  (!inputPath) {
             return inputPath;
         }
+        
         pathStart = inputPath.split('//')[0];
         if (pathStart === "file:") {
             return inputPath;
-        } else {
+        } 
+        pathComponent = inputPath.split('/');
+        if(pathComponent[1] === '') {
             inputPath = "file:" + inputPath;
             return inputPath;
+        } else {
+            pathComponent[0] = "file:";
+            pathComponent[1] ='';
+            pathComponent[2] += ".ansys.com";
+            return pathComponent.join('/');
         }
     }
 
