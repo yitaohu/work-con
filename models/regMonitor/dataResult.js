@@ -61,7 +61,7 @@ var DataResult = {
                 //   });
                 // console.log(myRes);
 
-                return callback(null,myRes);
+                return callback(null,res);
             
             })
         })

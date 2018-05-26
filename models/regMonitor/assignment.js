@@ -118,9 +118,10 @@ var Assignment = {
             // console.log("))))))))")
             // console.log(listitem);
             async.mapSeries(listitem.mode, function(item,callback2){
-                assignString = assemble(item);
+                // assignString = assemble(item);
                 // console.log("+++++++++")
                 // console.log(assignString)
+                item.Tester = listitem.Tester;
                 var cleanUpTestArray = [];
                 for (let m = 0; m < listitem.testArray.length; m++) {
                     if (listitem.testArray[m] == "" || listitem.testArray[m].match(/^#|^;/)){
@@ -194,7 +195,7 @@ function assemble(modeObject) {
 }
 function createString(varName,varValue) {
     if (Array.isArray(varValue)) {
-        if(varValue.length === 0 || varValue.includes('All')) {
+        if(varValue.length === 0 || varValue.includes('All') || varValue.includes('ALL')) {
             return "";
         }else {
             let myQ = " AND "+varName+" IN (?) "
@@ -202,7 +203,7 @@ function createString(varName,varValue) {
             return realQ;
         }
     } else {
-        if(varValue === "All" || varValue === '') {
+        if(varValue === "All" || varValue === ''|| varValue === "ALL") {
             return "";
         }else {
             return " AND "+varName + "='" + varValue +"' ";
