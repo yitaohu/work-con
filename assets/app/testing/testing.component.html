@@ -38,20 +38,11 @@
         </div>
         <div class="row">
             <div class="form-group col-md-2" >
-                <label for="Precision">Precision</label>
-                <select class="form-control" id="Precision" name="precision" ngModel size="3">
-                    <option value="sp">sp</option>            
-                    <option value="dp">dp</option>
-                </select>
-            </div>
-            <div class="form-group col-md-2" >
                 <label for="RunType">Run Type</label>
                 <select class="form-control" id="RunType" name="runType" size="3" multiple="multiple" ngModel>
                     <option selected="selected" value="All">All</option>
-                    <option value="quick">quick</option>
                     <option value="short">short</option>
                     <option value="regular">regular</option>
-                    <option value="io">io</option>
                     <option value="perf">perf</option>
                     <option value="gui">gui</option>
                 </select>
@@ -71,33 +62,21 @@
                 </select>
             </div>
             <div class="form-group col-md-2" >
-                <label for="Interconnect">Interconnect</label>
-                <select class="form-control" id="Interconnect" name="interconnect" ngModel size="3">
-                    <option value="All" selected >All</option>            
-                    <option value="ethernet">ethernet</option>
-                    <option value="ib">ib</option>
-                    <option value="myrinet">myrinet</option>
-                    <option value="crayx">crayx</option>
-                </select>
-            </div>
-            <div class="form-group col-md-2"  >
-                <label for="MPI">MPI</label>
-                <select class="form-control" id="MPI" name="mpi" size="3 " multiple="multiple" ngModel>
-                    <option selected="selected" value="All">All</option>
-                    <option value="default">default</option>
-                    <option value="ibmmpi">ibmmpi</option>
-                    <option value="pcmpi">pcmpi</option>
-                    <option value="intel">intel</option>
-                    <option value="msmpi">msmpi</option>
-                    <option value="openmpi">openmpi</option>
-                </select>
-            </div>
-            <div class="form-group col-md-2" >
                 <label for="Platform">Platform</label>
-                <select class="form-control" id="Platform" name="platform" size="3" multiple="multiple" ngModel>
+                <select class="form-control" id="Platform" name="platform" size="3"  ngModel="lnamd64">
                     <option value="lnamd64">lnamd64</option>
                     <option value="win64">win64</option>
                 </select>
+            </div>
+            <div class="form-group col-md-3" >
+                <label for="Version">Version(Ex. 19.1)</label>
+                <input 
+                    type="text" 
+                    id="Version" 
+                    class="form-control"
+                    ngModel="19.2.0"
+                    name="version"
+                >
             </div>
         </div>
         <div class="row">
@@ -119,16 +98,6 @@
                     class="form-control"
                     ngModel
                     name="testEngineer"
-                >
-            </div>
-            <div class="form-group col-md-3" >
-                <label for="Version">Version(Ex. 19.1)</label>
-                <input 
-                    type="text" 
-                    id="Version" 
-                    class="form-control"
-                    ngModel
-                    name="version"
                 >
             </div>
             <div class="form-group col-md-5" >

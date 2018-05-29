@@ -27,7 +27,7 @@ router.get('/', function (req, res, next) {
 
     var resultsDir = decodeURIComponent(req.query.resultsDir);
     var customBuildPath = decodeURIComponent(req.query.customBuildPath);
-    var version = req.query.version + ".0";
+    var version = req.query.version ;
 
     ///to-do temp result Dir
 

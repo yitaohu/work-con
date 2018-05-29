@@ -199,8 +199,8 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let testname of Object.keys(resutlstring[testlist]).reverse(); let i = index">
-                        <td *ngIf="resutlstring[testlist][testname].length != 0">{{testname}}</td>
-                        <td *ngIf="resutlstring[testlist][testname].length != 0">{{resutlstring[testlist][testname].join('\n')}}</td>
+                        <td *ngIf="resutlstring[testlist][testname].length != 0 && testname != 'listInfo'">{{testname}}</td>
+                        <td *ngIf="resutlstring[testlist][testname].length != 0 && testname != 'listInfo'">{{resutlstring[testlist][testname].join('\n')}}</td>
                         
                     </tr>
                 </tbody>

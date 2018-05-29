@@ -158,9 +158,16 @@ export class MonitorComponent implements OnInit {
         var myRes = {};
         for (let listNameItem in res) {
             myRes[listNameItem] = {};
+            myRes[listNameItem]["listInfo"] = [];
+            var inInfo = 0;
             for (let testname in res[listNameItem]) {
                 myRes[listNameItem][testname] = [];
                 if (res[listNameItem][testname].length > 0) {
+                    if (inInfo == 0) {
+                        var testIDString = "$ENV{'TESTERUID'} = \"" + res[listNameItem][testname][0].Tester + '";';
+                        myRes[listNameItem]["listInfo"].push(testIDString);
+                        inInfo=1
+                    }
                     for (let i = 0; i < res[listNameItem][testname].length; i++) {
                         var Platform = res[listNameItem][testname][i].Platform;
 
@@ -184,10 +191,10 @@ export class MonitorComponent implements OnInit {
                         }
 
                         var string = "system(\"perl $ENV{'PERL5LIB'}/auto_fluent.pl " + RunType + " " + ThePrecision + " " + Threads + " " + PostThreads + " " + ParVersion + " "
-                            + MPIVersion + " fluent v19.2.0 " + testname + "\")";
+                            + MPIVersion + " fluent v19.2.0 " + testname + "\");";
                         scriptstring.push(string);
                         myRes[listNameItem][testname].push(string);
-                        
+                     
                     }
                 }
             }
