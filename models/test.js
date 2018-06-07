@@ -48,22 +48,23 @@ var residualPath = "file://lebqa01.ansys.com/fluentqa/FLUENT/v19.1/rding/converg
 // // realQ1 = mysql.format(myQ1,[["TT","QQ"]]);
 // console.log(realQ);
 
-function createString(varName,varValue) {
-    if (Array.isArray(varValue)) {
-        if(varValue.length === 0 || varValue.includes('All')) {
-            return "";
-        }else {
-            let myQ = " AND "+varName+" IN (?) "
-            realQ = mysql.format(myQ,varValue);
-            return realQ;
-        }
-    } else {
-        if(varValue === "All" || varValue === '') {
-            return "";
-        }else {
-            return " AND "+varName + "='" + varValue +"' ";
-        }
-    }
-}
-
-console.log(createString("RunType",['']));
+// function createString(varName,varValue) {
+//     if (Array.isArray(varValue)) {
+//         if(varValue.length === 0 || varValue.includes('All')) {
+//             return "";
+//         }else {
+//             let myQ = " AND "+varName+" IN (?) "
+//             realQ = mysql.format(myQ,varValue);
+//             return realQ;
+//         }
+//     } else {
+//         if(varValue === "All" || varValue === '') {
+//             return "";
+//         }else {
+//             return " AND "+varName + "='" + varValue +"' ";
+//         }
+//     }
+// }
+myQ = "(SELECT a FROM ?? WHERE a=? AND B=?) UNION (SELECT a FROM ?? WHERE a=? AND B=?) ORDER BY a LIMIT 10"
+realQ = mysql.format(myQ, ["reg_dev", '1', '2',"reg_191", "3", "4"])
+console.log(realQ);

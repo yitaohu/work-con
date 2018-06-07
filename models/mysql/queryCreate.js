@@ -4,33 +4,44 @@ var mysql = require('mysql');
 
 var QueryCreate = {
     createQueryArray: function (qValue) {
+        const TABLE = ["reg_dev","flcore_dev", "regular_dev"];//
+        const precision = "dp";
+        //,"reg_dev","flcore_dev","regular_dev"
+        var sql = "(SELECT Testdir, Result, Bug, TimeDateStamp FROM ?? WHERE Testname=?";
         
-        var sql = "SELECT Testdir, Result, Bug FROM ?? WHERE Testname=?";
-        
-        sql += this.createString("ThePrecision",qValue.ThePrecision);
+        sql += this.createString("ThePrecision",precision);
         sql += this.createString("Platform",qValue.Platform)
         sql += this.createString("RunType",qValue.RunType)
         sql += this.createString("Threads",qValue.Threads)
-        sql += this.createString("ParVersion",qValue.ParVersion)
-        sql += this.createString("MPIVersion",qValue.MPIVersion)
         sql += this.createString("BuildId",qValue.BuildId);
         sql += this.createString("Tester",qValue.Tester);
         sql += this.createString("Version",qValue.Version);
-        sql += " AND TimeDateStamp between ? and ?"
-        sql += " ORDER BY TimeDateStamp DESC LIMIT 1"
+        sql += " AND TimeDateStamp between ? and ?)"
+        // sql += " ORDER BY TimeDateStamp DESC LIMIT 1"
+        realSQL = sql;
+        for(let m = 0; m < TABLE.length - 1; m++) {
+            realSQL += " UNION " + sql;
+        }
 
         var sqlArray = [];
+        // console.log(sql);
         for(let i = 0; i < qValue.testListPath.length; i++) {
             if(qValue.testListPath[i] !== "") {
-                var inserts = [ qValue.databaseTable,
-                    qValue.testListPath[i],
-                    qValue.beginTime, 
-                    qValue.endTime
-                ];
+                var inserts = [];
+                for (let i_t = 0; i_t < TABLE.length; i_t++) {
+                    inserts = inserts.concat([ TABLE[i_t],
+                        qValue.testListPath[i],
+                        qValue.beginTime, 
+                        qValue.endTime
+                    ])
+                }
                 // console.log(qValue.testListPath[i]);
                 var object = {};
-                object[qValue.testListPath[i]] = mysql.format(sql, inserts);
-                sqlArray.push(object)
+                // console.log(inserts);
+                // console.log(realSQL);
+                object[qValue.testListPath[i]] = mysql.format(realSQL, inserts) + " ORDER BY TimeDateStamp DESC LIMIT 1";
+                // console.log(object);
+                sqlArray.push(object);
 
             }          
         }

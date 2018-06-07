@@ -53,25 +53,21 @@ export class TestingComponent {
         this.failedStd = [];
         
         let testListPath = encodeURIComponent(testForm.value.testListPath);
-        let beginTime = testForm.value.begintime;
-        let endTime = testForm.value.endtime;
-        let precision = testForm.value.precision;
+        let days = testForm.value.days;
+
         let runType = testForm.value.runType;
         let thread = testForm.value.thread;
-        let interconnect = testForm.value.interconnect;
-        let mpi = testForm.value.mpi;
         let platform = testForm.value.platform;
         let buildId = testForm.value.buildId;
         let testEngineer = testForm.value.testEngineer;
         let resultsDir = encodeURIComponent(testForm.value.resultsDir);
-        let databaseTable = testForm.value.databaseTable;
         let customBuildPath = encodeURIComponent(testForm.value.run2);
         let version = testForm.value.version;
 
 
-        let qValue = [testListPath, beginTime, endTime, precision,
-            runType, thread, interconnect, mpi, platform,
-            buildId, testEngineer, databaseTable, resultsDir, customBuildPath, version]
+        let qValue = [testListPath,days,
+            runType, thread, platform,
+            buildId, testEngineer, resultsDir, customBuildPath, version]
         console.log(qValue);
 
         this.isLoading = true;

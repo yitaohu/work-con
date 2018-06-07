@@ -13,37 +13,31 @@ router.get('/', function (req, res, next) {
     console.log(req.query);
     var testListPath = decodeURIComponent(req.query.testListPath);
     testListPath = Tools.addFileToPath(testListPath);
-    var beginTime = req.query.beginTime;
-    var endTime = req.query.endTime;
-    var precision = req.query.precision;
     var runType = req.query.runType;
     var thread = req.query.thread;
-    var interconnect = req.query.interconnect;
-    var mpi = req.query.mpi;
     var platform = req.query.platform;
     var buildId = req.query.buildId;
     var testEngineer = req.query.testEngineer;
-    var databaseTable = req.query.databaseTable;
-
+    var days = req.query.days;
     var resultsDir = decodeURIComponent(req.query.resultsDir);
     var customBuildPath = decodeURIComponent(req.query.customBuildPath);
     var version = req.query.version ;
 
     ///to-do temp result Dir
 
+    var today = new Date();
+    var yesterday = new Date(today.getTime());
+    yesterday.setDate(today.getDate() - days);
+
     var qValue = {
-        "databaseTable": databaseTable,
         "testListPath": testListPath,
-        "ThePrecision": precision,
         "Platform": platform,
         "RunType": runType,
         "Threads": thread,
-        "ParVersion": interconnect,
-        "MPIVersion": mpi,
         "BuildId": buildId,
         "Tester": testEngineer,
-        "beginTime": beginTime,
-        "endTime": endTime,
+        "beginTime": yesterday,
+        "endTime": today,
         "Version": version,
         "resultsDir": "file://lebqa01.ansys.com/export/testing/matrix/RESULTS/fluent/"
     };
