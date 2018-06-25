@@ -28,6 +28,7 @@ export class MonitorComponent implements OnInit {
     resutlstring = {};
     isResultReady = false;
     command = "";
+    
 
     def_version;
     def_testListPath;
@@ -101,35 +102,48 @@ export class MonitorComponent implements OnInit {
                 error => console.error(error)
             )
     }
-
+    textArea;
     copyToClipboard() {
         this.command = this.getAllCommand(this.resutlstring);
-        var textArea = document.createElement("textarea");
-        textArea.style.position = 'fixed';
-        textArea.style.top = "0";
-        textArea.style.left = "0";
-        textArea.style.width = '2em';
-        textArea.style.height = '2em';
-        textArea.style.padding = "0";
-        textArea.style.border = 'none';
-        textArea.style.outline = 'none';
-        textArea.style.boxShadow = 'none';
-        textArea.style.background = 'transparent';
-        textArea.value = this.command;
+        this.textArea = document.createElement("textarea");
+        this.textArea.style.position = 'fixed';
+        this.textArea.style.top = "0";
+        this.textArea.style.left = "0";
+        this.textArea.style.width = '2em';
+        this.textArea.style.height = '2em';
+        this.textArea.style.padding = "0";
+        this.textArea.style.border = 'none';
+        this.textArea.style.outline = 'none';
+        this.textArea.style.boxShadow = 'none';
+        this.textArea.style.background = 'transparent';
+        this.textArea.value = this.command;
+        console.log(this.command);
 
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-        try {
-            var successful = document.execCommand('copy');
-            var msg = successful ? 'successful' : 'unsuccessful';
-            console.log('Copying text command was ' + msg);
-        } catch (err) {
-            console.log('Oops, unable to copy');
-        }
+        document.body.appendChild(this.textArea);
+        // textArea.focus();
+        // textArea.select();
+        // try {
+        //     var successful = document.execCommand('copy');
+        //     var msg = successful ? 'successful' : 'unsuccessful';
+        //     console.log('Copying text command was ' + msg);
+        // } catch (err) {
+        //     console.log('Oops, unable to copy');
+        // }
 
-        document.body.removeChild(textArea);
+        // document.body.removeChild(textArea);
+        this.execCopy();
+          // here the magic
 
+        // triggered on mousedown
+
+    }
+
+    execCopy() {
+        this.textArea.select();
+        var successful = document.execCommand('copy');
+        var msg = successful ? 'successful' : 'unsuccessful';
+        console.log('Copying text command was ' + msg);
+        // document.body.removeChild(this.textArea);
     }
 
     getAllCommand(data: Object) {

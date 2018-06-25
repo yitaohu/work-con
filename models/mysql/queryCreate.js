@@ -4,7 +4,7 @@ var mysql = require('mysql');
 
 var QueryCreate = {
     createQueryArray: function (qValue) {
-        const TABLE = ["reg_dev","flcore_dev", "regular_dev"];//
+        const TABLE = ["reg_dev","flcore_dev", "regular_dev","gpu_fluent"];//
         const precision = "dp";
         //,"reg_dev","flcore_dev","regular_dev"
         var sql = "(SELECT Testdir, Result, Bug, TimeDateStamp FROM ?? WHERE Testname=?";

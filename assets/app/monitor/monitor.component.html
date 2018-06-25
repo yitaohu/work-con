@@ -183,7 +183,7 @@
     
     <div class="col-md-4 col-md-offset-4">
         <hr>
-        <button (click)="copyToClipboard()">Copy Command</button>
+        <button (mousedown)="copyToClipboard()" (mouseup)="execCopy()">Copy Command</button>
         <hr>
     </div>
     

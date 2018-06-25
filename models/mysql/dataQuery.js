@@ -51,8 +51,11 @@ var DataQuery = {
                         var failTest = {};
                         failTest[testNamekey] = [data[0].Result, data[0].Bug];
                         result["Failed_Std"].push(failTest);
+                        return cb(null, data);
                     }
                     object[testNamekey] = qValue.resultsDir + "/" + testNamekey + "/v" + qValue.Version+"/" + data[0].Testdir//version number  
+                    console.log("++++++dataQuery++++++++++")
+                    console.log(object[testNamekey]);
                     Convergence.getConvNum(object[testNamekey], function (err, data) {
                         if (err) {
                             console.log("dev.getConvNumArray" + err);

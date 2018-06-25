@@ -25,6 +25,8 @@ var ConvNumArray = {
                         if (fs.existsSync(new URL(fullpath + "/out"))) {
                             fullpath += "/out";
                         }
+                        console.log("++++++convNumArray++++++++++")
+                        console.log(fullpath);
                         Convergence.getConvNum(fullpath, function (err, data) {
                             if (err) {
                                 console.log("dev.getConvNumArray" + err);
