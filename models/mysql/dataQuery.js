@@ -1,12 +1,12 @@
 var async = require('async');
 
-
+var fs = require('fs');
 var QueryCreate = require('./queryCreate');
 var db = require('./dbconnection');
 var FileListProc = require("../filelistproc");
 var Tools = require('../tools');
 var Convergence = require('../convergence');
-
+const {URL} = require('url');
 
 var DataQuery = {
     queryData: function (qValue, callback) {
@@ -54,8 +54,16 @@ var DataQuery = {
                         return cb(null, data);
                     }
                     object[testNamekey] = qValue.resultsDir + "/" + testNamekey + "/v" + qValue.Version+"/" + data[0].Testdir//version number  
-                    console.log("++++++dataQuery++++++++++")
-                    console.log(object[testNamekey]);
+                    // console.log("++++++dataQuery++++++++++")
+                    // console.log(object[testNamekey]);
+                    folder_path = new URL(object[testNamekey])
+                    if(!fs.existsSync(folder_path)) {
+                        console.log(object[testNamekey]);
+                        var failTest = {};
+                        failTest[testNamekey] = [data[0].Result, "Test result is not rsync to Result folder"];
+                        result["Failed_Std"].push(failTest);
+                        return cb(null, data);
+                    }
                     Convergence.getConvNum(object[testNamekey], function (err, data) {
                         if (err) {
                             console.log("dev.getConvNumArray" + err);
