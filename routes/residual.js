@@ -28,8 +28,10 @@ router.post('/', function(req, res, next){
                 title: 'An error occurred',
                 error: err
             });
+        } else {
+            res.status(201).json(results);
         }
-        res.status(201).json(results);
+        
     })
 }) 
 
