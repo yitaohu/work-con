@@ -67,7 +67,7 @@ var Dev = {
         })
     },
 
-
+    
 };
 
 module.exports = Dev;

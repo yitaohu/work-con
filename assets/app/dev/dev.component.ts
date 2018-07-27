@@ -63,7 +63,7 @@ export class DevComponent{
                 console.log(this.originalData);
             },
             error => {
-                this.loadingComplete = true;
+                this.isLoading = false;
                 console.log(error)
             }
         )

@@ -12,7 +12,8 @@ import { ChartsModule} from 'ng2-charts';
 import { PlotComponent } from "./plot/plot.component";
 import { ResidualComponent } from "./residual/residual.component";
 import { MonitorComponent } from "./monitor/monitor.component";
-
+import { ErrorComponent } from "./errors/error.component";
+import { ErrorService } from "./errors/error.service";
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import { MonitorComponent } from "./monitor/monitor.component";
         HeaderComponent,
         PlotComponent,
         ResidualComponent,
-        MonitorComponent
+        MonitorComponent,
+        ErrorComponent
     ],
     imports: [
         BrowserModule,
@@ -31,6 +33,7 @@ import { MonitorComponent } from "./monitor/monitor.component";
         routing,
         ChartsModule,
     ],
+    providers: [ErrorService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

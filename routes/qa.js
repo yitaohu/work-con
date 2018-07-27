@@ -72,9 +72,9 @@ router.get('/', function (req, res, next) {
     ConvDiff_DB.getDiffNumArray(qValue,customBuildPath, customFilter, function(err, rows) {
         if (err) {
             console.log(err);
-            res.status(500).json({
+            return res.status(500).json({
                 title: 'An error occurred',
-                error: err
+                error: err.message
             });
         }
         else {

@@ -2,11 +2,12 @@ import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs/Rx';
 import { Http, RequestOptions, Response, URLSearchParams } from '@angular/http';
 import { Injectable } from '@angular/core';
+import { ErrorService } from "../errors/error.service";
 import 'rxjs/Rx';
 @Injectable()
 export class MonitorService {
     url = "http://lebyihu.win.ansys.com:3000/api/monitor";
-    constructor(private http: Http) {};
+    constructor(private http: Http, private errorService: ErrorService) {};
     // getAllFiles(): Observable<any> {
     //     return this.http.get(this.url)
     //             .map((response: Response) => response.json())
@@ -32,6 +33,9 @@ export class MonitorService {
         let options= new RequestOptions({params: myParams})
         return this.http.get(this.url,options)
                 .map((response: Response) => response.json())
-                .catch((error: Response) => Observable.throw(error.json()));
+                .catch((error: Response) => {
+                    this.errorService.handleError(error.json());
+                    return Observable.throw(error.json());
+                });
     }
 }

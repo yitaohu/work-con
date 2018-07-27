@@ -34,62 +34,64 @@ export class PlotComponent implements OnChanges {
     this.less = 0;
     this.more = 0;
     this.summary = this.originalData;
-    this.showPlot = this.plot.ifPlot;
-    this.lessArray = Array(this.summary.length);
-    this.moreArray = Array(this.summary.length);
-    this.sameArray = Array(this.summary.length);
-
-    for (let item in this.summary[1]) {
-      if (parseFloat(this.summary[1][item]) < 0) {
-        this.less++;
-      } else if (parseFloat(this.summary[1][item]) > 0) {
-        this.more++;
+    if (typeof this.summary !=undefined && typeof this.summary[0] != undefined) {
+      this.showPlot = this.plot.ifPlot;
+      this.lessArray = Array(this.summary.length);
+      this.moreArray = Array(this.summary.length);
+      this.sameArray = Array(this.summary.length);
+  
+      for (let item in this.summary[1]) {
+        if (parseFloat(this.summary[1][item]) < 0) {
+          this.less++;
+        } else if (parseFloat(this.summary[1][item]) > 0) {
+          this.more++;
+        }
+        this.summary[1][item] = parseFloat(this.summary[1][item]).toFixed(2);
+        
       }
-      this.summary[1][item] = parseFloat(this.summary[1][item]).toFixed(2);
+  
+      for (let i = 0; i < this.summary[0].length; i++) {
+        var testname = this.summary[0][i].split('||')[0];
+        var jounalName = this.summary[0][i].split('||')[1];
+        var outUrl1 = encodeURIComponent(this.summary[4][i]);
+        var outUrl2 = encodeURIComponent(this.summary[5][i]);
+        this.testHref.push("/residual/" + testname + "/" + jounalName + "/" + outUrl1 + "/" + outUrl2);
+      }
+  
+      for (let i = 0; i < this.lessArray.length; i++) {
+        this.moreArray[i] = this.summary[i].slice(0,this.more);
+        this.sameArray[i] = this.summary[i].slice(this.more, this.summary[0].length - this.less );
+        this.lessArray[i] = this.summary[i].slice(this.summary[0].length - this.less, this.summary[0].length );
+      }
+  
+      this.moreArray.push(this.testHref.slice(0,this.more));
+      this.sameArray.push(this.testHref.slice(this.more, this.summary[0].length - this.less));
+      this.lessArray.push(this.testHref.slice(this.summary[0].length - this.less, this.summary[0].length));
       
+      this.less_percent = (this.less / this.summary[1].length * 100).toFixed(2);
+      this.more_percent = (this.more / this.summary[1].length * 100).toFixed(2);
+  
+  
+      setTimeout(() => {
+        this.barChartData = [{
+          "data": this.plot.plotData, "label": '% change in Convergence (up means worse)',
+          "backgroundColor": Array(this.plot.plotTest.length).fill("rgba(255, 99, 132, 1)")
+        }];
+        this.barChartLabels = this.plot.plotTest;
+        // console.log(this.barChartLabels);
+        if (this.chart && this.chart.chart && this.chart.chart.config) {
+          this.chart.chart.config.data.labels = this.barChartLabels;
+          this.chart.chart.config.data.datasets = this.barChartData;
+          this.chart.chart.config.data.options = this.barChartOptions;
+          //  console.log(this.chart.chart.config.data);               
+          this.chart.chart.update();
+          console.log(this.chart.chart);
+          console.log(this.summary);
+        }
+      });
     }
 
-    for (let i = 0; i < this.summary[0].length; i++) {
-      var testname = this.summary[0][i].split('||')[0];
-      var jounalName = this.summary[0][i].split('||')[1];
-      var outUrl1 = encodeURIComponent(this.summary[4][i]);
-      var outUrl2 = encodeURIComponent(this.summary[5][i]);
-      this.testHref.push("/residual/" + testname + "/" + jounalName + "/" + outUrl1 + "/" + outUrl2);
-    }
-
-    for (let i = 0; i < this.lessArray.length; i++) {
-      this.moreArray[i] = this.summary[i].slice(0,this.more);
-      this.sameArray[i] = this.summary[i].slice(this.more, this.summary[0].length - this.less );
-      this.lessArray[i] = this.summary[i].slice(this.summary[0].length - this.less, this.summary[0].length );
-    }
-
-    this.moreArray.push(this.testHref.slice(0,this.more));
-    this.sameArray.push(this.testHref.slice(this.more, this.summary[0].length - this.less));
-    this.lessArray.push(this.testHref.slice(this.summary[0].length - this.less, this.summary[0].length));
-    
-    this.less_percent = (this.less / this.summary[1].length * 100).toFixed(2);
-    this.more_percent = (this.more / this.summary[1].length * 100).toFixed(2);
-
-
-    setTimeout(() => {
-      this.barChartData = [{
-        "data": this.plot.plotData, "label": '% change in Convergence (up means worse)',
-        "backgroundColor": Array(this.plot.plotTest.length).fill("rgba(255, 99, 132, 1)")
-      }];
-      this.barChartLabels = this.plot.plotTest;
-      // console.log(this.barChartLabels);
-      if (this.chart && this.chart.chart && this.chart.chart.config) {
-        this.chart.chart.config.data.labels = this.barChartLabels;
-        this.chart.chart.config.data.datasets = this.barChartData;
-        this.chart.chart.config.data.options = this.barChartOptions;
-        //  console.log(this.chart.chart.config.data);               
-        this.chart.chart.update();
-        console.log(this.chart.chart);
-        console.log(this.summary);
-      }
-    });
   }
-
   // barChart
   public barChartData: Array<any> = [
     { data: [], label: 'Diff' },

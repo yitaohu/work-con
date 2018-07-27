@@ -1,7 +1,7 @@
 <div class="col-md-8 col-md-offset-2">
     <form (ngSubmit)="onSubmit(testForm)" #testForm=ngForm>
         <div class="form-group" >
-            <label for="TestListPath">Tests List Path</label>
+            <label for="TestListPath">Tests List File Path</label>
             <input 
                 type="text" 
                 id="TestListPath" 
@@ -11,7 +11,7 @@
             >
         </div>
         <div class="form-group">
-            <label for="Run2">Custom Build Path</label>
+            <label for="Run2">Custom Result Path</label>
             <input type="text" id="Run2" class="form-control" ngModel name="run2">
         </div>
         <div class="row">

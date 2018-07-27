@@ -50,7 +50,8 @@ var Tools={
         if(!fs.existsSync(testPath)) {
             console.log("path not exist")
             console.log(testPath.href);
-            return callback(null,null);
+            errorString = "result path \n" + testPath.href + "\n not exist. \n Please check the result path or remove this test from list file";
+            return callback(new Error(errorString),null);
         }// to-do add existing checker in readdir function
         fs.readdir(testPath, function(err, files){
             if (err) {

@@ -24,9 +24,9 @@ router.post('/', function(req, res, next){
     }, function(err, results) {
         if (err) {
             console.log(err);
-            res.status(500).json({
+            return res.status(500).json({
                 title: 'An error occurred',
-                error: err
+                error: err.message
             });
         } else {
             res.status(201).json(results);

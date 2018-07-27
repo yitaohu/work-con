@@ -98,7 +98,10 @@ export class TestingComponent {
                     console.log(this.notRunStd);
                     console.log(this.failedStd);
                 },
-                error => console.error(error)
+                error => {
+                    this.isLoading = false;
+                    console.error(error)
+                }
             )
     }
 

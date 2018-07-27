@@ -49,9 +49,9 @@ router.get('/', function (req, res, next) {
     DataResult.getResult(qValue,function(err, rows) {
         if (err) {
             console.log(err);
-            res.status(500).json({
+            return res.status(500).json({
                 title: 'An error occurred',
-                error: err
+                error: err.message
             });
         }
         else {
