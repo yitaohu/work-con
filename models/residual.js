@@ -4,25 +4,6 @@ var zlib = require("zlib");
 const readline = require('readline');
 
 var Residual = {
-    // getResidualData: function (residualFilePath, callback) {
-    //     var residualFilePathURL = new URL(residualFilePath);
-
-    //     if (!residualFilePath) {
-    //         return callback(null, null);
-    //     }
-    //     fs.readFile(residualFilePathURL, function (err, data) {
-    //         if (err) {
-    //             return callback(err, null);
-    //         }
-    //         console.log(data);
-    //         zlib.gunzip(data, function (err, num) {
-    //             if (err) {
-    //                 return callback(err, null);
-    //             }
-    //             return callback(null, num.toString())
-    //         })
-    //     })
-    // },
     getResidualData: function (residualFilePath, callback) {
         var residualFilePathURL = new URL(residualFilePath);
 

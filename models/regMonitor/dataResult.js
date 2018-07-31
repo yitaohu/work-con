@@ -1,4 +1,3 @@
-var fs = require('fs');
 const { URL } = require('url');
 var mysql = require('mysql');
 
@@ -54,12 +53,6 @@ var DataResult = {
                         
                     }
                 }
-                
-                // fs.writeFile('rongtest.txt', scriptstring.join("\n"), function (err) {
-                //     if (err) throw err;
-                //     console.log('Saved!');
-                //   });
-                // console.log(myRes);
 
                 return callback(null,res);
             
