@@ -38,6 +38,9 @@ var Assignment = {
         // console.log(sqlQuery);
         db.query(sqlQuery, function(err, data){
             // console.log(data);
+            if (err) {
+                return callback(err, null);
+            }
             for(let i = 0; i < data.length; i++) {
                 if(!listObject[data[i].FileName]) {
                     listObject[data[i].FileName] = {};
@@ -155,6 +158,9 @@ var Assignment = {
                 // console.log(sqlQuery);
                 db.query(sqlQuery, function(err, data){
                     // console.log(sqlQuery);
+                    if(err) {
+                        return callback2(err, null);
+                    }
 
                     for(let j = 0; j < data.length; j++) {
                         // console.log("++++++++query data++++++++")
@@ -182,6 +188,9 @@ var Assignment = {
             })
         },function(err, result){
             // console.log(resultReg)
+            if (err) {
+                return callback(err,null);
+            }
             return callback(null, resultReg)
         })
     }

@@ -10,8 +10,14 @@ var Assignment = require('./assignment');
 var DataResult = {
     getResult:function (filter, callback) {
         Assignment.getAssign(filter, function(err, data){
+            if (err) {
+                return callback(err, null);
+            }
             Assignment.queryCreate(data,filter, function(err, res){
                 // console.log(res);
+                if (err) {
+                    return callback(err, null);
+                }
                 scriptstring = [];
                 myRes = {};
                 for(let listNameItem in res) {
