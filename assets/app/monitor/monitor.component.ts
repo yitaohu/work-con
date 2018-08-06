@@ -196,7 +196,7 @@ export class MonitorComponent implements OnInit {
                         if (res[listNameItem][testname][i].ParVersion == "-" || res[listNameItem][testname][i].ParVersion == "default") {
                             var ParVersion = ""
                         } else {
-                            var ParVersion = "-p=" + res[listNameItem][testname][i].ParVersion;
+                            var ParVersion = "-p" + res[listNameItem][testname][i].ParVersion;
                         }
                         if (res[listNameItem][testname][i].MPIVersion == "-" || res[listNameItem][testname][i].MPIVersion == "default") {
                             var MPIVersion = ""

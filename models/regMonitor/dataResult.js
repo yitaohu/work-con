@@ -41,7 +41,7 @@ var DataResult = {
                                 if(res[listNameItem][testname][i].ParVersion == "-" || res[listNameItem][testname][i].ParVersion == "default") {
                                     ParVersion = ""
                                 } else {
-                                    ParVersion = "-p=" + res[listNameItem][testname][i].ParVersion;
+                                    ParVersion = "-p" + res[listNameItem][testname][i].ParVersion;
                                 }
                                 if(res[listNameItem][testname][i].MPIVersion == "-" || res[listNameItem][testname][i].MPIVersion == "default") {
                                     MPIVersion = ""
