@@ -205,7 +205,7 @@ export class MonitorComponent implements OnInit {
                         }
 
                         var string = "system(\"perl $ENV{'PERL5LIB'}/auto_fluent.pl " + RunType + " " + ThePrecision + " " + Threads + " " + PostThreads + " " + ParVersion + " "
-                            + MPIVersion + " fluent v19.2.0 " + testname + "\");";
+                            + MPIVersion + " fluent v"+this.def_version+" " + testname + "\");";
                         scriptstring.push(string);
                         myRes[listNameItem][testname].push(string);
                      

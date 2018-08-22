@@ -48,9 +48,9 @@ var DataResult = {
                                 } else {
                                     MPIVersion = "-mpi=" +res[listNameItem][testname][i].MPIVersion;
                                 }
-                                
+
                                 string = "system(\"perl $ENV{'PERL5LIB'}/auto_fluent.pl " + RunType + " " + ThePrecision + " " + Threads + " " + PostThreads + " " + ParVersion + " " 
-                                    + MPIVersion + " fluent v19.2.0 " +testname + "\")";
+                                    + MPIVersion + " fluent v" + filter.version + " " +testname + "\")";
                                 scriptstring.push(string);
                                 myRes[listNameItem][testname].push(string);
                                 

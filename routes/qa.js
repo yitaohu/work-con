@@ -49,26 +49,7 @@ router.get('/', function (req, res, next) {
    
     console.time("dbsave");
     customBuildPath = Tools.addFileToPath(customBuildPath);
-
-    // FileListProc.getTestFromFileList(qValue.testListPath,function(err,res){
-    //     console.log(res);
-    //     console.timeEnd("dbsave");
-    // })
-
-
     
-    // DataQuery.queryData(qValue, function (err, rows) {
-    //     if (err) {
-    //         console.log(err)
-    //         res.json(err);
-    //     }
-    //     else {
-    //         console.log(rows)
-    //         res.json(rows);
-    //         console.timeEnd("dbsave");
-    //     }
-    // })
-
     ConvDiff_DB.getDiffNumArray(qValue,customBuildPath, customFilter, function(err, rows) {
         if (err) {
             console.log(err);
